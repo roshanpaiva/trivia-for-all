@@ -2,6 +2,11 @@
 
 All notable changes to Trivia for All are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.4.1.1] - 2026-04-29
+
+### Fixed
+- **Leaderboard Back link was below the fold.** Was anchored to the bottom with `mt-auto`, which on mobile + a long list pushed it off-screen. Promoted to a top nav row above the "Today" h1 so it's always visible without scrolling. Hover state now uses `--accent` (matches the rest of the design system instead of underlined link styling).
+
 ## [0.4.1.0] - 2026-04-29
 
 ### Added — Player display names
