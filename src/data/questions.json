@@ -18,7 +18,7 @@
         "12"
       ],
       "correctIdx": 3,
-      "fact": "The 12 stars on the EU flag don't represent member countries — 12 was chosen as a symbol of completeness, and the count never changes when countries join or leave.",
+      "fact": "The 12 stars on the EU flag don't represent member countries.",
       "source": "opentdb"
     },
     {
@@ -33,7 +33,7 @@
         "Bacterial infections"
       ],
       "correctIdx": 3,
-      "fact": "Antibiotics only work against bacteria, not viruses, which is why doctors don't prescribe them for colds or flu.",
+      "fact": "Antibiotics only work against bacteria",
       "source": "opentdb"
     },
     {
@@ -48,7 +48,7 @@
         "Venezuela"
       ],
       "correctIdx": 2,
-      "fact": "Rio de Janeiro means 'River of January' in Portuguese — explorers named the bay in January 1502, mistaking it for a river mouth.",
+      "fact": "Brazil. Rio de Janeiro means 'River of January' in Portuguese.",
       "source": "opentdb"
     },
     {
@@ -63,7 +63,7 @@
         "Uranus"
       ],
       "correctIdx": 3,
-      "fact": "Uranus's moons are mostly named after characters from Shakespeare and Alexander Pope — a tradition started by astronomer John Herschel in the 1850s.",
+      "fact": "Uranus's moons are mostly named after characters from Shakespeare and Alexander Pope.",
       "source": "opentdb"
     },
     {
@@ -78,7 +78,7 @@
         "Europe"
       ],
       "correctIdx": 2,
-      "fact": "Sweet potatoes were domesticated in South America at least 8,000 years ago — archaeologists have found their remains in Peruvian caves.",
+      "fact": "Sweet potatoes were domesticated in South America at least 8,000 years ago.",
       "source": "opentdb"
     },
     {
@@ -93,7 +93,7 @@
         "Germany"
       ],
       "correctIdx": 2,
-      "fact": "Sochi 2014 was the most expensive Olympics in history at the time — about $51 billion, more than every previous Winter Games combined.",
+      "fact": "Russia. Sochi 2014 was the most expensive Olympics in history at the time.",
       "source": "opentdb"
     },
     {
@@ -108,7 +108,382 @@
         "0"
       ],
       "correctIdx": 1,
-      "fact": "All insects have six legs, and butterflies are insects — though their long, thin front legs are easy to miss tucked against the body.",
+      "fact": "All insects have six legs, and butterflies are insects.",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-95244301",
+      "category": "general",
+      "difficulty": "hard",
+      "prompt": "The word \"aprosexia\" means which of the following?",
+      "choices": [
+        "The inability to make decisions",
+        "The inability to concentrate on anything",
+        "A feverish desire to rip one's clothes off",
+        "The inability to stand up"
+      ],
+      "correctIdx": 1,
+      "fact": "The inability to concentrate or focus attention.",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-05364881",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "What is a \"dakimakura\"?",
+      "choices": [
+        "A Chinese meal, essentially composed of fish",
+        "A yoga posture",
+        "A word used to describe two people who truly love each other",
+        "A body pillow"
+      ],
+      "correctIdx": 3,
+      "fact": "A dakimakura is a large, human-sized body pillow from Japan.",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-47670767",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "In what year did Halley's Comet, which will not appear again until the year 2061, previously approach Earth?",
+      "choices": [
+        "2001",
+        "1942",
+        "1909",
+        "1986"
+      ],
+      "correctIdx": 3,
+      "fact": "Halley's Comet last approached Earth in 1986.",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-62865428",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "Rolex is a company that specializes in what type of product?",
+      "choices": [
+        "Watches",
+        "Cars",
+        "Computers",
+        "Sports equipment"
+      ],
+      "correctIdx": 0,
+      "fact": "Rolex specializes in manufacturing high-end, luxury Swiss wristwatches.",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-07286218",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "Which iconic Disneyland attraction was closed in 2017 to be remodeled as a \"Guardians of the Galaxy\" themed ride?",
+      "choices": [
+        "The Haunted Mansion",
+        "Pirates of the Caribbean",
+        "Twilight Zone Tower of Terror",
+        "Peter Pan's Flight"
+      ],
+      "correctIdx": 2,
+      "fact": "The Twilight Zone Tower of Terror",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-38171058",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "What character was once considered to be the 27th letter of the alphabet?",
+      "choices": [
+        "Interrobang",
+        "Tilde",
+        "Ampersand",
+        "Pilcrow"
+      ],
+      "correctIdx": 2,
+      "fact": "The ampersand",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-53766856",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "What company owns Outlook?",
+      "choices": [
+        "Microsoft",
+        "Google",
+        "Apple",
+        "Yahoo"
+      ],
+      "correctIdx": 0,
+      "fact": "Microsoft owns Outlook",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-59948499",
+      "category": "general",
+      "difficulty": "hard",
+      "prompt": "Which product did Nokia, the telecommunications company, originally sell?",
+      "choices": [
+        "Phones",
+        "Paper",
+        "Computers",
+        "Processors"
+      ],
+      "correctIdx": 1,
+      "fact": "Nokia originally started in 1865 as a wood pulp mill producing paper.",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-69658043",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "Directly between the Washington Monument and the Reflecting Pool is a memorial to which war?",
+      "choices": [
+        "Vietnam War",
+        "World War II",
+        "American Civil War",
+        "American Revolutionary War"
+      ],
+      "correctIdx": 1,
+      "fact": "The World War II Memorial.",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-32567037",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "What is the largest rapid transit system in the world by number of stations, with 472 stations in operation?",
+      "choices": [
+        "Shanghai Metro",
+        "New York City Subway",
+        "London Underground",
+        "Berlin U-Bahn"
+      ],
+      "correctIdx": 1,
+      "fact": "The New York City Subway is the largest rapid transit system in the world by number of stations",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-47946617",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "Which candy is NOT made by Mars?",
+      "choices": [
+        "M&M's",
+        "Almond Joy",
+        "Twix",
+        "Snickers"
+      ],
+      "correctIdx": 1,
+      "fact": "Almond Joy is not made by Mars; it is manufactured by The Hershey Company.",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-55993754",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "What year was the first Apple iPod introduced?",
+      "choices": [
+        "2000",
+        "1999",
+        "2001",
+        "1998"
+      ],
+      "correctIdx": 2,
+      "fact": "The first Apple iPod was introduced on October 23, 2001.",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-35211534",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "What was the destination of the missing flight MH370?",
+      "choices": [
+        "Kuala Lumpur",
+        "Singapore",
+        "Beijing",
+        "Tokyo"
+      ],
+      "correctIdx": 2,
+      "fact": "Beijing Capital International Airport in China.",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-64542791",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "What is the Italian word for \"tomato\"?",
+      "choices": [
+        "Aglio",
+        "Cipolla",
+        "Peperoncino",
+        "Pomodoro"
+      ],
+      "correctIdx": 3,
+      "fact": "The Italian word for \"tomato\" is pomodoro. ",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-59462121",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "Which is the second largest native language spoken in Spain by numbers of speakers?",
+      "choices": [
+        "Portuguese",
+        "Spanish",
+        "French",
+        "Catalan"
+      ],
+      "correctIdx": 3,
+      "fact": "Catalan.",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-77227137",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "Which country developed the AK-47 assault rifle?",
+      "choices": [
+        "Iran",
+        "Soviet Union",
+        "Israel",
+        "Poland"
+      ],
+      "correctIdx": 1,
+      "fact": "The AK-47 assault rifle was developed in the Soviet Union (USSR).",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-69507696",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "What is the first book of the Old Testament?",
+      "choices": [
+        "Genesis",
+        "Exodus",
+        "Leviticus",
+        "Numbers"
+      ],
+      "correctIdx": 0,
+      "fact": "Genesis. ",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-80956213",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "Which of the following is not an Ivy League University?",
+      "choices": [
+        "University of Pennsylvania",
+        "Harvard",
+        "Princeton",
+        "Stanford"
+      ],
+      "correctIdx": 3,
+      "fact": "Stanford",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-21404742",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "Amsterdam Centraal station is twinned with what station?",
+      "choices": [
+        "Frankfurt (Main) Hauptbahnhof",
+        "Paris Gare du Nord",
+        "London Liverpool Street",
+        "Brussels Midi"
+      ],
+      "correctIdx": 2,
+      "fact": "Amsterdam Centraal station is twinned with London Liverpool Street station.",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-12224482",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "What did the Spanish autonomous community of Catalonia ban in 2010, that took effect in 2012?",
+      "choices": [
+        "Fiestas",
+        "Flamenco",
+        "Bullfighting",
+        "Mariachi"
+      ],
+      "correctIdx": 2,
+      "fact": "Bullfighting",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-33064815",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": " In which country was the Michelin tire company founded in 1889?",
+      "choices": [
+        "United Kingdom",
+        "Italy",
+        "Germany",
+        "France"
+      ],
+      "correctIdx": 3,
+      "fact": "The Michelin tire company was founded in 1889 in France.",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-80340654",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "What was the name given to Japanese military dictators who ruled the country through the 12th and 19th Century?",
+      "choices": [
+        "Ninja",
+        "Samurai",
+        "Shogun",
+        "Shinobi"
+      ],
+      "correctIdx": 2,
+      "fact": "Shogun a title meaning \"barbarian-subduing commander-in-chief\"",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-50642261",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "Out of these four buildings, which one is the tallest, with a height of 1,250 ft (381 m)?",
+      "choices": [
+        "Bank of China Tower, Hong Kong",
+        "Empire State Building, United States",
+        "Federation Tower, Russia",
+        "Gevora Hotal, United Arab Emirates"
+      ],
+      "correctIdx": 1,
+      "fact": "Empire State Building, United States",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-45814562",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "Which restaurant's mascot is a clown?",
+      "choices": [
+        "Whataburger",
+        "Burger King",
+        "McDonald's",
+        "Sonic"
+      ],
+      "correctIdx": 2,
+      "fact": "McDonald's ",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-57296683",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "The tale of Robin Hood originates from which country?",
+      "choices": [
+        "France",
+        "Portugal",
+        "Scotland",
+        "England"
+      ],
+      "correctIdx": 3,
+      "fact": "The tale of Robin Hood originates from England",
       "source": "opentdb"
     }
   ]
