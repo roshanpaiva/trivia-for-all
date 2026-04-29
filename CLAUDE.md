@@ -42,6 +42,23 @@ Available gstack skills:
 - Pages go in `src/app/`
 - Keep components small and focused
 
+## Testing
+
+Read `TESTING.md` before writing or changing tests. Stack: Vitest 2 (unit + component, jsdom env, `@testing-library/react`) + Playwright 1.59 (E2E). CI runs both on every push and PR via `.github/workflows/ci.yml`.
+
+Run command: `npm test` (Vitest) and `npm run test:e2e` (Playwright). First-time Playwright needs `npx playwright install --with-deps chromium webkit`.
+
+Test expectations:
+- 100% test coverage is the goal — tests make vibe coding safe
+- When writing a new function, write a corresponding test
+- When fixing a bug, write a regression test
+- When adding error handling, write a test that triggers the error
+- When adding a conditional (if/else, switch), write tests for both paths
+- Never commit code that breaks an existing test
+- Critical E2E flows (first-time signup, daily limit enforcement, hard network failure recovery, tab close + resume) must pass before `/ship`
+
+The four critical E2E flows are documented in the test plan at `~/.gstack/projects/roshanpaiva-trivia-for-all/roshanpaiva-roshanpaiva-trivia-brainstorm-eng-review-test-plan-*.md`.
+
 ## Design System
 
 Always read `DESIGN.md` before making any visual or UI decisions.
