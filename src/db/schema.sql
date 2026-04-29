@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS answers (
   question_id       TEXT NOT NULL,
   choice_idx        INT NOT NULL CHECK (choice_idx BETWEEN 0 AND 3),
   correct           BOOLEAN NOT NULL,
-  client_elapsed_ms INT,                  -- telemetry only; not used for scoring
+  client_elapsed_ms INT,                  -- telemetry only, not used for scoring
   created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
