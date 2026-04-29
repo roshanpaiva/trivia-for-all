@@ -114,7 +114,7 @@ export const PostGame = ({
 
   return (
     <main
-      className="flex min-h-screen flex-col mx-auto max-w-[420px] px-5 py-6 bg-[var(--canvas)] text-[var(--ink)]"
+      className="flex min-h-screen flex-col px-5 py-6 bg-[var(--canvas)] text-[var(--ink)]"
       data-testid="post-game"
     >
       <div className="text-[12px] uppercase tracking-[0.12em] text-[var(--muted)] text-center mt-2">

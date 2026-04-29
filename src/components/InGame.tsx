@@ -118,7 +118,7 @@ export const InGame = ({
 
   return (
     <main
-      className="flex min-h-screen flex-col mx-auto max-w-[420px] bg-[var(--canvas)] text-[var(--ink)]"
+      className="flex min-h-screen flex-col bg-[var(--canvas)] text-[var(--ink)]"
       data-testid="in-game"
     >
       {/* Sticky top bar — status + clock + streak. Always visible regardless
