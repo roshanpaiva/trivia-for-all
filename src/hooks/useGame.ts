@@ -109,9 +109,9 @@ export const useGame = (): UseGameReturn => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.phase, state.questionIdx, attempt]);
 
-  // === Speak the result + fact (or streak announcement) when REVEAL fires ===
+  // === Speak the result (and fact on correct only) when REVEAL fires ===
   useEffect(() => {
-    if (state.phase !== "reveal" || !state.reveal) return;
+    if (state.phase !== "reveal" || !state.reveal || !attempt) return;
     if (state.reveal.streakAnnouncement === "streak-5") {
       audio.speak("Five in a row! Bonus time activated, ten extra seconds per correct answer.");
       return;
@@ -120,12 +120,27 @@ export const useGame = (): UseGameReturn => {
       audio.speak("Ten in a row! You're on fire — fifteen extra seconds per correct answer now.");
       return;
     }
-    // Result prefix gives positive reinforcement on correct + clarity on wrong.
-    const prefix = state.reveal.correct ? "Correct." : "Incorrect.";
-    const text = state.reveal.fact ? `${prefix} ${state.reveal.fact}` : prefix;
-    audio.speak(text);
+    // Soft-cap timeout: correctIdx is -1, no choice text to read.
+    if (state.reveal.correctIdx < 0) {
+      audio.speak("Out of time.");
+      return;
+    }
+    if (state.reveal.correct) {
+      // Positive reinforcement + the fact (the edutainment payload).
+      const text = state.reveal.fact ? `Correct. ${state.reveal.fact}` : "Correct.";
+      audio.speak(text);
+      return;
+    }
+    // Wrong answer: name the right choice. Facts can be long and tangential —
+    // the user wants the correction first and clearest.
+    const correctChoice = attempt.questions[state.questionIdx]?.choices[state.reveal.correctIdx];
+    audio.speak(
+      correctChoice
+        ? `Incorrect. The correct answer is ${correctChoice}.`
+        : "Incorrect.",
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.phase, state.reveal]);
+  }, [state.phase, state.reveal, attempt, state.questionIdx]);
 
   // === Announce game-end (time's up / all done) ===
   // Fires after the finalize effect's audio.cancel(); a small delay keeps the

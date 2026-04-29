@@ -2,6 +2,12 @@
 
 All notable changes to Trivia for All are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.4.0.3] - 2026-04-29
+
+### Changed
+- **Wrong-answer audio is now "Incorrect. The correct answer is X."** instead of "Incorrect. <fact>". Facts can be tangential and don't read well as a correction; the user wants the right answer first and clearest. Correct answers still read "Correct. <fact>" (the fact is the edutainment payload). Soft-cap timeout reads "Out of time." Visible UI unchanged — the fact box still renders for both outcomes.
+- **Reveal auto-advance timer mirrors the actual spoken text length.** Was scaling to fact length even when a shorter string is spoken, leaving dead air after the audio finished. Now matches what `useGame` actually speaks.
+
 ## [0.4.0.2] - 2026-04-29
 
 ### Fixed
