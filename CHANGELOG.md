@@ -2,6 +2,19 @@
 
 All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.5.3.0] - 2026-04-29
+
+### Changed — Layout fills viewport on every screen
+Removed the `mx-auto max-w-[420px]` column constraint from `Home`, `InGame`, `PostGame`, and `Leaderboard`. Content now fills the available width with the `px-5` padding intact.
+
+- On phone: identical to before (viewport ~375-430px ≈ the old 420px column)
+- On tablet/desktop: content fills the screen instead of sitting in a centered narrow column with whitespace on both sides
+
+User feedback: "the .mx-auto style was the problem; without it, it looks better".
+
+### Notes
+- The 76px-tall hero CTAs do stretch wide on a desktop browser. If that ends up looking wrong, the next step is a width-aware ceiling (e.g., `max-w-[640px]` + `mx-auto` back) — but per the user's reference screenshot, full-bleed is the desired direction.
+
 ## [0.5.2.2] - 2026-04-29
 
 ### Changed — PostGame: hero treatment matches Home
