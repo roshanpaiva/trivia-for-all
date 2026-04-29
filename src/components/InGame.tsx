@@ -80,18 +80,28 @@ export const InGame = ({
   // with a 3.5s floor (short facts shouldn't feel rushed) and a 14s ceiling
   // (don't stall the game on an unusually long fact).
   useEffect(() => {
-    if (state.phase !== "reveal") return;
-    const streakText =
-      state.reveal?.streakAnnouncement === "streak-5"
-        ? "Five in a row! Bonus time activated, ten extra seconds per correct answer."
-        : state.reveal?.streakAnnouncement === "streak-10"
-          ? "Ten in a row! You're on fire — fifteen extra seconds per correct answer now."
-          : "";
-    const spoken = streakText || state.reveal?.fact || "";
+    if (state.phase !== "reveal" || !state.reveal) return;
+    // Mirror useGame's reveal-speak logic so the auto-advance gives the audio
+    // enough time to finish without leaving dead air on short utterances.
+    let spoken: string;
+    if (state.reveal.streakAnnouncement === "streak-5") {
+      spoken = "Five in a row! Bonus time activated, ten extra seconds per correct answer.";
+    } else if (state.reveal.streakAnnouncement === "streak-10") {
+      spoken = "Ten in a row! You're on fire — fifteen extra seconds per correct answer now.";
+    } else if (state.reveal.correctIdx < 0) {
+      spoken = "Out of time.";
+    } else if (state.reveal.correct) {
+      spoken = state.reveal.fact ? `Correct. ${state.reveal.fact}` : "Correct.";
+    } else {
+      const correctChoice = question.choices[state.reveal.correctIdx];
+      spoken = correctChoice
+        ? `Incorrect. The correct answer is ${correctChoice}.`
+        : "Incorrect.";
+    }
     const ms = Math.min(14_000, Math.max(3_500, spoken.length * 70 + 1_500));
     const id = window.setTimeout(onFinishReveal, ms);
     return () => window.clearTimeout(id);
-  }, [state.phase, state.reveal, onFinishReveal]);
+  }, [state.phase, state.reveal, question.choices, onFinishReveal]);
 
   // Auto-finish reading: TTS would normally fire onend. As a fallback in case
   // the audio service isn't speaking (browser issue), finish reading after a
