@@ -81,13 +81,24 @@ export const InGame = ({
     return () => window.removeEventListener("keydown", handler);
   }, [state.phase, onTapChoice]);
 
-  // Auto-advance reveal: after the fact audio's expected duration, finish reveal.
-  // 3500ms covers: 2-3s fact + a beat. Streak announcements get the same window.
+  // Auto-advance reveal: scale the timer to whatever's being read aloud so the
+  // fact (or streak announcement) finishes before the next question barge-cancels
+  // the speech. Same ~70ms/char + 1.5s padding heuristic as the reading phase,
+  // with a 3.5s floor (short facts shouldn't feel rushed) and a 14s ceiling
+  // (don't stall the game on an unusually long fact).
   useEffect(() => {
     if (state.phase !== "reveal") return;
-    const id = window.setTimeout(onFinishReveal, 3500);
+    const streakText =
+      state.reveal?.streakAnnouncement === "streak-5"
+        ? "Five in a row! Bonus time activated, ten extra seconds per correct answer."
+        : state.reveal?.streakAnnouncement === "streak-10"
+          ? "Ten in a row! You're on fire — fifteen extra seconds per correct answer now."
+          : "";
+    const spoken = streakText || state.reveal?.fact || "";
+    const ms = Math.min(14_000, Math.max(3_500, spoken.length * 70 + 1_500));
+    const id = window.setTimeout(onFinishReveal, ms);
     return () => window.clearTimeout(id);
-  }, [state.phase, onFinishReveal]);
+  }, [state.phase, state.reveal, onFinishReveal]);
 
   // Auto-finish reading: TTS would normally fire onend. As a fallback in case
   // the audio service isn't speaking (browser issue), finish reading after a

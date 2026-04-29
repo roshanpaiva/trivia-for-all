@@ -163,10 +163,12 @@ export const gameReducer = (
     }
 
     case "tick": {
-      if (state.phase !== "answering") return state;
+      // Clock pressures throughout the game — the 90s sprint counts down
+      // continuously across reading, answering, validating, and reveal. Only
+      // `idle` (pre-game) and `finished` (post-game) are exempt.
+      if (state.phase === "idle" || state.phase === "finished") return state;
       const clockMs = Math.max(0, state.score.clockMs - event.deltaMs);
       const nextScore = { ...state.score, clockMs };
-      // Time-out check while in answering — the only phase that can time out.
       if (clockMs <= 0) {
         return {
           ...state,
