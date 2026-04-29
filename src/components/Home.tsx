@@ -100,12 +100,13 @@ export const Home = ({
         )}
       </div>
 
-      {/* Headline */}
-      <div className="mb-6">
-        <div className="text-[12px] uppercase tracking-[0.12em] text-[var(--muted)] mb-1">
+      {/* Headline — poster-sized, two-line on phone. Per DESIGN.md `--display-l`
+          (36px / 800) bumped up a touch for hero treatment. */}
+      <div className="mb-7">
+        <div className="text-[12px] uppercase tracking-[0.12em] text-[var(--muted)] mb-2">
           {isExhausted ? "Daily refresh" : "Today's daily"}
         </div>
-        <h1 className="font-display font-bold text-[28px] leading-tight tracking-tight">
+        <h1 className="font-display font-extrabold text-[40px] leading-[1.05] tracking-tight">
           {isExhausted ? (
             <>Try again in <span className="text-[var(--accent)]">{msUntilReset !== undefined ? formatCountdown(msUntilReset) : "—"}</span></>
           ) : (
@@ -144,7 +145,7 @@ export const Home = ({
           </p>
         </div>
       ) : (
-        <div className="mb-4 flex items-center gap-2 text-[14px] text-[var(--muted)]" data-testid="display-name-summary">
+        <div className="mb-5 flex items-center gap-2 text-[18px] text-[var(--muted)]" data-testid="display-name-summary">
           <span>Playing as</span>
           <strong className="text-[var(--ink)]">{displayName}</strong>
           <span>·</span>
@@ -163,9 +164,9 @@ export const Home = ({
       )}
 
       {/* Status pill */}
-      <div className="mb-4">
+      <div className="mb-5">
         <span
-          className={`inline-block px-3 py-1 rounded-full text-[14px] font-semibold ${
+          className={`inline-block px-4 py-1.5 rounded-full text-[15px] font-semibold ${
             isExhausted
               ? "bg-transparent border border-[var(--line)] text-[var(--muted)]"
               : "bg-[var(--accent-soft)] text-[var(--accent-strong)]"
@@ -194,7 +195,7 @@ export const Home = ({
             type="button"
             onClick={() => handleStart("scored")}
             disabled={isStarting || needsNameForScored}
-            className="w-full min-h-[64px] rounded-lg bg-[var(--ink)] text-[var(--canvas)] font-bold text-[22px] hover:opacity-85 transition-opacity disabled:opacity-60 disabled:cursor-not-allowed"
+            className="w-full min-h-[76px] rounded-lg bg-[var(--ink)] text-[var(--canvas)] font-bold text-[28px] hover:opacity-85 transition-opacity disabled:opacity-60 disabled:cursor-not-allowed"
             data-testid="start-button"
           >
             {isStarting ? "Starting…" : hasResumableAttempt ? "Resume ▸" : "Start ▸"}
@@ -210,7 +211,7 @@ export const Home = ({
           type="button"
           onClick={() => handleStart("practice")}
           disabled={isStarting}
-          className="w-full min-h-[64px] rounded-lg bg-[var(--ink)] text-[var(--canvas)] font-bold text-[22px] hover:opacity-85 transition-opacity disabled:opacity-60 disabled:cursor-not-allowed"
+          className="w-full min-h-[76px] rounded-lg bg-[var(--ink)] text-[var(--canvas)] font-bold text-[28px] hover:opacity-85 transition-opacity disabled:opacity-60 disabled:cursor-not-allowed"
           data-testid="practice-primary-cta"
         >
           {isStarting ? "Starting…" : "Practice mode (unlimited)"}
@@ -221,7 +222,7 @@ export const Home = ({
       <button
         type="button"
         onClick={() => handleStart("practice")}
-        className="w-full min-h-[56px] rounded-lg border border-[var(--line)] bg-[var(--canvas)] text-[var(--ink)] font-semibold text-[18px] mt-3 hover:border-[var(--ink)] transition-colors"
+        className="w-full min-h-[68px] rounded-lg border border-[var(--line)] bg-[var(--canvas)] text-[var(--ink)] font-semibold text-[22px] mt-3 hover:border-[var(--ink)] transition-colors"
         data-testid="practice-secondary-cta"
       >
         {isExhausted ? "View leaderboard" : "Practice mode (unlimited)"}

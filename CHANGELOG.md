@@ -2,6 +2,18 @@
 
 All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.5.2.1] - 2026-04-29
+
+### Changed — Home: poster-sized typography
+User feedback against a target reference image — the home felt cramped relative to the design intent.
+
+- **Headline:** `text-[28px]` → `text-[40px]` `font-extrabold` `leading-[1.05]`. Matches DESIGN.md `--display-l` (36px / 800) with a small bump for hero impact.
+- **Headline kicker spacing:** `mb-1` → `mb-2`. Headline block `mb-6` → `mb-7`.
+- **Start CTA:** `min-h-[64px]` → `min-h-[76px]`, `text-[22px]` → `text-[28px]`. Same applied to the exhausted-variant Practice primary CTA.
+- **Secondary Practice CTA:** `min-h-[56px]` → `min-h-[68px]`, `text-[18px]` → `text-[22px]`.
+- **"Playing as <name> · Edit":** `text-[14px]` → `text-[18px]`, `mb-4` → `mb-5`.
+- **Status pill:** `text-[14px]` → `text-[15px]`, `px-3 py-1` → `px-4 py-1.5`, `mb-4` → `mb-5`.
+
 ## [0.5.2.0] - 2026-04-29
 
 ### Changed
