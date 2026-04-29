@@ -1,0 +1,115 @@
+{
+  "version": "0.1.1.0",
+  "audited_at": "2026-04-28T17:30:00Z",
+  "audited_count": 7,
+  "target_count": 200,
+  "source": "Open Trivia Database (CC BY-SA 4.0) + hand-drafted facts",
+  "note": "Bootstrapped with hand-drafted exemplars across categories. Run scripts/audit-questions.py to grow toward the 200 target.",
+  "questions": [
+    {
+      "id": "general-53041193",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "The Flag of the European Union has how many stars on it?",
+      "choices": [
+        "10",
+        "14",
+        "16",
+        "12"
+      ],
+      "correctIdx": 3,
+      "fact": "The 12 stars on the EU flag don't represent member countries — 12 was chosen as a symbol of completeness, and the count never changes when countries join or leave.",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-76973843",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "Antibiotics are generally taken to combat what?",
+      "choices": [
+        "Viruses",
+        "Migraines",
+        "Muscular pains",
+        "Bacterial infections"
+      ],
+      "correctIdx": 3,
+      "fact": "Antibiotics only work against bacteria, not viruses, which is why doctors don't prescribe them for colds or flu.",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-34386838",
+      "category": "geography",
+      "difficulty": "easy",
+      "prompt": "In which country is the city of Rio de Janeiro?",
+      "choices": [
+        "Peru",
+        "Chile",
+        "Brazil",
+        "Venezuela"
+      ],
+      "correctIdx": 2,
+      "fact": "Rio de Janeiro means 'River of January' in Portuguese — explorers named the bay in January 1502, mistaking it for a river mouth.",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-35791257",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "The moons, Miranda, Ariel, Umbriel, Titania and Oberon orbit which planet?",
+      "choices": [
+        "Jupiter",
+        "Venus",
+        "Neptune",
+        "Uranus"
+      ],
+      "correctIdx": 3,
+      "fact": "Uranus's moons are mostly named after characters from Shakespeare and Alexander Pope — a tradition started by astronomer John Herschel in the 1850s.",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-17720282",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "Which continent do sweet potatoes originally come from?",
+      "choices": [
+        "Asia",
+        "Africa",
+        "South America",
+        "Europe"
+      ],
+      "correctIdx": 2,
+      "fact": "Sweet potatoes were domesticated in South America at least 8,000 years ago — archaeologists have found their remains in Peruvian caves.",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-33739714",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "What country hosted the 2014 Winter Olympics?",
+      "choices": [
+        "Canada",
+        "United States",
+        "Russia",
+        "Germany"
+      ],
+      "correctIdx": 2,
+      "fact": "Sochi 2014 was the most expensive Olympics in history at the time — about $51 billion, more than every previous Winter Games combined.",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-94196515",
+      "category": "random",
+      "difficulty": "easy",
+      "prompt": "How many legs do butterflies have?",
+      "choices": [
+        "2",
+        "6",
+        "4",
+        "0"
+      ],
+      "correctIdx": 1,
+      "fact": "All insects have six legs, and butterflies are insects — though their long, thin front legs are easy to miss tucked against the body.",
+      "source": "opentdb"
+    }
+  ]
+}

@@ -1,0 +1,4516 @@
+{
+  "version": "0.1.1.0-raw",
+  "fetched_at": "2026-04-29T00:26:19Z",
+  "source": "https://opentdb.com (CC BY-SA 4.0)",
+  "total": 300,
+  "categories": {
+    "general": 50,
+    "geography": 50,
+    "science": 50,
+    "history": 50,
+    "sports": 50,
+    "random": 50
+  },
+  "questions": [
+    {
+      "id": "general-95244301",
+      "category": "general",
+      "difficulty": "hard",
+      "prompt": "The word \"aprosexia\" means which of the following?",
+      "choices": [
+        "The inability to make decisions",
+        "The inability to concentrate on anything",
+        "A feverish desire to rip one's clothes off",
+        "The inability to stand up"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-53041193",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "The Flag of the European Union has how many stars on it?",
+      "choices": [
+        "10",
+        "14",
+        "16",
+        "12"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-76973843",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "Antibiotics are generally taken to combat what?",
+      "choices": [
+        "Viruses",
+        "Migraines",
+        "Muscular pains",
+        "Bacterial infections"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-05364881",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "What is a \"dakimakura\"?",
+      "choices": [
+        "A Chinese meal, essentially composed of fish",
+        "A yoga posture",
+        "A word used to describe two people who truly love each other",
+        "A body pillow"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-47670767",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "In what year did Halley's Comet, which will not appear again until the year 2061, previously approach Earth?",
+      "choices": [
+        "2001",
+        "1942",
+        "1909",
+        "1986"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-62865428",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "Rolex is a company that specializes in what type of product?",
+      "choices": [
+        "Watches",
+        "Cars",
+        "Computers",
+        "Sports equipment"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-07286218",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "Which iconic Disneyland attraction was closed in 2017 to be remodeled as a \"Guardians of the Galaxy\" themed ride?",
+      "choices": [
+        "The Haunted Mansion",
+        "Pirates of the Caribbean",
+        "Twilight Zone Tower of Terror",
+        "Peter Pan's Flight"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-91735703",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "Which one of these is not a typical European sword design?",
+      "choices": [
+        "Falchion",
+        "Scimitar",
+        "Ulfberht",
+        "Flamberge"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-38171058",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "What character was once considered to be the 27th letter of the alphabet?",
+      "choices": [
+        "Interrobang",
+        "Tilde",
+        "Ampersand",
+        "Pilcrow"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-53766856",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "What company owns Outlook?",
+      "choices": [
+        "Microsoft",
+        "Google",
+        "Apple",
+        "Yahoo"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-59948499",
+      "category": "general",
+      "difficulty": "hard",
+      "prompt": "Which product did Nokia, the telecommunications company, originally sell?",
+      "choices": [
+        "Phones",
+        "Paper",
+        "Computers",
+        "Processors"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-69658043",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "Directly between the Washington Monument and the Reflecting Pool is a memorial to which war?",
+      "choices": [
+        "Vietnam War",
+        "World War II",
+        "American Civil War",
+        "American Revolutionary War"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-32567037",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "What is the largest rapid transit system in the world by number of stations, with 472 stations in operation?",
+      "choices": [
+        "Shanghai Metro",
+        "New York City Subway",
+        "London Underground",
+        "Berlin U-Bahn"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-05956270",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "The term \"scientist\" was coined in which year?",
+      "choices": [
+        "1933",
+        "1942",
+        "1833",
+        "1796"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-47946617",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "Which candy is NOT made by Mars?",
+      "choices": [
+        "M&M's",
+        "Almond Joy",
+        "Twix",
+        "Snickers"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-55993754",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "What year was the first Apple iPod introduced?",
+      "choices": [
+        "2000",
+        "1999",
+        "2001",
+        "1998"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-96165150",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "In what year was McDonald's founded?",
+      "choices": [
+        "1964",
+        "1951",
+        "1955",
+        "1947"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-35211534",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "What was the destination of the missing flight MH370?",
+      "choices": [
+        "Kuala Lumpur",
+        "Singapore",
+        "Beijing",
+        "Tokyo"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-64542791",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "What is the Italian word for \"tomato\"?",
+      "choices": [
+        "Aglio",
+        "Cipolla",
+        "Peperoncino",
+        "Pomodoro"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-59462121",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "Which is the second largest native language spoken in Spain by numbers of speakers?",
+      "choices": [
+        "Portuguese",
+        "Spanish",
+        "French",
+        "Catalan"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-77227137",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "Which country developed the AK-47 assault rifle?",
+      "choices": [
+        "Iran",
+        "Soviet Union",
+        "Israel",
+        "Poland"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-69507696",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "What is the first book of the Old Testament?",
+      "choices": [
+        "Genesis",
+        "Exodus",
+        "Leviticus",
+        "Numbers"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-63665549",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "What country has had prime ministers named Eden, Major, Peel, Law, Brown and Heath?",
+      "choices": [
+        "Australia",
+        "United Kingdom",
+        "New Zealand",
+        "Canada"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-80956213",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "Which of the following is not an Ivy League University?",
+      "choices": [
+        "University of Pennsylvania",
+        "Harvard",
+        "Princeton",
+        "Stanford"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-21404742",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "Amsterdam Centraal station is twinned with what station?",
+      "choices": [
+        "Frankfurt (Main) Hauptbahnhof",
+        "Paris Gare du Nord",
+        "London Liverpool Street",
+        "Brussels Midi"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-12224482",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "What did the Spanish autonomous community of Catalonia ban in 2010, that took effect in 2012?",
+      "choices": [
+        "Fiestas",
+        "Flamenco",
+        "Bullfighting",
+        "Mariachi"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-33064815",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": " In which country was the Michelin tire company founded in 1889?",
+      "choices": [
+        "United Kingdom",
+        "Italy",
+        "Germany",
+        "France"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-80340654",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "What was the name given to Japanese military dictators who ruled the country through the 12th and 19th Century?",
+      "choices": [
+        "Ninja",
+        "Samurai",
+        "Shogun",
+        "Shinobi"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-50642261",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "Out of these four buildings, which one is the tallest, with a height of 1,250 ft (381 m)?",
+      "choices": [
+        "Bank of China Tower, Hong Kong",
+        "Empire State Building, United States",
+        "Federation Tower, Russia",
+        "Gevora Hotal, United Arab Emirates"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-25253163",
+      "category": "general",
+      "difficulty": "hard",
+      "prompt": "Roughly how many ingested apple seeds would it take to receive a fatal dose of cyanide?",
+      "choices": [
+        "20",
+        "2,000",
+        "20,000",
+        "200"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-45814562",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "Which restaurant's mascot is a clown?",
+      "choices": [
+        "Whataburger",
+        "Burger King",
+        "McDonald's",
+        "Sonic"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-57296683",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "The tale of Robin Hood originates from which country?",
+      "choices": [
+        "France",
+        "Portugal",
+        "Scotland",
+        "England"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-94712845",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "What is \"dabbing\"?",
+      "choices": [
+        "A medical procedure",
+        "A dance",
+        "A sport",
+        "A language"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-18389192",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "What does the \"G\" mean in \"G-Man\"?",
+      "choices": [
+        "Government",
+        "Going",
+        "Ghost",
+        "Geronimo"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-37406823",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "Area 51 is located in which US state?",
+      "choices": [
+        "Arizona",
+        "Nevada",
+        "New Mexico",
+        "Utah"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-46434264",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "Which of the following presidents is not on Mount Rushmore?",
+      "choices": [
+        "John F. Kennedy",
+        "Theodore Roosevelt",
+        "Abraham Lincoln",
+        "Thomas Jefferson"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-64671136",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "What is the name of the extra pedal on a manual or standard transmission car?",
+      "choices": [
+        "Clutch",
+        "Shifter",
+        "Booster",
+        "Parking Brake"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-86503620",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "What is real haggis made of?",
+      "choices": [
+        "Sheep's Heart, Liver and Lungs",
+        "Sheep's Heart, Kidneys and Lungs",
+        "Sheep's Liver, Kidneys and Eyes",
+        "Whole Sheep"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-62725675",
+      "category": "general",
+      "difficulty": "hard",
+      "prompt": "Which of the following is not another name for the eggplant?",
+      "choices": [
+        "Brinjal",
+        "Guinea Squash",
+        "Melongene",
+        "Potimarron"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-14704310",
+      "category": "general",
+      "difficulty": "hard",
+      "prompt": "Which of the following is an existing family in \"The Sims\"?",
+      "choices": [
+        "The Family",
+        "The Simoleon Family",
+        "The Goth Family",
+        "The Proud Family"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-77171090",
+      "category": "general",
+      "difficulty": "hard",
+      "prompt": "Which church's interior in Vatican City was designed in 1503 by renaissance architects including Bramante, Michelangelo and Bernini?",
+      "choices": [
+        "Catania Cathedral",
+        "St. Mark’s Basilica",
+        "St. Peter's Basilica",
+        "The Duomo of Florence"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-17769796",
+      "category": "general",
+      "difficulty": "hard",
+      "prompt": "How many notes are there on a standard grand piano?",
+      "choices": [
+        "88",
+        "98",
+        "108",
+        "78"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-59226715",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "According to the nursery rhyme, what fruit did Little Jack Horner pull out of his Christmas pie?",
+      "choices": [
+        "Apple",
+        "Plum",
+        "Peach",
+        "Pear"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-81336275",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "Which canal connects the Mediterranean Sea with the Red Sea?",
+      "choices": [
+        "Panama Canal",
+        "Sinai Canal",
+        "Qaraqum Canal",
+        "Suez Canal"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-30970644",
+      "category": "general",
+      "difficulty": "hard",
+      "prompt": "Which of the following languages does NOT use gender as a part of its grammar?",
+      "choices": [
+        "Turkish",
+        "German",
+        "Danish",
+        "Polish"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-67412577",
+      "category": "general",
+      "difficulty": "hard",
+      "prompt": "What was the third country to have a McDonald's restaurant?",
+      "choices": [
+        "Japan",
+        "Costa Rica",
+        "France",
+        "Australia"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-33182146",
+      "category": "general",
+      "difficulty": "hard",
+      "prompt": "What is the longest bridge in the world?",
+      "choices": [
+        "Lake Pontchartrain Causeway, United States",
+        "King Fahd Causeway Bridge I, Saudi Arabia",
+        "Danyang–Kunshan Grand Bridge, China",
+        "Sultan Abdul Halim Muadzam Shah Bridge, Malaysia"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-15106456",
+      "category": "general",
+      "difficulty": "hard",
+      "prompt": "Before the 19th Century, the \"Living Room\" was originally called the...",
+      "choices": [
+        "Parlor",
+        "Open Room",
+        "Sitting Room",
+        "Loft"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-86323672",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "What machine element is located in the center of fidget spinners?",
+      "choices": [
+        "Bearings",
+        "Axles",
+        "Gears",
+        "Belts"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-46014744",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "Which of these words refers to something made, distributed, or sold illegally?",
+      "choices": [
+        "Bootleg",
+        "Bootblack",
+        "Bootlace",
+        "Bootstrap"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-34386838",
+      "category": "geography",
+      "difficulty": "easy",
+      "prompt": "In which country is the city of Rio de Janeiro?",
+      "choices": [
+        "Peru",
+        "Chile",
+        "Brazil",
+        "Venezuela"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-09988285",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "Which of these American cities has fewer than 1,000,000 people?",
+      "choices": [
+        "Phoenix, Arizona",
+        "San Antonio, Texas",
+        "Philadelphia, Pennsylvania",
+        "San Francisco, California"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-16734066",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "What is the capital city of Slovenia?",
+      "choices": [
+        "Maribor",
+        "Velenje",
+        "Ljubljana",
+        "Trbovlje"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-72337236",
+      "category": "geography",
+      "difficulty": "hard",
+      "prompt": "What was the original name of Ho Chi Minh City?",
+      "choices": [
+        "Saigon",
+        "Hanoi",
+        "Dar Es Salaam",
+        "Angkor Wat"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-13087099",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "Which European city has the highest mileage of canals in the world?",
+      "choices": [
+        "Venice",
+        "Amsterdam",
+        "Berlin",
+        "Birmingham"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-52846099",
+      "category": "geography",
+      "difficulty": "hard",
+      "prompt": "How many islands does Kuwait have?",
+      "choices": [
+        "3",
+        "6",
+        "2",
+        "9"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-64740421",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "Where is the area commonly known as the Bermuda Triangle?",
+      "choices": [
+        "North Pacific Ocean, between Japan and the USA",
+        "North Atlantic Ocean, between Florida and Puerto Rico",
+        "In the Caribbean Sea",
+        "South Pacific Ocean, far off Chile"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-40538472",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "What is the state capital of South Dakota?",
+      "choices": [
+        "Pierre",
+        "Sioux Falls",
+        "Rapid City",
+        "Watertown"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-64188742",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "What is the name of the only remaining Grand Duchy in the world ?",
+      "choices": [
+        "Montenegro",
+        "Liechtenstein",
+        "Luxembourg",
+        "Andorra"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-65409043",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "What is the capital of Estonia?",
+      "choices": [
+        "Helsinki",
+        "Tartu",
+        "Riga",
+        "Tallinn"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-38019966",
+      "category": "geography",
+      "difficulty": "easy",
+      "prompt": "All of the following are classified as Finno-Ugric languages EXCEPT:",
+      "choices": [
+        "Hungarian",
+        "Finnish",
+        "Samoyedic",
+        "Estonian"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-67694283",
+      "category": "geography",
+      "difficulty": "hard",
+      "prompt": "The prefix Sino- (As in Sino-American) is used to refer to what nationality?",
+      "choices": [
+        "Japanese",
+        "Chinese",
+        "Russian",
+        "Indian"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-22241090",
+      "category": "geography",
+      "difficulty": "hard",
+      "prompt": "How many countries border Kyrgyzstan?",
+      "choices": [
+        "3",
+        "1",
+        "4",
+        "6"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-23059277",
+      "category": "geography",
+      "difficulty": "hard",
+      "prompt": "How many countries share a land border with Russia? (Not including disputed territories)",
+      "choices": [
+        "12",
+        "14",
+        "10",
+        "8"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-09975394",
+      "category": "geography",
+      "difficulty": "easy",
+      "prompt": "Which country is the home of the largest Japanese population outside of Japan?",
+      "choices": [
+        "China",
+        "Russia",
+        "Brazil",
+        "The United States"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-40542952",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "The Pyrenees mountains are located on the border of which two countries?",
+      "choices": [
+        "France and Spain",
+        "Italy and Switzerland",
+        "Norway and Sweden",
+        "Russia and Ukraine"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-93731986",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "How tall is One World Trade Center in New York City?",
+      "choices": [
+        "1,888 ft",
+        "1,225 ft",
+        "1,776 ft",
+        "1,960 ft"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-32936644",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "Which Oceanian nation is known in Māori as Aotearoa?",
+      "choices": [
+        "New Zealand",
+        "Australia",
+        "Solomon Islands",
+        "New Caledonia"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-56781844",
+      "category": "geography",
+      "difficulty": "easy",
+      "prompt": "What is the smallest country in the world?",
+      "choices": [
+        "Vatican City",
+        "Maldives",
+        "Monaco",
+        "Malta"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-52450367",
+      "category": "geography",
+      "difficulty": "hard",
+      "prompt": "The Hunua Ranges is located in...",
+      "choices": [
+        "Nepal",
+        "China",
+        "Mexico",
+        "New Zealand"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-68490983",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "What mountain range lines the border between Spain and France?",
+      "choices": [
+        "Alps",
+        "Pyrenees",
+        "Carpathians",
+        "Urals"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-11085285",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "The White Cliffs of Dover is located in which country? ",
+      "choices": [
+        "United States",
+        "Netherlands",
+        "Sweden",
+        "United Kingdom"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-73278689",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "On a London Underground map, what colour is the Circle Line?",
+      "choices": [
+        "Red",
+        "Blue",
+        "Green",
+        "Yellow"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-71152558",
+      "category": "geography",
+      "difficulty": "easy",
+      "prompt": "On which continent does the Andes mountain range lie?",
+      "choices": [
+        "Europe",
+        "Asia",
+        "South America",
+        "Africa"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-71906453",
+      "category": "geography",
+      "difficulty": "easy",
+      "prompt": "Harvard University is located in which city?",
+      "choices": [
+        "Providence",
+        "New York",
+        "Washington D.C.",
+        "Cambridge"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-15713712",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "Colchester Overpass, otherwise known as \"Bunny Man Bridge\", is located where?",
+      "choices": [
+        "Fairfax County, Virginia",
+        "Medford, Oregon",
+        "Braxton County, Virgina",
+        "Lemon Grove, California"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-52207889",
+      "category": "geography",
+      "difficulty": "easy",
+      "prompt": "Which Borough is the farthest in the north of New York City?",
+      "choices": [
+        "Queens",
+        "Bronx",
+        "Brooklyn",
+        "Manhattan"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-25759879",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "How many countries are larger than Australia?",
+      "choices": [
+        "4",
+        "5",
+        "3",
+        "6"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-82605880",
+      "category": "geography",
+      "difficulty": "easy",
+      "prompt": "Which of the following former Yugoslavian states is landlocked?",
+      "choices": [
+        "Serbia",
+        "Bosnia and Herzegovina",
+        "Montenegro",
+        "Croatia"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-92818028",
+      "category": "geography",
+      "difficulty": "easy",
+      "prompt": "The country of Belize borders which country?",
+      "choices": [
+        "Guatemala",
+        "Laos",
+        "Perú",
+        "Kenya"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-63192522",
+      "category": "geography",
+      "difficulty": "easy",
+      "prompt": "What state is the largest state of the United States of America?",
+      "choices": [
+        "California",
+        "Texas",
+        "Alaska",
+        "Washington"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-93910755",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "What tiny principality lies between Spain and France?",
+      "choices": [
+        "Liechtenstein",
+        "Monaco",
+        "San Marino",
+        "Andorra"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-07051403",
+      "category": "geography",
+      "difficulty": "hard",
+      "prompt": "What is the land connecting North America and South America?",
+      "choices": [
+        "Isthmus of Suez",
+        "Urals",
+        "Australasia",
+        "Isthmus of Panama"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-17255642",
+      "category": "geography",
+      "difficulty": "hard",
+      "prompt": "What is the name of the Canadian national anthem?",
+      "choices": [
+        "O Red Maple",
+        "Leaf-Spangled Banner",
+        "O Canada",
+        "March of the Puck Drop"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-88224446",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "The land mass of modern day Turkey is called what?",
+      "choices": [
+        "Ismuth of Ottoma",
+        "Ottoma",
+        "Anatolia",
+        "Ismuth of Anatolia"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-75171124",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "How many states are in Australia?",
+      "choices": [
+        "6",
+        "7",
+        "8",
+        "5"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-57519641",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "What is the fifth largest country by area?",
+      "choices": [
+        "United States",
+        "Australia",
+        "India",
+        "Brazil"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-06916272",
+      "category": "geography",
+      "difficulty": "hard",
+      "prompt": "What North American tourist attraction is served by the \"Maid of the Mist\" tour company?",
+      "choices": [
+        "Niagara Falls",
+        "Whistler, British Columbia",
+        "Disney World",
+        "Yosemite National Park"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-77174301",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "How many counties in the Republic of Ireland.",
+      "choices": [
+        "32",
+        "26",
+        "28",
+        "30"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-67544901",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "What is the capital of the U.S. state Texas?",
+      "choices": [
+        "Dallas",
+        "Austin",
+        "Santa Fe",
+        "Houston"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-94918547",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "Which of these countries is not a United Nations member state?",
+      "choices": [
+        "Tuvalu",
+        "Niue",
+        "South Sudan",
+        "Montenegro"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-26114591",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "What is the capital of Australia?",
+      "choices": [
+        "Sydney",
+        "Melbourne",
+        "Brisbane",
+        "Canberra"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-31426169",
+      "category": "geography",
+      "difficulty": "easy",
+      "prompt": "What is the capital of Denmark?",
+      "choices": [
+        "Aarhus",
+        "Copenhagen",
+        "Odense",
+        "Aalborg"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-29696576",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "Bikini Atoll is in which country?",
+      "choices": [
+        "Marshall Islands",
+        "Fiji",
+        "Christmas Islands",
+        "Bahamas"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-53355896",
+      "category": "geography",
+      "difficulty": "easy",
+      "prompt": "What is the capital of Bangladesh?",
+      "choices": [
+        "Dhaka",
+        "Khulna",
+        "London",
+        "Lahore"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-76164025",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "What is the capital of British Columbia, Canada?",
+      "choices": [
+        "Vancouver",
+        "Hope",
+        "Kelowna",
+        "Victoria"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-52685959",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "What is the northernmost human settlement with year round inhabitants?",
+      "choices": [
+        "Nagurskoye, Russia",
+        "Alert, Canada",
+        "McMurdo Station, Antarctica ",
+        "Honningsvåg, Norway"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-57054241",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "How many sovereign states are members of the United Nations?",
+      "choices": [
+        "201",
+        "195",
+        "153",
+        "178"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-57862825",
+      "category": "geography",
+      "difficulty": "easy",
+      "prompt": "Which ocean borders the west coast of the United States?",
+      "choices": [
+        "Atlantic",
+        "Pacific",
+        "Indian",
+        "Arctic"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-45341898",
+      "category": "geography",
+      "difficulty": "easy",
+      "prompt": "What is the nickname for the US state Delaware?",
+      "choices": [
+        "The Fiftieth State",
+        "The Second State",
+        "The First State",
+        "The Sixteenth State"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-35791257",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "The moons, Miranda, Ariel, Umbriel, Titania and Oberon orbit which planet?",
+      "choices": [
+        "Jupiter",
+        "Venus",
+        "Neptune",
+        "Uranus"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-17720282",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "Which continent do sweet potatoes originally come from?",
+      "choices": [
+        "Asia",
+        "Africa",
+        "South America",
+        "Europe"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-91544839",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "What polymer is used to make CDs, safety goggles and riot shields?",
+      "choices": [
+        "Rubber",
+        "Polycarbonate",
+        "Nylon",
+        "Bakelite"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-42090504",
+      "category": "science",
+      "difficulty": "easy",
+      "prompt": "What is the standard SI unit for mass?",
+      "choices": [
+        "Kilogram",
+        "Tonne",
+        "Pound",
+        "Gram"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-81289539",
+      "category": "science",
+      "difficulty": "easy",
+      "prompt": "Which of the following blood vessels carries deoxygenated blood?",
+      "choices": [
+        "Pulmonary Vein",
+        "Pulmonary Artery",
+        "Aorta",
+        "Coronary Artery"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-84101879",
+      "category": "science",
+      "difficulty": "hard",
+      "prompt": "In physics, conservation of energy and conservation of momentum are both consequences of which of the following?",
+      "choices": [
+        "Bell's Theorem",
+        "Wick's Theorem",
+        "Carnot's Theorem",
+        "Noether's Theorem"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-94600016",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "What is the study of the cells and tissues of plants and animals?",
+      "choices": [
+        "Histology",
+        "Microbiology",
+        "Anatomy",
+        "Biochemistry"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-17323187",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "Which of these choices is not one of the phases of mitosis?",
+      "choices": [
+        "Metaphase",
+        "Anaphase",
+        "Telophase",
+        "Diplophase"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-42817557",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "What is the lowest layer of the Earth's atmosphere named?",
+      "choices": [
+        "Stratosphere",
+        "Troposphere",
+        "Mesosphere",
+        "Thermosphere"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-62206345",
+      "category": "science",
+      "difficulty": "easy",
+      "prompt": "Human cells typically have how many copies of each gene?",
+      "choices": [
+        "1",
+        "2",
+        "4",
+        "3"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-77412682",
+      "category": "science",
+      "difficulty": "easy",
+      "prompt": "What is the speed of light in a vacuum?",
+      "choices": [
+        "50,461 m/s",
+        "308,215,043 m/s",
+        "299,792,458 m/s",
+        "751,665,014,151 m/s"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-07365566",
+      "category": "science",
+      "difficulty": "hard",
+      "prompt": "All of the following human genetic haplogroup names are shared between Y-chromosome and mitochondrial DNA haplogroups EXCEPT:",
+      "choices": [
+        "Haplogroup L",
+        "Haplogroup T",
+        "Haplogroup U",
+        "Haplogroup J"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-74009929",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "Which planet did the \"Viking 1\" spacecraft send surface images of, starting in 1976?",
+      "choices": [
+        "Saturn",
+        "Mars",
+        "Jupiter",
+        "Venus"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-29817614",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "How many hearts does an octopus have?",
+      "choices": [
+        "One",
+        "Two",
+        "Three",
+        "Four"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-72238603",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "What is the mathematical formula of Ohm's law?",
+      "choices": [
+        "I = V*R",
+        "V = I*R",
+        "R = V*I",
+        "V = I / R"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-89444340",
+      "category": "science",
+      "difficulty": "easy",
+      "prompt": "How many moons does Pluto have?",
+      "choices": [
+        "Five",
+        "Two",
+        "Three",
+        "One"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-34913164",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "What mineral has the lowest number on the Mohs scale?",
+      "choices": [
+        "Talc",
+        "Quartz",
+        "Diamond",
+        "Gypsum"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-51072068",
+      "category": "science",
+      "difficulty": "hard",
+      "prompt": "What causes the sound of a heartbeat?",
+      "choices": [
+        "Closure of the heart valves",
+        "Contraction of the heart chambers",
+        "Blood exiting the heart",
+        "Relaxation of the heart chambers"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-05851554",
+      "category": "science",
+      "difficulty": "easy",
+      "prompt": "What does DNA stand for?",
+      "choices": [
+        "Deoxyribogenetic Acid",
+        "Deoxyribogenetic Atoms",
+        "Deoxyribonucleic Acid",
+        "Detoxic Acid"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-31802081",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "What does CPR, the emergency procedure to assist someone who has suffered cardiac arrest, stand for?",
+      "choices": [
+        "Chronic pain relief",
+        "Cardiopulmonary resuscitation",
+        "Cancer pain release",
+        "Contraceptive prevalence rate"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-60913740",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "The medical condition osteoporosis affects which part of the body?",
+      "choices": [
+        "Bones",
+        "Skin",
+        "Brain",
+        "Heart"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-78280195",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "What are human nails made of?",
+      "choices": [
+        "Bone",
+        "Keratin",
+        "Chitin",
+        "Calcium"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-80363809",
+      "category": "science",
+      "difficulty": "easy",
+      "prompt": "What is the standard SI unit for distance?",
+      "choices": [
+        "Angstrom",
+        "Foot",
+        "Fathom",
+        "Metre"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-18421718",
+      "category": "science",
+      "difficulty": "easy",
+      "prompt": "What was the name of the first artificial Earth satellite, launched by the Soviet Union in 1957?",
+      "choices": [
+        "Soyuz 7K-OK",
+        "Zenit-2",
+        "Sputnik 1",
+        "Voskhod 3KV"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-04042176",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "Which one of these scientists conducted the Gold Foil Experiment which concluded that atoms are mostly made of empty space?",
+      "choices": [
+        "Ernest Rutherford",
+        "Joseph John Thomson",
+        "Archimedes",
+        "Niels Henrik David Bohr"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-43566593",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "What was the category of the 2005 hurricane, Hurricane Katrina, in the Saffir-Simpson hurricane wind scale?",
+      "choices": [
+        "Category 1",
+        "Category 5",
+        "Category 4",
+        "Category 2"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-03663908",
+      "category": "science",
+      "difficulty": "hard",
+      "prompt": "Muscle fiber is constructed of bundles small long organelles called what?",
+      "choices": [
+        "Myofibrils",
+        "Epimysium",
+        "Myofiaments",
+        "Myocardium"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-44375576",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "When the Falcon Heavy was launched on it's test flight, what was the only part of the operation that failed?",
+      "choices": [
+        "Center Core Landing",
+        "Side Booster Landing",
+        "Deployment of Starman",
+        "Ignition and Liftoff"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-46460910",
+      "category": "science",
+      "difficulty": "easy",
+      "prompt": "What is the standard SI unit for temperature?",
+      "choices": [
+        "Fahrenheit",
+        "Celsius",
+        "Kelvin",
+        "Rankine"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-17865257",
+      "category": "science",
+      "difficulty": "easy",
+      "prompt": "The asteroid belt is located between which two planets?",
+      "choices": [
+        "Jupiter and Saturn",
+        "Mars and Jupiter",
+        "Mercury and Venus",
+        "Earth and Mars"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-63484665",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "Along with Oxygen, which element is primarily responsible for the sky appearing blue?",
+      "choices": [
+        "Helium",
+        "Nitrogen",
+        "Carbon",
+        "Hydrogen"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-21205076",
+      "category": "science",
+      "difficulty": "hard",
+      "prompt": "What is considered the rarest form of color blindness?",
+      "choices": [
+        "Blue",
+        "Red",
+        "Green",
+        "Purple"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-43400206",
+      "category": "science",
+      "difficulty": "hard",
+      "prompt": "Which of these is a stop codon in DNA?",
+      "choices": [
+        "ACT",
+        "ACA",
+        "TAA",
+        "GTA"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-14689582",
+      "category": "science",
+      "difficulty": "easy",
+      "prompt": "What is the chemical makeup of water?",
+      "choices": [
+        "C12H6O2",
+        "CO2",
+        "H20",
+        "H"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-65338356",
+      "category": "science",
+      "difficulty": "easy",
+      "prompt": "The human heart has how many chambers?",
+      "choices": [
+        "4",
+        "2",
+        "6",
+        "3"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-05312823",
+      "category": "science",
+      "difficulty": "hard",
+      "prompt": "Which moon is the only satellite in our solar system to possess a dense atmosphere?",
+      "choices": [
+        "Europa",
+        "Miranda",
+        "Callisto",
+        "Titan"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-72256197",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "What medication was once commonly used as rat poison?",
+      "choices": [
+        "Aspirin",
+        "Eliquis",
+        "Tylenol",
+        "Coumadin"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-08000089",
+      "category": "science",
+      "difficulty": "easy",
+      "prompt": "71% of the Earth's surface is made up of",
+      "choices": [
+        "Deserts",
+        "Water",
+        "Continents",
+        "Forests"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-29722356",
+      "category": "science",
+      "difficulty": "easy",
+      "prompt": "Which of the following is not one of the groups on the periodic table?",
+      "choices": [
+        "Fluorines",
+        "Alkali Metals",
+        "Halogens",
+        "Noble Gases"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-59190901",
+      "category": "science",
+      "difficulty": "hard",
+      "prompt": "What is the scientific name of the knee cap?",
+      "choices": [
+        "Femur",
+        "Patella",
+        "Foramen Magnum",
+        "Scapula"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-12575191",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "Which of the following spacecraft never touched the moon?",
+      "choices": [
+        "Apollo 11",
+        "Mariner 4",
+        "Luna 2",
+        "SMART-1"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-58940690",
+      "category": "science",
+      "difficulty": "easy",
+      "prompt": "Which of the following bones is not in the leg?",
+      "choices": [
+        "Patella",
+        "Tibia",
+        "Radius",
+        "Fibula "
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-97065709",
+      "category": "science",
+      "difficulty": "easy",
+      "prompt": "What does the letter 'S' stand for in 'NASA'?",
+      "choices": [
+        "Science",
+        "Space",
+        "Society",
+        "Star"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-37494941",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "Which Swiss psychologist is synonymous with the concepts of introvert and extrovert personalities?",
+      "choices": [
+        "Jean Piaget",
+        "Carl Jung",
+        "Alice Miller",
+        "Hermann Rorschach"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-51385546",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "An organism described as \"heliotropic\" has a tendancy to move towards which of these things?",
+      "choices": [
+        "Water",
+        "Trees",
+        "Light",
+        "Pollen"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-42189784",
+      "category": "science",
+      "difficulty": "hard",
+      "prompt": "What is the scientific name of the red fox?",
+      "choices": [
+        "Vulpes Vulpes",
+        "Vulpes Redus",
+        "Red Fox",
+        "Vulpes Vulpie"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-24266439",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "What is the medical term for low blood sugar?",
+      "choices": [
+        "Hypothyroidism",
+        "Hypothermia",
+        "Hypoxia",
+        "Hypoglycemia"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-33078421",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "Which of these is NOT a bone found in the human arm?",
+      "choices": [
+        "Humerus",
+        "Tibia",
+        "Ulna",
+        "Radius"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-38985458",
+      "category": "science",
+      "difficulty": "hard",
+      "prompt": "Which country first successfully farm-hatched and raised bluefin tuna in 1979?",
+      "choices": [
+        "France",
+        "USA",
+        "Japan",
+        "Philippines"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-28845698",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "What part of the brain takes its name from the Greek for seahorse?",
+      "choices": [
+        "Cerebellum",
+        "Thalamus",
+        "Hippocampus",
+        "Amygdala"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-97204862",
+      "category": "history",
+      "difficulty": "medium",
+      "prompt": "What was the name of the planned invasion of Japan towards the end of World War II?",
+      "choices": [
+        "Operation Boarding Party",
+        "Operation Ironclad",
+        "Operation Downfall",
+        "Operation Aflame"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-33878736",
+      "category": "history",
+      "difficulty": "hard",
+      "prompt": "Spain was formed in 1469 with the marriage of Isabella I of Castile and Ferdinand II of what other Iberian kingdom?",
+      "choices": [
+        "Aragon",
+        "Galicia",
+        "León",
+        "Navarre"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-21442984",
+      "category": "history",
+      "difficulty": "hard",
+      "prompt": "Which countries participated in the Lobster War?",
+      "choices": [
+        "France and Brazil",
+        "Canada and Norway",
+        "Australia and New Zealand",
+        "United States and England"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-75942260",
+      "category": "history",
+      "difficulty": "medium",
+      "prompt": "What is the mnemonic device for remembering the fates of the wives of Henry VIII?",
+      "choices": [
+        "Divorced, Beheaded, Died, Divorced, Beheaded, Survived",
+        "Beheaded, Died, Divorced, Divorced, Beheaded, Survived",
+        "Died, Beheaded, Divorced, Beheaded, Survived, Divorced",
+        "Survived, Beheaded, Died, Divorced, Divorced, Beheaded"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-88964991",
+      "category": "history",
+      "difficulty": "hard",
+      "prompt": "When did the French Revolution begin?",
+      "choices": [
+        "April 12 1789",
+        "April 05 1789",
+        "May 06 1799",
+        "May 05 1789"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-49720032",
+      "category": "history",
+      "difficulty": "hard",
+      "prompt": "Who was the last emperor of Mexico?",
+      "choices": [
+        "Ferdinand Maximilian",
+        "Andrés Manuel López Obrador",
+        "Napoleon III",
+        "Agustín de Iturbide"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-27897514",
+      "category": "history",
+      "difficulty": "medium",
+      "prompt": "In what year did the Berlin Wall fall?",
+      "choices": [
+        "1987",
+        "1991",
+        "1989",
+        "1993"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-78406238",
+      "category": "history",
+      "difficulty": "hard",
+      "prompt": "What did the abbreviation \"RMS\" stand for in the RMS Titanic in 1912?",
+      "choices": [
+        "Royal Majesty Service",
+        "Regular Maritime Schedule ",
+        "Royal Mail Ship",
+        "Regulated Maelstrom Sensor"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-76726684",
+      "category": "history",
+      "difficulty": "hard",
+      "prompt": "The Hagia Sophia was commissioned by which emperor of the Byzantine Empire?",
+      "choices": [
+        "Justinian I",
+        "Constantine IV",
+        "Arcadius",
+        "Theodosius the Great"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-13398785",
+      "category": "history",
+      "difficulty": "medium",
+      "prompt": "The Herero genocide was perpetrated in Africa by which of the following colonial nations?",
+      "choices": [
+        "Britain",
+        "Germany",
+        "Belgium",
+        "France"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-91739201",
+      "category": "history",
+      "difficulty": "easy",
+      "prompt": "How many Sister Ships were related to the TItanic?",
+      "choices": [
+        "4",
+        "2",
+        "3",
+        "1"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-97466547",
+      "category": "history",
+      "difficulty": "hard",
+      "prompt": "What did the first vending machines in the early 1880's dispense?",
+      "choices": [
+        "Alcohol",
+        "Cigarettes",
+        "Sodas ",
+        "Post cards"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-55385516",
+      "category": "history",
+      "difficulty": "medium",
+      "prompt": "In 1845, a series of wars named after which indigenous people began in New Zealand?",
+      "choices": [
+        "Māori",
+        "Papuans",
+        "Aborigines",
+        "Polynesians"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-87594894",
+      "category": "history",
+      "difficulty": "easy",
+      "prompt": "The collapse of the Soviet Union took place in which year?",
+      "choices": [
+        "1992",
+        "1891",
+        "1991",
+        "1990"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-36190553",
+      "category": "history",
+      "difficulty": "hard",
+      "prompt": "On which day did ARPANET suffer a 4 hour long network crash?",
+      "choices": [
+        "November 21, 1969",
+        "October 29, 1969",
+        "December 9, 1991",
+        "October 27, 1980"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-46122112",
+      "category": "history",
+      "difficulty": "hard",
+      "prompt": "In the year 1900, what were the most popular first names given to boy and girl babies born in the United States?",
+      "choices": [
+        "John and Mary",
+        "Joseph and Catherine",
+        "William and Elizabeth",
+        "George and Anne"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-44474480",
+      "category": "history",
+      "difficulty": "hard",
+      "prompt": "Where was Napoleon Bonaparte born?",
+      "choices": [
+        "Corsica",
+        "Normandy",
+        "Brittany",
+        "Paris"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-91330901",
+      "category": "history",
+      "difficulty": "hard",
+      "prompt": "The main objective of the German operation \"Case Blue\" during World War II was originally to capture what?",
+      "choices": [
+        "Stalingrad",
+        "Crimea",
+        "Voronezh",
+        "Caucasus"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-19207234",
+      "category": "history",
+      "difficulty": "medium",
+      "prompt": "Joseph Smith was the founder of what religion?",
+      "choices": [
+        "Buddhism",
+        "Christianity",
+        "Mormonism",
+        "Hinduism"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-84332157",
+      "category": "history",
+      "difficulty": "hard",
+      "prompt": "What Southeast Asian country was formerly known as 'Lan Xang'?",
+      "choices": [
+        "Cambodia",
+        "Vietnam",
+        "Thailand",
+        "Laos"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-31060204",
+      "category": "history",
+      "difficulty": "hard",
+      "prompt": "Who was the first man to travel into outer space twice?",
+      "choices": [
+        "Gus Grissom",
+        "Vladimir Komarov",
+        "Charles Conrad",
+        "Yuri Gagarin"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-62863950",
+      "category": "history",
+      "difficulty": "hard",
+      "prompt": "Pianist Frédéric Chopin was a composer of which musical era?",
+      "choices": [
+        "Classic",
+        "Baroque",
+        "Romantic",
+        "Renaissance"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-15755071",
+      "category": "history",
+      "difficulty": "medium",
+      "prompt": "When did the United States formally declare war on Japan, entering World War II?",
+      "choices": [
+        "June 6, 1944",
+        "June 22, 1941",
+        "September 1, 1939",
+        "December 8, 1941"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-06144762",
+      "category": "history",
+      "difficulty": "medium",
+      "prompt": "In what year was the famous 45 foot tall Hollywood sign first erected?",
+      "choices": [
+        "1903",
+        "1913",
+        "1923",
+        "1933"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-53154415",
+      "category": "history",
+      "difficulty": "medium",
+      "prompt": "Adolf Hitler was born on which date?",
+      "choices": [
+        "June 12, 1889",
+        "April 20, 1889",
+        "February 6, 1889",
+        "April 16, 1889"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-88328967",
+      "category": "history",
+      "difficulty": "medium",
+      "prompt": " What Russian automatic gas-operated assault rifle was developed in the Soviet Union in 1947, and is still popularly used today?",
+      "choices": [
+        "RPK",
+        "M16",
+        "MG 42",
+        "AK-47"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-68211383",
+      "category": "history",
+      "difficulty": "hard",
+      "prompt": "Which of the following physicists did NOT work on the Manhattan project?",
+      "choices": [
+        "Richard Feynman",
+        "Murray Gell-Mann",
+        "J. Robert Oppenheimer",
+        "John Von-Neumann"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-72126085",
+      "category": "history",
+      "difficulty": "medium",
+      "prompt": "What was the name of one of the surviving palaces of Henry VIII located near Richmond, London?",
+      "choices": [
+        "St James's Palace",
+        "Buckingham Palace",
+        "Coughton Court",
+        "Hampton Court"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-49012818",
+      "category": "history",
+      "difficulty": "medium",
+      "prompt": "Which Louis was known as 'The Sun King of France'?",
+      "choices": [
+        "Louis XIII",
+        "Louis XV",
+        "Louis XIV",
+        "Louis XVI"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-50512195",
+      "category": "history",
+      "difficulty": "hard",
+      "prompt": "Which of the following Physicists aided Nazi Germany in their production of a nuclear weapon?",
+      "choices": [
+        "John von Neumann",
+        "Albert Einstein",
+        "Max Planck",
+        "Werner Heisenberg"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-68928528",
+      "category": "history",
+      "difficulty": "hard",
+      "prompt": "With which Greek philosopher would you associate the phrase, \"I know that I know nothing\"?",
+      "choices": [
+        "Socrates",
+        "Aristotle",
+        "Plato",
+        "Pythagoras"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-95194317",
+      "category": "history",
+      "difficulty": "easy",
+      "prompt": "How long did World War II last?",
+      "choices": [
+        "4 years",
+        "6 years",
+        "5 years",
+        "7 years"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-89038266",
+      "category": "history",
+      "difficulty": "easy",
+      "prompt": "The \"Trail of Tears\" was a result of which United States President's Indian Removal Policy?",
+      "choices": [
+        "Harry S. Truman",
+        "Martin Van Buren",
+        "Andrew Jackson",
+        "John Quincy Adams"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-26104157",
+      "category": "history",
+      "difficulty": "easy",
+      "prompt": "A collection of Sanskrit hymns and verses known as the Vedas are sacred texts in what religion?",
+      "choices": [
+        "Judaism",
+        "Islam",
+        "Buddhism",
+        "Hinduism"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-25979560",
+      "category": "history",
+      "difficulty": "medium",
+      "prompt": "The Tsar Bomba, the most powerful nuclear bomb ever tested, had a yield of 50 megatons but theoretically had a maximum yield of how much?",
+      "choices": [
+        "100 Megatons",
+        "200 Megatons",
+        "75 Megatons",
+        "150 Megatons"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-66731679",
+      "category": "history",
+      "difficulty": "easy",
+      "prompt": "Which modern day country is the region that was known as Phrygia in ancient times?",
+      "choices": [
+        "Syria",
+        "Turkey",
+        "Greece",
+        "Egypt"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-99037072",
+      "category": "history",
+      "difficulty": "hard",
+      "prompt": "The son of which pope supposedly held a lecherous fête involving 50 courtesans in the papal palace?",
+      "choices": [
+        "Alexander VI",
+        "Innocent V",
+        "Urban II",
+        "Pius III"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-67475152",
+      "category": "history",
+      "difficulty": "medium",
+      "prompt": "What year did Australia become a federation?",
+      "choices": [
+        "1901",
+        "1910",
+        "1899",
+        "1911"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-95969080",
+      "category": "history",
+      "difficulty": "medium",
+      "prompt": "When did the Crisis of the Third Century begin?",
+      "choices": [
+        "235 AD",
+        "235 BC",
+        "242 AD",
+        "210 AD"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-85483404",
+      "category": "history",
+      "difficulty": "medium",
+      "prompt": "What event marked the start of World War II?",
+      "choices": [
+        "Invasion of Poland (1939)",
+        "Invasion of Russia (1942)",
+        "Battle of Britain (1940)",
+        "Invasion of Normandy (1944)"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-51449349",
+      "category": "history",
+      "difficulty": "hard",
+      "prompt": "What micro-state is considered to have the oldest constitution still in effect?",
+      "choices": [
+        "Andorra",
+        "San Marino",
+        "Monaco",
+        "Saint Kitts and Nevis"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-88539819",
+      "category": "history",
+      "difficulty": "medium",
+      "prompt": "Which of these founding fathers of the United States of America later became president?",
+      "choices": [
+        "Alexander Hamilton",
+        "James Monroe",
+        "Samuel Adams",
+        "Roger Sherman"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-75705310",
+      "category": "history",
+      "difficulty": "medium",
+      "prompt": "One of the deadliest pandemics, the \"Spanish Flu\", killed off what percentage of the human world population at the time?",
+      "choices": [
+        "6 to 10 percent",
+        "1 to 3 percent",
+        "3 to 6 percent",
+        "less than 1 percent"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-16197607",
+      "category": "history",
+      "difficulty": "easy",
+      "prompt": "In which war did the atomic bombings of Hiroshima and Nagasaki occur?",
+      "choices": [
+        "World War I",
+        "Russo-Japanese War",
+        "First Sino-Japanese War",
+        "World War II"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-84772391",
+      "category": "history",
+      "difficulty": "easy",
+      "prompt": "The original Roman alphabet lacked the following letters EXCEPT:",
+      "choices": [
+        "W",
+        "U",
+        "J",
+        "X"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-13665217",
+      "category": "history",
+      "difficulty": "medium",
+      "prompt": "On which day did construction start on \"The Pentagon\", the headquarters for the United States Department of Defense?",
+      "choices": [
+        "June 15, 1947",
+        "September 11, 1941",
+        "January 15, 1943",
+        "September 2, 1962"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-59061722",
+      "category": "history",
+      "difficulty": "medium",
+      "prompt": "What year did the Vietnam War end?",
+      "choices": [
+        "1978",
+        "1967",
+        "1975",
+        "1969"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-81453005",
+      "category": "history",
+      "difficulty": "easy",
+      "prompt": "In what year did the Great Northern War, between Russia and Sweden, end?",
+      "choices": [
+        "1726",
+        "1727",
+        "1724",
+        "1721"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-56601471",
+      "category": "history",
+      "difficulty": "hard",
+      "prompt": "How many women joined the United States Armed Services during World War II?",
+      "choices": [
+        "225,000",
+        "100,000",
+        "500,000",
+        "350,000"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "history-78906421",
+      "category": "history",
+      "difficulty": "hard",
+      "prompt": "Which King of England was faced with the Peasants' Revolt in 1381?",
+      "choices": [
+        "Edward III",
+        "Edward II",
+        "Henry IV",
+        "Richard II"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-33739714",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "What country hosted the 2014 Winter Olympics?",
+      "choices": [
+        "Canada",
+        "United States",
+        "Russia",
+        "Germany"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-34741888",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "Who was the British professional wrestler Shirley Crabtree better known as?",
+      "choices": [
+        "Big Daddy",
+        "Giant Haystacks",
+        "Kendo Nagasaki",
+        "Masambula"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-05209097",
+      "category": "sports",
+      "difficulty": "easy",
+      "prompt": "When was the first official international game played?",
+      "choices": [
+        "1880",
+        "1863",
+        "1865",
+        "1872"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-38878495",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "Who was the topscorer for England national football team?",
+      "choices": [
+        "David Beckham",
+        "Wayne Rooney",
+        "Steven Gerrard",
+        "Michael Owen"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-81704697",
+      "category": "sports",
+      "difficulty": "hard",
+      "prompt": "Which male player won the gold medal of table tennis singles in 2016 Olympics Games?",
+      "choices": [
+        "Zhang Jike (China)",
+        "Ma Long (China)",
+        "Jun Mizutani (Japan)",
+        "Vladimir Samsonov (Belarus)"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-32816892",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "Who won the 1994 San Marino Grand Prix, the race in which Ayrton Senna was killed?",
+      "choices": [
+        "Michael Schumacher",
+        "Nicola Larini",
+        "Gerhard Berger",
+        "Mika Häkkinen"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-77531668",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "Which of these jersey numbers has Shaquille O'Neal never worn?",
+      "choices": [
+        "35",
+        "36",
+        "33",
+        "32"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-64606486",
+      "category": "sports",
+      "difficulty": "hard",
+      "prompt": "Which of these Russian cities did NOT contain a stadium that was used in the 2018 FIFA World Cup?",
+      "choices": [
+        "Rostov-on-Don",
+        "Yekaterinburg",
+        "Vladivostok",
+        "Kaliningrad"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-97613257",
+      "category": "sports",
+      "difficulty": "easy",
+      "prompt": "What sport features the terms love, deuce, match and volley?",
+      "choices": [
+        "Cricket",
+        "Tennis",
+        "Basketball",
+        "Curling"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-89814089",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "What is the name of the AHL affiliate of the Toronto Maple Leafs?",
+      "choices": [
+        "Toronto Rock",
+        "Toronto Marlies",
+        "Toronto Argonauts",
+        "Toronto Wolfpack"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-72263207",
+      "category": "sports",
+      "difficulty": "easy",
+      "prompt": "In bowling, what is the term used for getting three consecutive strikes?",
+      "choices": [
+        "Flamingo",
+        "Turkey",
+        "Birdie",
+        "Eagle"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-43025287",
+      "category": "sports",
+      "difficulty": "easy",
+      "prompt": "Which African American is in part responsible for integrating  Major League baseball?",
+      "choices": [
+        "Curt Flood",
+        "Jackie Robinson",
+        "Roy Campanella",
+        "Satchell Paige"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-68743552",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "Which Formula 1 driver switched teams in the middle of the 2017 season?",
+      "choices": [
+        "Carlos Sainz Jr.",
+        "Daniil Kvyat",
+        "Jolyon Palmer",
+        "Rio Haryanto"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-72810285",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "Which basketball team has attended the most NBA grand finals?",
+      "choices": [
+        "Boston Celtics",
+        "Los Angeles Lakers",
+        "Philadelphia 76ers",
+        "Golden State Warriors"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-12282101",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "Which nation hosted the FIFA World Cup in 2006?",
+      "choices": [
+        "United Kingdom",
+        "Germany",
+        "Brazil",
+        "South Africa"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-24723289",
+      "category": "sports",
+      "difficulty": "easy",
+      "prompt": "Which boxer was banned for taking a bite out of Evander Holyfield's ear in 1997?",
+      "choices": [
+        "Roy Jones Jr.",
+        "Evander Holyfield",
+        "Lennox Lewis",
+        "Mike Tyson"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-44703220",
+      "category": "sports",
+      "difficulty": "easy",
+      "prompt": "How many soccer players should be on the field at the same time?",
+      "choices": [
+        "22",
+        "20",
+        "24",
+        "26"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-22356739",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "Which German sportswear company's logo is the 'Formstripe'?",
+      "choices": [
+        "Nike",
+        "Puma",
+        "Adidas",
+        "Reebok"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-51213389",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "How many premier league trophies did Sir Alex Ferguson win during his time at Manchester United?",
+      "choices": [
+        "11",
+        "20",
+        "22",
+        "13"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-23641119",
+      "category": "sports",
+      "difficulty": "easy",
+      "prompt": "The Los Angeles Dodgers were originally from what U.S. city?",
+      "choices": [
+        "Las Vegas",
+        "Brooklyn",
+        "Boston",
+        "Seattle"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-36644472",
+      "category": "sports",
+      "difficulty": "hard",
+      "prompt": "Who won the 1998 Daytona 500?",
+      "choices": [
+        "Dale Earnhardt",
+        "John Anderson",
+        "Jeff Gordon",
+        "Michael Walltrip"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-09878183",
+      "category": "sports",
+      "difficulty": "easy",
+      "prompt": "Who won the UEFA Champions League in 2017?",
+      "choices": [
+        "Atletico Madrid",
+        "Real Madrid C.F.",
+        "AS Monaco FC",
+        "Juventus F.C."
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-78681154",
+      "category": "sports",
+      "difficulty": "easy",
+      "prompt": "Who won the 2016 Formula 1 World Driver's Championship?",
+      "choices": [
+        "Lewis Hamilton",
+        "Max Verstappen",
+        "Nico Rosberg",
+        "Kimi Raikkonen"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-03906170",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "What is the highest belt you can get in Taekwondo?",
+      "choices": [
+        "White",
+        "Red",
+        "Black",
+        "Green"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-17468150",
+      "category": "sports",
+      "difficulty": "easy",
+      "prompt": "Which country hosted the 2020 Summer Olympics?",
+      "choices": [
+        "China",
+        "Australia",
+        "Japan",
+        "Germany"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-79784743",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "Which team was the 2014-2015 NBA Champions?",
+      "choices": [
+        "Cleveland Cavaliers",
+        "Golden State Warriors",
+        "Houston Rockets",
+        "Atlanta Hawks"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-12479544",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "Which of these teams isn't a member of the NHL's \"Original Six\" era?",
+      "choices": [
+        "Philadelphia Flyers",
+        "New York Rangers",
+        "Toronto Maple Leafs",
+        "Boston Bruins"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-94738031",
+      "category": "sports",
+      "difficulty": "easy",
+      "prompt": "What is the name of Manchester United's home stadium?",
+      "choices": [
+        "Anfield",
+        "Old Trafford",
+        "City of Manchester Stadium",
+        "St James Park"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-81982154",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "Which darts player has won the most World Championship titles?",
+      "choices": [
+        "Michael van Gerwen",
+        "Raymond van Barneveld",
+        "Phil Taylor",
+        "Eric Bristow"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-36750987",
+      "category": "sports",
+      "difficulty": "easy",
+      "prompt": "Which driver has been the Formula 1 world champion for a record 7 times?",
+      "choices": [
+        "Ayrton Senna",
+        "Michael Schumacher",
+        "Fernando Alonso",
+        "Jim Clark"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-57667413",
+      "category": "sports",
+      "difficulty": "easy",
+      "prompt": "What was the year of estabilishment of the Bari Italian Football Club?",
+      "choices": [
+        "1945",
+        "1908",
+        "2014",
+        "1895"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-43370776",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "What was Sir Donald Bradman's batting average in test matches?",
+      "choices": [
+        "99.94",
+        "100",
+        "69.51",
+        "44.78"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-87700899",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "With which team did Michael Schumacher make his Formula One debut at the 1991 Belgian Grand Prix?",
+      "choices": [
+        "Benetton",
+        "Ferrari",
+        "Mercedes",
+        "Jordan"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-45367076",
+      "category": "sports",
+      "difficulty": "easy",
+      "prompt": "Which team won 2014 FIFA World Cup in Brazil?",
+      "choices": [
+        "Germany",
+        "Argentina",
+        "Brazil",
+        "Netherlands"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-87148621",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "Who has played the most tournaments on the Brazilian national soccer team?",
+      "choices": [
+        "Ronaldo",
+        "Kaká",
+        "Roberto Carlos",
+        "Cafu"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-05542021",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "In Formula 1, the Virtual Safety Car was introduced following the fatal crash of which driver?",
+      "choices": [
+        "Ayrton Senna",
+        "Jules Bianchi",
+        "Ronald Ratzenberger",
+        "Gilles Villeneuve"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-37781082",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "Which NBA player has the most games played over the course of their career?",
+      "choices": [
+        "Kareem Abdul-Jabbar",
+        "Kevin Garnett",
+        "Robert Parish",
+        "Kobe Bryant"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-50754825",
+      "category": "sports",
+      "difficulty": "hard",
+      "prompt": "The Mazda 787B won the 24 Hours of Le Mans in what year?",
+      "choices": [
+        "1990",
+        "1991",
+        "2000",
+        "1987"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-92930114",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "Which football manager won more trophies than any other during his tenure at English football club Manchester United?",
+      "choices": [
+        "David Moyes",
+        "Louis van Gaal",
+        "Sir Alex Ferguson",
+        "José Mourinho"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-79358022",
+      "category": "sports",
+      "difficulty": "hard",
+      "prompt": "Where was the Games of the XXII Olympiad held?",
+      "choices": [
+        "Barcelona",
+        "Tokyo",
+        "Moscow",
+        "Los Angeles"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-82755921",
+      "category": "sports",
+      "difficulty": "easy",
+      "prompt": "What national team won the first UEFA Nations League?",
+      "choices": [
+        "Netherlands",
+        "Portugal",
+        "England",
+        "Switzerland"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-29894843",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "Why was The Green Monster at Fenway Park was originally built?",
+      "choices": [
+        "To make getting home runs harder.",
+        "To display advertisements.",
+        "To provide extra seating.",
+        "To prevent viewing games from outside the park."
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-13567884",
+      "category": "sports",
+      "difficulty": "easy",
+      "prompt": "Which team won the 2015-16 English Premier League?",
+      "choices": [
+        "Leicester City",
+        "Liverpool",
+        "Cheslea",
+        "Manchester United"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-73342996",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "What national team won the 2016 edition of UEFA European Championship?",
+      "choices": [
+        "Portugal",
+        "France",
+        "Germany",
+        "England"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-15157143",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "Who is Manchester United's top premier league goal scorer?",
+      "choices": [
+        "Sir Bobby Charlton",
+        "Wayne Rooney",
+        "Ryan Giggs",
+        "David Beckham"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-22378595",
+      "category": "sports",
+      "difficulty": "hard",
+      "prompt": "The AHL affiliate team of the Boston Bruins is named what?",
+      "choices": [
+        "New Haven Bruins",
+        "Cambridge Bruins",
+        "Hartford Bruins",
+        "Providence Bruins"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-19956327",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "What cricketing term denotes a batsman being dismissed with a score of zero?",
+      "choices": [
+        "Bye",
+        "Duck",
+        "Beamer",
+        "Carry"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-99178723",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "What is the exact length of one non-curved part in Lane 1 of an Olympic Track?",
+      "choices": [
+        "100m",
+        "100yd",
+        "109.36yd",
+        "84.39m"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-35096558",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "Who was the top scorer of the 2014 FIFA World Cup?",
+      "choices": [
+        "Thomas Müller",
+        "Lionel Messi",
+        "James Rodríguez",
+        "Neymar"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-67418243",
+      "category": "sports",
+      "difficulty": "easy",
+      "prompt": "Who won the premier league title in the 2015-2016 season following a fairy tale run?",
+      "choices": [
+        "Tottenham Hotspur",
+        "Watford",
+        "Stoke City",
+        "Leicester City"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-94196515",
+      "category": "random",
+      "difficulty": "easy",
+      "prompt": "How many legs do butterflies have?",
+      "choices": [
+        "2",
+        "6",
+        "4",
+        "0"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-15657578",
+      "category": "random",
+      "difficulty": "hard",
+      "prompt": "Chronic Wasting Disease (CWD) exclusively infects members of which family of animals?",
+      "choices": [
+        "Hominids",
+        "Felids",
+        "Cervids",
+        "Canids"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-75532391",
+      "category": "random",
+      "difficulty": "medium",
+      "prompt": "About how much of their body weight in food do sea otters eat every day?",
+      "choices": [
+        "10%",
+        "25%",
+        "80%",
+        "45%"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-15214288",
+      "category": "random",
+      "difficulty": "medium",
+      "prompt": "The now extinct species \"Thylacine\" was native to where?",
+      "choices": [
+        "Tasmania, Australia",
+        "Baluchistan, Pakistan",
+        "Wallachia, Romania",
+        "Oregon, United States"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-99799717",
+      "category": "random",
+      "difficulty": "medium",
+      "prompt": "What are rhino's horn made of?",
+      "choices": [
+        "Bone",
+        "Keratin",
+        "Ivory",
+        "Skin"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-43267202",
+      "category": "random",
+      "difficulty": "hard",
+      "prompt": "What is the scientific name of the Budgerigar?",
+      "choices": [
+        "Nymphicus hollandicus",
+        "Pyrrhura molinae",
+        "Melopsittacus undulatus",
+        "Ara macao"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-43159646",
+      "category": "random",
+      "difficulty": "medium",
+      "prompt": "What is the world's longest venomous snake?",
+      "choices": [
+        "Green Anaconda",
+        "Inland Taipan",
+        "King Cobra",
+        "Yellow Bellied Sea Snake"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-06239117",
+      "category": "random",
+      "difficulty": "medium",
+      "prompt": "What is the scientific name for the \"Polar Bear\"?",
+      "choices": [
+        "Polar Bear",
+        "Ursus Spelaeus",
+        "Ursus Arctos",
+        "Ursus Maritimus"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-83506254",
+      "category": "random",
+      "difficulty": "medium",
+      "prompt": "For what reason would a spotted hyena \"laugh\"?",
+      "choices": [
+        "Excitement",
+        "Aggression",
+        "Nervousness",
+        "Exhaustion"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-37994622",
+      "category": "random",
+      "difficulty": "medium",
+      "prompt": "Cashmere is the wool from which kind of animal?",
+      "choices": [
+        "Sheep",
+        "Camel",
+        "Goat",
+        "Llama"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-68437439",
+      "category": "random",
+      "difficulty": "hard",
+      "prompt": "What is the name of the copper-rich protein that creates the blue blood in the Antarctic octopus?",
+      "choices": [
+        "Cytochrome",
+        "Iron",
+        "Methionine",
+        "Hemocyanin"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-07294038",
+      "category": "random",
+      "difficulty": "medium",
+      "prompt": "What does \"hippopotamus\" mean and in what langauge?",
+      "choices": [
+        "River Horse (Latin)",
+        "Fat Pig (Greek)",
+        "River Horse (Greek)",
+        "Fat Pig (Latin)"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-09147095",
+      "category": "random",
+      "difficulty": "easy",
+      "prompt": "Which breed of dog is traditionally associated with firefighters?",
+      "choices": [
+        "German Shepard",
+        "Great Dane",
+        "Mastiff",
+        "Dalmatians"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-95202904",
+      "category": "random",
+      "difficulty": "easy",
+      "prompt": "How many teeth does an adult rabbit have?",
+      "choices": [
+        "28",
+        "30",
+        "26",
+        "24"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-89819338",
+      "category": "random",
+      "difficulty": "medium",
+      "prompt": "Which of the following is NOT a venomous snake?",
+      "choices": [
+        "Malayan Krait",
+        "Yellow bellied sea snake",
+        "Reticulated python",
+        "Black mamba"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-80032172",
+      "category": "random",
+      "difficulty": "medium",
+      "prompt": "What is the average lifespan of a domestic rabbit?",
+      "choices": [
+        "8-12 years",
+        "1-2 years",
+        "4-7 years",
+        "14-20 years"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-55181947",
+      "category": "random",
+      "difficulty": "easy",
+      "prompt": "Hippocampus is the Latin name for which marine creature?",
+      "choices": [
+        "Dolphin",
+        "Seahorse",
+        "Whale",
+        "Octopus"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-31442200",
+      "category": "random",
+      "difficulty": "hard",
+      "prompt": "What bird is born with claws on its wing digits?",
+      "choices": [
+        "Hoatzin",
+        "Cormorant",
+        "Cassowary",
+        "Secretary bird"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-04008576",
+      "category": "random",
+      "difficulty": "hard",
+      "prompt": "Which of these animals is NOT a lizard?",
+      "choices": [
+        "Tuatara",
+        "Komodo Dragon",
+        "Gila Monster",
+        "Green Iguana"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-32047489",
+      "category": "random",
+      "difficulty": "easy",
+      "prompt": "What is Grumpy Cat's real name?",
+      "choices": [
+        "Sauce",
+        "Minnie",
+        "Broccoli",
+        "Tardar Sauce"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-84495108",
+      "category": "random",
+      "difficulty": "easy",
+      "prompt": "By definition, where does an abyssopelagic animal live?",
+      "choices": [
+        "At the bottom of the ocean",
+        "In the desert",
+        "On top of a mountain",
+        "Inside a tree"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-45074729",
+      "category": "random",
+      "difficulty": "hard",
+      "prompt": "What is the scientific name of the cheetah?",
+      "choices": [
+        "Panthera onca",
+        "Acinonyx jubatus",
+        "Lynx rufus",
+        "Felis catus"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-20604911",
+      "category": "random",
+      "difficulty": "hard",
+      "prompt": "Which of these is a colony of polyps and not a jellyfish?",
+      "choices": [
+        "Sea Wasp",
+        "Irukandji",
+        "Sea Nettle",
+        "Portuguese Man-of-War"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-17735926",
+      "category": "random",
+      "difficulty": "hard",
+      "prompt": "What scientific family does the Aardwolf belong to?",
+      "choices": [
+        "Canidae",
+        "Felidae",
+        "Hyaenidae",
+        "Eupleridae"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-34963413",
+      "category": "random",
+      "difficulty": "hard",
+      "prompt": "What is the Gray Wolf's scientific name?",
+      "choices": [
+        "Canis Aureus",
+        "Canis Latrans",
+        "Canis Lupus Lycaon",
+        "Canis Lupus"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-52673220",
+      "category": "random",
+      "difficulty": "medium",
+      "prompt": "What is the national bird of Bahrain?",
+      "choices": [
+        "Bulbul",
+        "Hummingbird",
+        "Falcon",
+        "Sparrow"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-55746559",
+      "category": "random",
+      "difficulty": "medium",
+      "prompt": "What is the scientific name of the Common Chimpanzee?",
+      "choices": [
+        "Gorilla gorilla",
+        "Pan troglodytes",
+        "Pan paniscus",
+        "Panthera leo"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-48196293",
+      "category": "random",
+      "difficulty": "hard",
+      "prompt": "Unlike on most salamanders, this part of a newt is flat?",
+      "choices": [
+        "Head",
+        "Teeth",
+        "Feet",
+        "Tail"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-37644216",
+      "category": "random",
+      "difficulty": "medium",
+      "prompt": "What dog breed is one of the oldest breeds of dog and has flourished since before 400 BCE.",
+      "choices": [
+        "Pugs",
+        "Bulldogs",
+        "Boxers",
+        "Chihuahua"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-75460255",
+      "category": "random",
+      "difficulty": "easy",
+      "prompt": "What is the scientific name for modern day humans?",
+      "choices": [
+        "Homo Ergaster",
+        "Homo Erectus",
+        "Homo Neanderthalensis",
+        "Homo Sapiens"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-88861315",
+      "category": "random",
+      "difficulty": "easy",
+      "prompt": "What is the name of a rabbit's abode?",
+      "choices": [
+        "Nest",
+        "Burrow",
+        "Den",
+        "Dray"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-05750656",
+      "category": "random",
+      "difficulty": "hard",
+      "prompt": "How many known living species of hyenas are there?",
+      "choices": [
+        "4",
+        "8",
+        "2",
+        "6"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-87025839",
+      "category": "random",
+      "difficulty": "easy",
+      "prompt": "The Kākāpō is a large, flightless, nocturnal parrot native to which country?",
+      "choices": [
+        "South Africa",
+        "New Zealand",
+        "Australia",
+        "Madagascar"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-48201779",
+      "category": "random",
+      "difficulty": "hard",
+      "prompt": "Which of the following is another name for the \"Poecilotheria Metallica Tarantula\"?",
+      "choices": [
+        "Hopper",
+        "Silver Stripe",
+        "Woebegone",
+        "Gooty"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-75848401",
+      "category": "random",
+      "difficulty": "hard",
+      "prompt": "To which biological phylum do all mammals, birds and reptiles belong?",
+      "choices": [
+        "Echinodermata",
+        "Annelida",
+        "Placazoa",
+        "Chordata"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-36072040",
+      "category": "random",
+      "difficulty": "hard",
+      "prompt": "What is the scientific name for the Bald Eagle?",
+      "choices": [
+        "Haliaeetus Leucocephalus ",
+        "Tyto Alba",
+        "Cyanocitta Cristata",
+        "Aquila Chrysaetos"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-57248571",
+      "category": "random",
+      "difficulty": "hard",
+      "prompt": "What type of creature is a Bonobo?",
+      "choices": [
+        "Lion",
+        "Ape",
+        "Parrot",
+        "Wildcat"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-36873208",
+      "category": "random",
+      "difficulty": "easy",
+      "prompt": "Wombats are native to which Country?",
+      "choices": [
+        "Australia",
+        "New Zealand",
+        "Papua New Guinea",
+        "Palau"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-52236321",
+      "category": "random",
+      "difficulty": "medium",
+      "prompt": "What is the fastest animal?",
+      "choices": [
+        "Golden Eagle",
+        "Cheetah",
+        "Horsefly",
+        "Peregrine Falcon"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-97454969",
+      "category": "random",
+      "difficulty": "easy",
+      "prompt": "What colour is the female blackbird?",
+      "choices": [
+        "Black",
+        "White",
+        "Yellow",
+        "Brown"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-95437377",
+      "category": "random",
+      "difficulty": "medium",
+      "prompt": "What is the collective noun for rats?",
+      "choices": [
+        "Pack",
+        "Race",
+        "Drift",
+        "Mischief"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-91692144",
+      "category": "random",
+      "difficulty": "medium",
+      "prompt": "What type of animal is a natterjack?",
+      "choices": [
+        "Toad",
+        "Bird",
+        "Fish",
+        "Insect"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-02108596",
+      "category": "random",
+      "difficulty": "hard",
+      "prompt": "What was the name of the Ethiopian Wolf before they knew it was related to wolves?",
+      "choices": [
+        "Simien Jackel",
+        "Ethiopian Coyote",
+        "Amharic Fox",
+        "Canis Simiensis"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-29200787",
+      "category": "random",
+      "difficulty": "medium",
+      "prompt": "What are the scales on all snakes and most lizards are made of?",
+      "choices": [
+        "Ecdysis",
+        "Keratin",
+        "Epidermis",
+        "Ankyloglossia"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-82373760",
+      "category": "random",
+      "difficulty": "easy",
+      "prompt": "What is the collective noun for a group of crows?",
+      "choices": [
+        "Murder",
+        "Pack",
+        "Gaggle",
+        "Herd"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-70626465",
+      "category": "random",
+      "difficulty": "hard",
+      "prompt": "Which species is a \"mountain chicken\"?",
+      "choices": [
+        "Chicken",
+        "Frog",
+        "Horse",
+        "Fly"
+      ],
+      "correctIdx": 1,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-57507873",
+      "category": "random",
+      "difficulty": "medium",
+      "prompt": "Which of these species is not extinct?",
+      "choices": [
+        "Japanese sea lion",
+        "Tasmanian tiger",
+        "Saudi gazelle",
+        "Komodo dragon"
+      ],
+      "correctIdx": 3,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-16667710",
+      "category": "random",
+      "difficulty": "easy",
+      "prompt": "Snakes and lizards are known to flick their tongue, this behavior is to?",
+      "choices": [
+        "Taste the sweet air",
+        "Threaten other species",
+        "Capture scent particles",
+        "Attract female mates"
+      ],
+      "correctIdx": 2,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-27597800",
+      "category": "random",
+      "difficulty": "easy",
+      "prompt": "Which class of animals are newts members of?",
+      "choices": [
+        "Amphibian",
+        "Fish",
+        "Reptiles",
+        "Mammals"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-47933732",
+      "category": "random",
+      "difficulty": "medium",
+      "prompt": "Which animal was part of an Russian domestication experiment in 1959?",
+      "choices": [
+        "Foxes",
+        "Pigeons",
+        "Bears",
+        "Alligators"
+      ],
+      "correctIdx": 0,
+      "fact": "",
+      "source": "opentdb"
+    }
+  ]
+}
