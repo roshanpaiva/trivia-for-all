@@ -2,6 +2,17 @@
 
 All notable changes to Trivia for All are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.4.0.0] - 2026-04-29
+
+### Added
+- **`scripts/seed-questions.ts`** — idempotent seed script. Reads `src/data/questions.json`, validates each entry (category/difficulty enums, exactly 4 choices, `correctIdx` in 0..3), upserts into the `questions` table via `INSERT ... ON CONFLICT (id) DO UPDATE`. Re-runnable after every audit pass; never duplicates rows. Auto-loads `.env.local` like `migrate.ts`. Verified against the live Neon DB — 32 audited questions seeded.
+- **`src/app/globals.css`** — design token wiring per `DESIGN.md`. CSS custom properties (`--ink`, `--canvas`, `--surface`, `--line`, `--muted`, `--accent`, `--accent-soft`, `--accent-strong`, `--success`, `--error`, plus type/spacing/radii scales) on `:root`, mapped into Tailwind v4's `@theme` so utilities like `bg-canvas`, `text-ink`, `text-accent`, `font-display`, `font-body` resolve to design tokens. `:focus-visible` ring uses `--accent`.
+- **`src/app/layout.tsx`** — Cabinet Grotesk loaded via Fontshare CDN (`<link>` in `<head>` + preconnect), Geist via `next/font/google` with all 5 weights (400/500/600/700/800) and `display: swap`. Title + description set to "Trivia for All" / "90 seconds. As many as you can get.". Removed `Geist_Mono` (unused). Body now picks up `bg-canvas text-ink` from the theme.
+
+### Notes
+- All 144 tests pass. `npm run build` clean. Dev server confirms Fontshare links resolve + theme tokens render.
+- Cabinet Grotesk on Fontshare uses `display=swap` so first paint is Geist; Cabinet Grotesk swaps in once the WOFF2 lands. No FOIT.
+
 ## [0.3.0.0] - 2026-04-29
 
 ### Added
