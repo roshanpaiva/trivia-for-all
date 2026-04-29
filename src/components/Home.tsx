@@ -63,13 +63,13 @@ export const Home = ({
         <div className="text-[12px] uppercase tracking-[0.12em] text-[var(--muted)] mb-1">
           {isExhausted ? "All done today" : "Today's daily"}
         </div>
-        <div className="font-display font-bold text-[28px] leading-tight tracking-tight">
+        <h1 className="font-display font-bold text-[28px] leading-tight tracking-tight">
           {isExhausted ? (
             <>Resets in <span className="text-[var(--accent)]">{msUntilReset !== undefined ? formatCountdown(msUntilReset) : "—"}</span></>
           ) : (
             <>90 seconds. <span className="text-[var(--accent)]">As many as you can get.</span></>
           )}
-        </div>
+        </h1>
       </div>
 
       {/* Status pill */}
