@@ -138,7 +138,7 @@ export const PostGame = ({
       </div>
 
       {!isExhausted && (
-        <div className="bg-[var(--surface)] border border-[var(--line)] rounded-md p-4 text-center mb-5" data-testid="best-card">
+        <div className="w-full bg-[var(--surface)] border border-[var(--line)] rounded-lg p-5 text-center mb-5" data-testid="best-card">
           <div className="text-[14px] text-[var(--muted)]">Best today</div>
           <div className="font-display font-bold text-[22px] mt-1">
             {bestToday}{" "}

@@ -114,105 +114,131 @@ export const InGame = ({
     return () => window.clearTimeout(id);
   }, [state.phase, question.prompt, onFinishReading]);
 
+  const onBonusStreak = state.score.streak >= 5;
+
   return (
     <main
-      className="flex min-h-screen flex-col mx-auto max-w-[420px] px-5 py-6 bg-[var(--canvas)] text-[var(--ink)]"
+      className="flex min-h-screen flex-col mx-auto max-w-[420px] bg-[var(--canvas)] text-[var(--ink)]"
       data-testid="in-game"
     >
-      {/* Top status row */}
-      <div className="flex items-center justify-between mb-4 text-[14px] text-[var(--muted)]">
-        <span data-testid="question-counter">
-          Q{questionNumber} of {totalQuestions}
-        </span>
-        <span data-testid="correct-counter" className="tabular-nums">
-          <span className="text-[var(--success)] font-semibold">{state.score.correctCount}</span>
-          <span> correct</span>
-          {state.score.wrongCount > 0 && (
-            <>
-              <span> · </span>
-              <span className="text-[var(--error)] font-semibold">{state.score.wrongCount}</span>
-              <span> wrong</span>
-            </>
+      {/* Sticky top bar — status + clock + streak. Always visible regardless
+          of scroll so the player never loses sight of the timer / counters. */}
+      <div className="sticky top-0 z-10 bg-[var(--canvas)] px-5 pt-4 pb-3 border-b border-[var(--line)]">
+        <div className="flex items-center justify-between mb-2 text-[13px] text-[var(--muted)]">
+          <span data-testid="question-counter">
+            Q{questionNumber} of {totalQuestions}
+          </span>
+          <span data-testid="correct-counter" className="tabular-nums">
+            <span className="text-[var(--success)] font-semibold">{state.score.correctCount}</span>
+            <span> ✓</span>
+            {state.score.wrongCount > 0 && (
+              <>
+                <span> · </span>
+                <span className="text-[var(--error)] font-semibold">{state.score.wrongCount}</span>
+                <span> ✗</span>
+              </>
+            )}
+          </span>
+          <span className="flex items-center gap-1.5">
+            <AudioWaveform active={audioActive} />
+            {state.phase === "reading" ? "Reading" : ""}
+          </span>
+        </div>
+        <Clock ms={state.score.clockMs} />
+        <div className="flex items-center justify-center gap-3 mt-2 text-[13px] text-[var(--muted)]">
+          <span>Streak</span>
+          <strong className="text-[var(--ink)] tabular-nums">{state.score.streak}</strong>
+          <StreakDots streak={state.score.streak} />
+          {onBonusStreak && (
+            <span
+              className="ml-1 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[var(--accent-soft)] text-[var(--accent-strong)] font-semibold text-[12px]"
+              data-testid="streak-fire"
+              aria-label="On a roll: bonus time active"
+            >
+              <span aria-hidden="true">🔥</span>
+              On a roll
+            </span>
           )}
-        </span>
-        <span className="flex items-center gap-2">
-          <AudioWaveform active={audioActive} />
-          {state.phase === "reading" ? "Reading" : ""}
-        </span>
+        </div>
       </div>
 
-      {/* Clock — always visible, dominant element */}
-      <Clock ms={state.score.clockMs} />
-
-      {/* Streak row */}
-      <div className="flex items-center justify-center gap-3 my-4 text-[14px] text-[var(--muted)]">
-        <span>Streak</span>
-        <strong className="text-[var(--ink)] tabular-nums">{state.score.streak}</strong>
-        <StreakDots streak={state.score.streak} />
-      </div>
-
-      {/* Streak announcement (replaces fact) */}
-      {state.phase === "reveal" && state.reveal?.streakAnnouncement && (
-        <div
-          className="text-center my-6"
-          data-testid="streak-reveal"
-          role="status"
-          aria-live="assertive"
-        >
-          <div className="font-display text-[48px] font-extrabold leading-none tracking-tight">
-            {state.reveal.streakAnnouncement === "streak-5" ? "5 in a row" : "10 in a row"}
+      {/* Body */}
+      <div className="px-5 pt-4 pb-6 flex-1">
+        {/* Streak announcement (replaces fact) */}
+        {state.phase === "reveal" && state.reveal?.streakAnnouncement && (
+          <div
+            className="text-center my-3"
+            data-testid="streak-reveal"
+            role="status"
+            aria-live="assertive"
+          >
+            <div className="font-display text-[40px] font-extrabold leading-none tracking-tight">
+              {state.reveal.streakAnnouncement === "streak-5" ? "5 in a row" : "10 in a row"}
+            </div>
+            <div className="text-[var(--muted)] text-[16px] mt-1">Bonus time activated</div>
           </div>
-          <div className="text-[var(--muted)] text-[18px] mt-2">Bonus time activated</div>
-        </div>
-      )}
+        )}
 
-      {/* Question prompt */}
-      <div className="font-display font-semibold text-[22px] leading-tight my-6">
-        {question.prompt}
+        {/* Bonus-streak-lost message during reveal */}
+        {state.phase === "reveal" && state.reveal?.bonusStreakLost && (
+          <div
+            className="text-center mb-2 font-semibold text-[14px] text-[var(--accent-strong)]"
+            data-testid="bonus-streak-lost"
+            role="status"
+            aria-live="polite"
+          >
+            💔 Bonus streak lost
+          </div>
+        )}
+
+        {/* Question prompt */}
+        <div className="font-display font-semibold text-[20px] leading-tight my-3">
+          {question.prompt}
+        </div>
+
+        {/* Result label on reveal (skipped when a streak announcement is showing) */}
+        {state.phase === "reveal" && state.reveal && !state.reveal.streakAnnouncement && (
+          <div
+            className={`text-center mb-2 font-display font-bold text-[20px] ${
+              state.reveal.correct ? "text-[var(--success)]" : "text-[var(--error)]"
+            }`}
+            data-testid="result-label"
+            role="status"
+            aria-live="assertive"
+          >
+            {state.reveal.correct
+              ? "Correct"
+              : state.reveal.correctIdx >= 0
+                ? `Incorrect — the answer was ${question.choices[state.reveal.correctIdx]}`
+                : "Out of time"}
+          </div>
+        )}
+
+        {/* Choices */}
+        <div>
+          {question.choices.map((label, i) => (
+            <ChoiceTile
+              key={i}
+              label={label}
+              state={choiceStateFor(state.phase, state.reveal, i, tappedChoiceIdx)}
+              onClick={() => onTapChoice(i)}
+              shortcutKey={i + 1}
+            />
+          ))}
+        </div>
+
+        {/* Fact text on reveal (when not a streak announcement) */}
+        {state.phase === "reveal" && state.reveal && !state.reveal.streakAnnouncement && state.reveal.fact && (
+          <div
+            className="mt-3 px-3 py-2 rounded-md bg-[var(--surface)] text-[13px] text-[var(--muted)] leading-relaxed"
+            data-testid="fact-text"
+            role="status"
+            aria-live="polite"
+          >
+            {state.reveal.fact}
+          </div>
+        )}
       </div>
-
-      {/* Result label on reveal (skipped when a streak announcement is showing) */}
-      {state.phase === "reveal" && state.reveal && !state.reveal.streakAnnouncement && (
-        <div
-          className={`text-center mb-3 font-display font-bold text-[22px] ${
-            state.reveal.correct ? "text-[var(--success)]" : "text-[var(--error)]"
-          }`}
-          data-testid="result-label"
-          role="status"
-          aria-live="assertive"
-        >
-          {state.reveal.correct
-            ? "Correct"
-            : state.reveal.correctIdx >= 0
-              ? `Incorrect — the answer was ${question.choices[state.reveal.correctIdx]}`
-              : "Out of time"}
-        </div>
-      )}
-
-      {/* Choices */}
-      <div>
-        {question.choices.map((label, i) => (
-          <ChoiceTile
-            key={i}
-            label={label}
-            state={choiceStateFor(state.phase, state.reveal, i, tappedChoiceIdx)}
-            onClick={() => onTapChoice(i)}
-            shortcutKey={i + 1}
-          />
-        ))}
-      </div>
-
-      {/* Fact text on reveal (when not a streak announcement) */}
-      {state.phase === "reveal" && state.reveal && !state.reveal.streakAnnouncement && state.reveal.fact && (
-        <div
-          className="mt-4 px-4 py-3 rounded-md bg-[var(--surface)] text-[14px] text-[var(--muted)] leading-relaxed"
-          data-testid="fact-text"
-          role="status"
-          aria-live="polite"
-        >
-          {state.reveal.fact}
-        </div>
-      )}
 
       {isRecovering && <PauseOverlay />}
     </main>

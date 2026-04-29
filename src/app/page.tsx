@@ -89,6 +89,21 @@ export default function GamePage() {
     );
   }
 
+  // Finalize is a brief server roundtrip. Render a quiet loading shell instead
+  // of falling through to Home, which would flash the name input + Start CTA.
+  if (game.status === "finalizing") {
+    return (
+      <main
+        className="flex min-h-screen flex-col items-center justify-center mx-auto max-w-[420px] px-5 py-6 bg-[var(--canvas)] text-[var(--ink)]"
+        data-testid="finalizing"
+      >
+        <div className="font-display text-[20px] text-[var(--muted)]" role="status" aria-live="polite">
+          Saving your score…
+        </div>
+      </main>
+    );
+  }
+
   if (game.status === "finalized" && game.finalScore) {
     return (
       <PostGame

@@ -73,6 +73,32 @@ describe("gameReducer — phase transitions", () => {
     expect(s.answeringStartedAt).toBeNull();
   });
 
+  it("bonusStreakLost is true on a wrong answer that breaks a >=5 streak", () => {
+    let s = reduce(initialGameState(), { type: "start" });
+    // Build up a 5-streak
+    for (let i = 0; i < 5; i++) {
+      s = reduce(s, { type: "reading-complete", nowMs: 0 });
+      s = reduce(s, { type: "tap-answer", choiceIdx: 0, nowMs: 100 });
+      s = reduce(s, { type: "validation-result", correct: true, correctIdx: 0, fact: "" });
+      s = reduce(s, { type: "reveal-complete" });
+    }
+    expect(s.score.streak).toBe(5);
+    // Now miss
+    s = reduce(s, { type: "reading-complete", nowMs: 0 });
+    s = reduce(s, { type: "tap-answer", choiceIdx: 1, nowMs: 200 });
+    s = reduce(s, { type: "validation-result", correct: false, correctIdx: 0, fact: "" });
+    expect(s.reveal?.bonusStreakLost).toBe(true);
+    expect(s.score.streak).toBe(0);
+  });
+
+  it("bonusStreakLost is false on a wrong answer when not on a bonus streak", () => {
+    let s = reduce(initialGameState(), { type: "start" });
+    s = reduce(s, { type: "reading-complete", nowMs: 0 });
+    s = reduce(s, { type: "tap-answer", choiceIdx: 1, nowMs: 100 });
+    s = reduce(s, { type: "validation-result", correct: false, correctIdx: 0, fact: "" });
+    expect(s.reveal?.bonusStreakLost).toBe(false);
+  });
+
   it("tap-answer records tappedChoiceIdx; reveal-complete clears it", () => {
     // Regression: without explicit tracking, the wrong-answer choice tile was
     // never marked because the UI couldn't tell which one the user picked.

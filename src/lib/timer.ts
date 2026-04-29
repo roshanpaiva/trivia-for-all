@@ -43,6 +43,9 @@ export type RevealResult = {
   fact: string;
   /** Set when the streak just hit 5 or 10 — drives the audio + visual reveal. */
   streakAnnouncement: StreakAnnouncement | null;
+  /** True when this wrong answer broke a bonus streak (previousStreak >= 5).
+   * Drives the "Bonus streak lost" message + clears the 🔥 indicator. */
+  bonusStreakLost: boolean;
 };
 
 export type GameState = {
@@ -130,6 +133,7 @@ export const gameReducer = (
         correctIdx: -1, // unknown — caller can show "time's up" instead of a marker
         fact: "",
         streakAnnouncement: null,
+        bonusStreakLost: state.score.streak >= 5,
       };
       const reachedEnd = gameEndReason(nextScore, state.questionIdx + 1);
       return {
@@ -151,6 +155,7 @@ export const gameReducer = (
         correctIdx: event.correctIdx,
         fact: event.fact,
         streakAnnouncement: correctResult?.announcement ?? null,
+        bonusStreakLost: !event.correct && state.score.streak >= 5,
       };
       const reachedEnd = gameEndReason(nextScore, state.questionIdx + 1);
       return {
