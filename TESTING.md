@@ -1,4 +1,4 @@
-# Testing — Trivia for All
+# Testing — Quizzle
 
 100% test coverage is the goal. Tests let you move fast, trust your instincts, and ship with confidence. Without them, vibe coding is just yolo coding. With them, it's a superpower.
 

@@ -12,10 +12,8 @@ import { BrandMark } from "@/components/BrandMark";
 describe("smoke", () => {
   it("renders BrandMark with the brand text", () => {
     const { container } = render(<BrandMark />);
-    // BrandMark renders "Trivia·for·All" with separator spans, so the text
-    // is split across nodes. Match against the container's textContent.
-    expect(container.textContent).toContain("Trivia");
-    expect(container.textContent).toContain("for");
-    expect(container.textContent).toContain("All");
+    // BrandMark renders "Qu" + "izz" (accent) + "le" across spans, so the
+    // text is split across nodes. Match against the container's textContent.
+    expect(container.textContent).toContain("Quizzle");
   });
 });

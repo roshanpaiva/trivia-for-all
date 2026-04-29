@@ -1,4 +1,4 @@
--- Trivia for All — Database Schema (v0.3.0.0)
+-- Quizzle — Database Schema
 --
 -- Single-source-of-truth for the Postgres schema. Apply manually via
 -- `psql $DATABASE_URL -f src/db/schema.sql` against a fresh Neon database, or
