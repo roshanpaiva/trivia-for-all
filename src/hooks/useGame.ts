@@ -53,6 +53,10 @@ export type UseGameReturn = {
 };
 
 export const useGame = (): UseGameReturn => {
+  // Declared before useReducer so the reducer closure can read it on the first
+  // dispatch — JS temporal-dead-zone would otherwise throw on initial render.
+  const attemptRef = useRef<UseGameReturn["attempt"]>(null);
+
   const [state, baseDispatch] = useReducer(
     (s: GameState, e: GameEvent) => gameReducer(s, e, attemptRef.current?.questions.length ?? 0),
     initialGameState(),
@@ -63,7 +67,6 @@ export const useGame = (): UseGameReturn => {
   const [error, setError] = useState<string | null>(null);
   const [isRecovering, setIsRecovering] = useState(false);
 
-  const attemptRef = useRef<UseGameReturn["attempt"]>(null);
   const audio = useAudio();
 
   // Mirror attempt into ref for the reducer's totalQuestions arg
@@ -75,9 +78,12 @@ export const useGame = (): UseGameReturn => {
     baseDispatch(event);
   }, []);
 
-  // === Tick loop: 100ms while answering ===
+  // === Tick loop: 100ms across every active phase ===
+  // Clock pressures continuously through reading + answering + validating +
+  // reveal — only paused pre-game (idle) and post-game (finished). The reducer
+  // also enforces this gate.
   useEffect(() => {
-    if (state.phase !== "answering") return;
+    if (state.phase === "idle" || state.phase === "finished") return;
     const id = window.setInterval(() => {
       dispatch({ type: "tick", deltaMs: TICK_INTERVAL_MS });
     }, TICK_INTERVAL_MS);
@@ -141,7 +147,7 @@ export const useGame = (): UseGameReturn => {
   // === Caller-driven actions ===
 
   const startGame = useCallback(async (mode: AttemptMode) => {
-    if (status !== "idle") return;
+    if (status === "starting" || status === "playing" || status === "finalizing") return;
     setStatus("starting");
     setError(null);
     audio.unlock();
@@ -159,7 +165,9 @@ export const useGame = (): UseGameReturn => {
       } else {
         setError(err.message ?? "start_failed");
       }
-      setStatus("error");
+      // Drop back to idle so the user can retry. The error message stays in
+      // `error` until the next start attempt clears it.
+      setStatus("idle");
     }
   }, [status, audio, dispatch]);
 

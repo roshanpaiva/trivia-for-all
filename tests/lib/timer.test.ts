@@ -41,11 +41,28 @@ describe("gameReducer — phase transitions", () => {
     expect(s.score.clockMs).toBe(before - 100);
   });
 
-  it("tick during reading does NOT decrement clock", () => {
+  it("tick during reading DOES decrement clock (continuous pressure)", () => {
     let s = reduce(initialGameState(), { type: "start" });
     const before = s.score.clockMs;
     s = reduce(s, { type: "tick", deltaMs: 1000 });
-    expect(s.score.clockMs).toBe(before); // unchanged
+    expect(s.score.clockMs).toBe(before - 1000);
+  });
+
+  it("tick during reveal also decrements clock", () => {
+    // Drive into reveal then assert ticks still count down.
+    let s = reduce(initialGameState(), { type: "start" });
+    s = reduce(s, { type: "reading-complete", nowMs: 0 });
+    s = reduce(s, { type: "tap-answer", choiceIdx: 0, nowMs: 100 });
+    s = reduce(s, { type: "validation-result", correct: true, correctIdx: 0, fact: "f" });
+    expect(s.phase).toBe("reveal");
+    const before = s.score.clockMs;
+    s = reduce(s, { type: "tick", deltaMs: 500 });
+    expect(s.score.clockMs).toBe(before - 500);
+  });
+
+  it("tick in idle does NOT decrement clock", () => {
+    const s = reduce(initialGameState(), { type: "tick", deltaMs: 1000 });
+    expect(s.score.clockMs).toBe(initialGameState().score.clockMs);
   });
 
   it("answering → tap-answer → validating", () => {

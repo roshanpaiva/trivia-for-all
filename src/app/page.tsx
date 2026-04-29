@@ -91,6 +91,11 @@ export default function GamePage() {
     );
   }
 
+  const friendlyError =
+    game.error === "daily_limit_reached"
+      ? "You've used all 5 attempts today. Try practice mode below."
+      : game.error;
+
   return (
     <Home
       bestToday={bestToday}
@@ -98,6 +103,8 @@ export default function GamePage() {
       onStart={handleStart}
       hasResumableAttempt={hasResumable}
       msUntilReset={attemptsRemaining === 0 ? msUntilNextUtcMidnight() : undefined}
+      errorMessage={friendlyError}
+      isStarting={game.status === "starting"}
     />
   );
 }

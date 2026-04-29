@@ -19,6 +19,10 @@ type Props = {
   hasResumableAttempt?: boolean;
   /** Set on the 0/5-used variant. ms until midnight UTC. */
   msUntilReset?: number;
+  /** Surfaces a failure from the start path so users aren't left guessing. */
+  errorMessage?: string | null;
+  /** True while the start request is in flight; disables the button + shows label. */
+  isStarting?: boolean;
 };
 
 const formatCountdown = (ms: number): string => {
@@ -34,6 +38,8 @@ export const Home = ({
   onStart,
   hasResumableAttempt = false,
   msUntilReset,
+  errorMessage = null,
+  isStarting = false,
 }: Props) => {
   const isFirstTime = bestToday === null && attemptsRemaining === 5;
   const isExhausted = attemptsRemaining === 0;
@@ -86,24 +92,37 @@ export const Home = ({
         </span>
       </div>
 
+      {/* Error banner */}
+      {errorMessage && (
+        <div
+          className="mb-3 px-3 py-2 rounded-md border border-[var(--error)] bg-[rgba(163,59,42,0.08)] text-[14px] text-[var(--error)]"
+          role="alert"
+          data-testid="start-error"
+        >
+          Couldn&apos;t start the game: {errorMessage}
+        </div>
+      )}
+
       {/* Primary CTA */}
       {!isExhausted ? (
         <button
           type="button"
           onClick={() => onStart("scored")}
-          className="w-full min-h-[64px] rounded-lg bg-[var(--ink)] text-[var(--canvas)] font-bold text-[22px] hover:opacity-85 transition-opacity"
+          disabled={isStarting}
+          className="w-full min-h-[64px] rounded-lg bg-[var(--ink)] text-[var(--canvas)] font-bold text-[22px] hover:opacity-85 transition-opacity disabled:opacity-60 disabled:cursor-not-allowed"
           data-testid="start-button"
         >
-          {hasResumableAttempt ? "Resume ▸" : "Start ▸"}
+          {isStarting ? "Starting…" : hasResumableAttempt ? "Resume ▸" : "Start ▸"}
         </button>
       ) : (
         <button
           type="button"
           onClick={() => onStart("practice")}
-          className="w-full min-h-[64px] rounded-lg bg-[var(--ink)] text-[var(--canvas)] font-bold text-[22px] hover:opacity-85 transition-opacity"
+          disabled={isStarting}
+          className="w-full min-h-[64px] rounded-lg bg-[var(--ink)] text-[var(--canvas)] font-bold text-[22px] hover:opacity-85 transition-opacity disabled:opacity-60 disabled:cursor-not-allowed"
           data-testid="practice-primary-cta"
         >
-          Practice mode (unlimited)
+          {isStarting ? "Starting…" : "Practice mode (unlimited)"}
         </button>
       )}
 

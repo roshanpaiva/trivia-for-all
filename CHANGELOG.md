@@ -2,6 +2,16 @@
 
 All notable changes to Trivia for All are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.4.0.1] - 2026-04-29
+
+### Fixed
+- **`useGame` crashed on first dispatch** — `attemptRef` was referenced inside the `useReducer` factory closure but declared below it. Hit JS temporal-dead-zone the moment `dispatch({ type: "start" })` ran. Moved the `useRef` above `useReducer`. Existing unit tests didn't catch this because they call `gameReducer` directly, never via the hook.
+- **Start path failed silently on errors** — `useGame.startGame` set `error` and `status: "error"` on failure, but `Home` rendered nothing for either, so users saw a dead button. Added an error banner + `isStarting` label/disabled state on `Home`, wired both from `page.tsx`. Also reset `status` to `"idle"` (not `"error"`) on failure so the user can retry.
+
+### Changed
+- **Clock now ticks continuously across all active phases** — previously paused during reading / validating / reveal, only counting down during answering. The reducer + tick loop now decrement the clock for every phase except `idle` and `finished`, matching the "90-second sprint" pressure intent better. New tests cover reading-phase ticks, reveal-phase ticks, and the idle no-tick guard.
+- **Reveal auto-advance scaled to fact length** — was a fixed 3.5s timeout, which barge-cancelled long facts (the EU-flag fact takes ~10s of TTS). Now uses the same `~70ms/char + 1.5s` heuristic as the reading phase, with a 3.5s floor and 14s ceiling. Streak announcements get the proportional treatment too.
+
 ## [0.4.0.0] - 2026-04-29
 
 ### Added
