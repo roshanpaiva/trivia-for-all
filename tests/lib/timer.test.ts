@@ -73,6 +73,19 @@ describe("gameReducer — phase transitions", () => {
     expect(s.answeringStartedAt).toBeNull();
   });
 
+  it("tap-answer records tappedChoiceIdx; reveal-complete clears it", () => {
+    // Regression: without explicit tracking, the wrong-answer choice tile was
+    // never marked because the UI couldn't tell which one the user picked.
+    let s = reduce(initialGameState(), { type: "start" });
+    s = reduce(s, { type: "reading-complete", nowMs: 0 });
+    s = reduce(s, { type: "tap-answer", choiceIdx: 2, nowMs: 500 });
+    expect(s.tappedChoiceIdx).toBe(2);
+    s = reduce(s, { type: "validation-result", correct: false, correctIdx: 0, fact: "f" });
+    expect(s.tappedChoiceIdx).toBe(2); // survives through reveal
+    s = reduce(s, { type: "reveal-complete" });
+    expect(s.tappedChoiceIdx).toBeNull(); // cleared on advance
+  });
+
   it("reading → tap-answer (barge-in) → validating skips answering", () => {
     let s = reduce(initialGameState(), { type: "start" });
     s = reduce(s, { type: "tap-answer", choiceIdx: 1, nowMs: 100 });

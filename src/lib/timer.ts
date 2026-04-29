@@ -53,6 +53,10 @@ export type GameState = {
   score: ScoreState;
   /** Set when phase === 'answering'. ms since the answering window began. */
   answeringStartedAt: number | null;
+  /** Set when the user taps a choice; cleared on the next reveal-complete.
+   * Drives the "validating-this" + "reveal-wrong" tile styling so the user
+   * sees which one they picked. */
+  tappedChoiceIdx: number | null;
   /** Set when phase === 'reveal'. */
   reveal: RevealResult | null;
   /** Set when phase === 'finished'. */
@@ -64,6 +68,7 @@ export const initialGameState = (): GameState => ({
   questionIdx: 0,
   score: initialScoreState(),
   answeringStartedAt: null,
+  tappedChoiceIdx: null,
   reveal: null,
   endReason: null,
 });
@@ -108,7 +113,12 @@ export const gameReducer = (
     case "tap-answer": {
       // Allowed during READING (barge-in: skip to VALIDATING) or ANSWERING (normal).
       if (state.phase !== "reading" && state.phase !== "answering") return state;
-      return { ...state, phase: "validating", answeringStartedAt: null };
+      return {
+        ...state,
+        phase: "validating",
+        answeringStartedAt: null,
+        tappedChoiceIdx: event.choiceIdx,
+      };
     }
 
     case "soft-cap-elapsed": {
@@ -157,9 +167,21 @@ export const gameReducer = (
       const nextIdx = state.questionIdx + 1;
       // Defensive: if we somehow advance past the question pool, end the game.
       if (nextIdx >= totalQuestions) {
-        return { ...state, phase: "finished", endReason: state.endReason ?? "max-questions", reveal: null };
+        return {
+          ...state,
+          phase: "finished",
+          endReason: state.endReason ?? "max-questions",
+          reveal: null,
+          tappedChoiceIdx: null,
+        };
       }
-      return { ...state, phase: "reading", questionIdx: nextIdx, reveal: null };
+      return {
+        ...state,
+        phase: "reading",
+        questionIdx: nextIdx,
+        reveal: null,
+        tappedChoiceIdx: null,
+      };
     }
 
     case "tick": {

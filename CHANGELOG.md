@@ -2,6 +2,20 @@
 
 All notable changes to Trivia for All are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.4.0.2] - 2026-04-29
+
+### Fixed
+- **Wrong answer not visually marked.** The `tappedChoiceIdx` derivation in `InGame` returned `null` whenever the user got it wrong, so the user's selection wasn't shown — only the correct answer turned green. Promoted `tappedChoiceIdx` to `GameState`, set on `tap-answer`, cleared on `reveal-complete`. The wrong-tile red styling now actually fires.
+
+### Added
+- **Visible result label on reveal.** Above the choices: green "Correct" or red "Incorrect — the answer was X" (or "Out of time" for soft-cap timeouts). `aria-live="assertive"` so screen readers announce it. Skipped when a streak announcement is showing (those carry their own positive framing).
+- **Audio result prefix.** TTS now says "Correct. <fact>" or "Incorrect. <fact>" instead of just the fact, for positive reinforcement on correct + clarity on wrong. Streak announcements unchanged.
+- **Game-end audio announcement.** When the clock hits zero or the question pool ends, TTS speaks "Time's up. You got X right." or "All done. You got X right." 150ms delay defends against the existing finalize-effect `audio.cancel()` clipping the start.
+- **Running correct/wrong counter** in the in-game top status row. Shows `N correct` always; appends `· M wrong` once any wrongs land. Tabular numerals, color-coded with `--success` / `--error`.
+
+### Notes
+- 147 tests pass (1 new regression test for `tappedChoiceIdx` lifecycle: set on tap, survives through reveal, clears on advance). `npm run build` clean.
+
 ## [0.4.0.1] - 2026-04-29
 
 ### Fixed
