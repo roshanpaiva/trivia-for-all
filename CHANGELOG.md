@@ -2,30 +2,19 @@
 
 All notable changes to Trivia for All are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
-## [0.2.0.0] - 2026-04-28
+## [0.1.1.0] - 2026-04-28
 
 ### Added
-- Next.js 16 (App Router) + React 19 + TypeScript + Tailwind CSS 4 scaffolded via `create-next-app`. `src/` directory layout with `@/*` import alias.
-- Placeholder home page at `src/app/page.tsx` rendering the brand mark + "Coming soon. 90 seconds. As many as you can get." (real game UI lands in subsequent PRs).
-- **Vitest 2** for unit + component tests, jsdom environment, `@testing-library/react` configured. One smoke test (`tests/smoke.test.tsx`) covers the home page.
-- **Playwright 1.59** for E2E. Config targets desktop Chromium + iPhone 14 (mobile Safari emulation). One smoke spec (`e2e/smoke.spec.ts`).
-- `TESTING.md` documents the testing philosophy, layers, conventions, and run commands.
-- `CLAUDE.md` gains a `## Testing` section pointing at TESTING.md and stating the test expectations.
-- `.github/workflows/ci.yml` runs Vitest + Next.js build on every push and PR; runs Playwright E2E on a separate job and uploads the report as an artifact.
-- `AGENTS.md` (kept from create-next-app) flags that this is Next.js 16, not the version your training data knows about.
-- README.md rewritten with stack, get-started commands, testing commands, project layout.
+- **300 trivia question candidates** fetched from Open Trivia DB (CC BY-SA 4.0) across the 6 v1 categories: general (50), geography (50), science (50), history (50), sports (50), random/animals (50). Difficulty distribution close to the design target: 90 easy / 136 medium / 74 hard. Saved as `src/data/questions-raw.json`.
+- **`scripts/fetch-questions.py`** — re-runnable fetcher. Generates a fresh OTDB session token, hits each category once, decodes base64 payloads, dedupes prompts, maps to the project's `Question` schema, writes the raw JSON. ~10 seconds end to end.
+- **`scripts/audit-questions.py`** — interactive terminal auditor. Steps through unaudited candidates, lets you keep/skip/edit each, prompts for the `fact` text on keepers, saves after every keep so progress survives crashes. Filterable by category, target-cap (default 200).
+- **`src/data/questions.json`** — the **audited** bank (7 exemplar entries to start, with hand-drafted facts as voice/style references). Audit script grows this toward the 200 target.
+- **`src/data/README.md`** — schema, audit workflow, what-to-keep criteria, what-to-write-in-fact criteria, re-fetching instructions, license attribution notes.
 
 ### Notes
-- Day 0 TTS spike result (browser-native speechSynthesis) committed separately on `roshanpaiva/day-0-tts-spike` → PR #2. If that PR merges before this one, the TTS Strategy section in CLAUDE.md will need a trivial 3-way merge (this PR adds `## Testing`, that PR adds `## TTS Strategy`).
-- `npm test` runs Vitest. `npm run test:e2e` runs Playwright (first-time needs `npx playwright install --with-deps chromium webkit`).
-- `npm run build` succeeds. TypeScript type-checks cleanly. Vitest passes 2/2.
-## [0.1.0.1] - 2026-04-28
-
-### Added
-- `CLAUDE.md` — `## TTS Strategy` section. v1 ships browser-native `speechSynthesis` after Day 0 device spike confirmed both gating devices (iPhone Safari + Android Chrome) cleared the failure threshold. Saves the half-to-one weekend that server-cached MP3 infrastructure would have cost. Caveats and v2 wake-lock revisit conditions documented.
-
-### Notes
-- Spike artifact (test page + filled scorecard) archived at `~/.gstack/projects/roshanpaiva-trivia-for-all/spikes/`.
+- Audit is the human-judgment pass. Per the design doc estimate, this is ~2 weekends of focused work for a solo dev. Use `python3 scripts/audit-questions.py` to step through it efficiently.
+- The 7 exemplar facts in `questions.json` are deliberately safe, widely-verifiable picks across categories (butterflies' six legs, antibiotics vs viruses, EU flag's 12 stars, Rio's Portuguese name, Uranus's Shakespearean moons, sweet potato origins, Sochi 2014 cost). They show what good `fact` text looks like — short, surprising, verifiable, kid-and-adult-friendly.
+- Open Trivia DB content requires CC BY-SA 4.0 attribution. App footer + `LICENSE-CONTENT.md` to be added in a subsequent PR.
 
 ## [0.1.0.0] - 2026-04-27
 
