@@ -8,7 +8,7 @@ describe("Home — variants", () => {
       <Home bestToday={null} attemptsRemaining={5} onStart={() => {}} />
     );
     expect(screen.getByTestId("how-to-play")).toBeInTheDocument();
-    expect(screen.getByTestId("how-to-play").textContent).toContain("90s");
+    expect(screen.getByTestId("how-to-play").textContent).toContain("120s");
   });
 
   it("returning user with attempts: shows best score + 'X of 5 attempts left' pill", () => {

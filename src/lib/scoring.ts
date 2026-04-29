@@ -1,5 +1,5 @@
 /**
- * Scoring formula and leaderboard tiebreaker for the 90-second sprint.
+ * Scoring formula and leaderboard tiebreaker for the 120-second sprint.
  *
  * Pure functions. No side effects. The state machine that owns these is in the
  * UI layer (timer + game loop); these functions just produce next-state from
@@ -8,7 +8,7 @@
  * Source of truth: design doc → "Scoring Formula" section.
  *
  *     CLOCK
- *     ├── BASE_CLOCK_MS = 90s
+ *     ├── BASE_CLOCK_MS = 120s
  *     ├── streak >= 5  → +10s per correct
  *     ├── streak >= 10 → +15s per correct (REPLACES +10s, does NOT stack)
  *     ├── wrong → streak resets to 0, no clock penalty
@@ -20,7 +20,7 @@
 
 import type { ScoreRow } from "./types";
 
-export const BASE_CLOCK_MS = 90_000;
+export const BASE_CLOCK_MS = 120_000;
 export const STREAK_BONUS_5_MS = 10_000;
 export const STREAK_BONUS_10_MS = 15_000;
 export const MAX_CLOCK_MS = 240_000;

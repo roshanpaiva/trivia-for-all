@@ -11,7 +11,7 @@ const geistSans = Geist({
 
 export const metadata: Metadata = {
   title: "Quizzle",
-  description: "90 seconds. As many as you can get.",
+  description: "120 seconds. As many as you can get.",
 };
 
 export default function RootLayout({

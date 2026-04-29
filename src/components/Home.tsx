@@ -85,7 +85,7 @@ export const Home = ({
         <BrandMark audioActive={audioActive} />
         {isFirstTime ? (
           <span className="text-[14px] text-[var(--muted)]" data-testid="how-to-play">
-            90s. Tap fast. Streaks add bonus time.
+            120s. Tap fast. Streaks add bonus time.
           </span>
         ) : (
           <span className="text-[14px] text-[var(--muted)]">
@@ -103,7 +103,7 @@ export const Home = ({
           {isExhausted ? (
             <>Try again in <span className="text-[var(--accent)]">{msUntilReset !== undefined ? formatCountdown(msUntilReset) : "—"}</span></>
           ) : (
-            <>90 seconds. <span className="text-[var(--accent)]">As many as you can get.</span></>
+            <>120 seconds. <span className="text-[var(--accent)]">As many as you can get.</span></>
           )}
         </h1>
       </div>
