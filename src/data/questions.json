@@ -1160,6 +1160,711 @@
       "correctIdx": 1,
       "fact": "It is known for its historic architecture, vibrant harbor (Nyhavn), and biking culture",
       "source": "opentdb"
+    },
+    {
+      "id": "geography-53355896",
+      "category": "geography",
+      "difficulty": "easy",
+      "prompt": "What is the capital of Bangladesh?",
+      "choices": [
+        "Dhaka",
+        "Khulna",
+        "London",
+        "Lahore"
+      ],
+      "correctIdx": 0,
+      "fact": "Dhaka is also one of the world's most densely populated urban areas",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-76164025",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "What is the capital of British Columbia, Canada?",
+      "choices": [
+        "Vancouver",
+        "Hope",
+        "Kelowna",
+        "Victoria"
+      ],
+      "correctIdx": 3,
+      "fact": "Victoria is one of the oldest cities in the Pacific Northwest",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-57862825",
+      "category": "geography",
+      "difficulty": "easy",
+      "prompt": "Which ocean borders the west coast of the United States?",
+      "choices": [
+        "Atlantic",
+        "Pacific",
+        "Indian",
+        "Arctic"
+      ],
+      "correctIdx": 1,
+      "fact": "It is the largest and deepest ocean on Earth",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-45341898",
+      "category": "geography",
+      "difficulty": "easy",
+      "prompt": "What is the nickname for the US state Delaware?",
+      "choices": [
+        "The Fiftieth State",
+        "The Second State",
+        "The First State",
+        "The Sixteenth State"
+      ],
+      "correctIdx": 2,
+      "fact": "Delaware was the first of the 13 original colonies to ratify the U.S. Constitution",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-91544839",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "What polymer is used to make CDs, safety goggles and riot shields?",
+      "choices": [
+        "Rubber",
+        "Polycarbonate",
+        "Nylon",
+        "Bakelite"
+      ],
+      "correctIdx": 1,
+      "fact": "It is chosen for these applications due to its high transparency, exceptional impact resistance, lightweight nature, and durability",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-42090504",
+      "category": "science",
+      "difficulty": "easy",
+      "prompt": "What is the standard SI unit for mass?",
+      "choices": [
+        "Kilogram",
+        "Tonne",
+        "Pound",
+        "Gram"
+      ],
+      "correctIdx": 0,
+      "fact": "The unit is abbreviated as",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-81289539",
+      "category": "science",
+      "difficulty": "easy",
+      "prompt": "Which of the following blood vessels carries deoxygenated blood?",
+      "choices": [
+        "Pulmonary Vein",
+        "Pulmonary Artery",
+        "Aorta",
+        "Coronary Artery"
+      ],
+      "correctIdx": 1,
+      "fact": "It transports blood from the right ventricle of the heart to the lungs for oxygenation",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-94600016",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "What is the study of the cells and tissues of plants and animals?",
+      "choices": [
+        "Histology",
+        "Microbiology",
+        "Anatomy",
+        "Biochemistry"
+      ],
+      "correctIdx": 0,
+      "fact": "It is essential for understanding how structures function",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-42817557",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "What is the lowest layer of the Earth's atmosphere named?",
+      "choices": [
+        "Stratosphere",
+        "Troposphere",
+        "Mesosphere",
+        "Thermosphere"
+      ],
+      "correctIdx": 1,
+      "fact": "This layer contains 80% of the atmosphere's mass, 99% of its water vapor, and is where nearly all weather phenomena occur.",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-62206345",
+      "category": "science",
+      "difficulty": "easy",
+      "prompt": "Human cells typically have how many copies of each gene?",
+      "choices": [
+        "1",
+        "2",
+        "4",
+        "3"
+      ],
+      "correctIdx": 1,
+      "fact": "Human body cells have 46 chromosomes in 23 pairs. They carry two copies of every gene, getting one from each parent.",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-29817614",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "How many hearts does an octopus have?",
+      "choices": [
+        "One",
+        "Two",
+        "Three",
+        "Four"
+      ],
+      "correctIdx": 2,
+      "fact": "Two hearts pump blood to the gills, while a third heart moves it to the rest of the body",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-72238603",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "What is the mathematical formula of Ohm's law?",
+      "choices": [
+        "I = V*R",
+        "V = I*R",
+        "R = V*I",
+        "V = I / R"
+      ],
+      "correctIdx": 1,
+      "fact": "Ohm's law defines the relationship between voltage, current and resistance",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-51072068",
+      "category": "science",
+      "difficulty": "hard",
+      "prompt": "What causes the sound of a heartbeat?",
+      "choices": [
+        "Closure of the heart valves",
+        "Contraction of the heart chambers",
+        "Blood exiting the heart",
+        "Relaxation of the heart chambers"
+      ],
+      "correctIdx": 0,
+      "fact": "These valves snap shut to ensure one-way blood flow and prevent backflow",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-31802081",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "What does CPR, the emergency procedure to assist someone who has suffered cardiac arrest, stand for?",
+      "choices": [
+        "Chronic pain relief",
+        "Cardiopulmonary resuscitation",
+        "Cancer pain release",
+        "Contraceptive prevalence rate"
+      ],
+      "correctIdx": 1,
+      "fact": "It is an emergency life-saving procedure",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-60913740",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "The medical condition osteoporosis affects which part of the body?",
+      "choices": [
+        "Bones",
+        "Skin",
+        "Brain",
+        "Heart"
+      ],
+      "correctIdx": 0,
+      "fact": "Cause bones to become weak, brittle, and highly prone to fractures",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-78280195",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "What are human nails made of?",
+      "choices": [
+        "Bone",
+        "Keratin",
+        "Chitin",
+        "Calcium"
+      ],
+      "correctIdx": 1,
+      "fact": "Which is the same substance found in hair, skin, and animal hooves",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-80363809",
+      "category": "science",
+      "difficulty": "easy",
+      "prompt": "What is the standard SI unit for distance?",
+      "choices": [
+        "Angstrom",
+        "Foot",
+        "Fathom",
+        "Metre"
+      ],
+      "correctIdx": 3,
+      "fact": "Represented by the symbol m",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-18421718",
+      "category": "science",
+      "difficulty": "easy",
+      "prompt": "What was the name of the first artificial Earth satellite, launched by the Soviet Union in 1957?",
+      "choices": [
+        "Soyuz 7K-OK",
+        "Zenit-2",
+        "Sputnik 1",
+        "Voskhod 3KV"
+      ],
+      "correctIdx": 2,
+      "fact": "It orbited the Earth for three months, triggering the Space Race",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-46460910",
+      "category": "science",
+      "difficulty": "easy",
+      "prompt": "What is the standard SI unit for temperature?",
+      "choices": [
+        "Fahrenheit",
+        "Celsius",
+        "Kelvin",
+        "Rankine"
+      ],
+      "correctIdx": 2,
+      "fact": "It is used for scientific measurements and is an absolute temperature scale",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-63484665",
+      "category": "science",
+      "difficulty": "medium",
+      "prompt": "Along with Oxygen, which element is primarily responsible for the sky appearing blue?",
+      "choices": [
+        "Helium",
+        "Nitrogen",
+        "Carbon",
+        "Hydrogen"
+      ],
+      "correctIdx": 1,
+      "fact": "Rayleigh scattering spreads blue light in all directions more than other colors.",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-14689582",
+      "category": "science",
+      "difficulty": "easy",
+      "prompt": "What is the chemical makeup of water?",
+      "choices": [
+        "C12H6O2",
+        "CO2",
+        "H20",
+        "H"
+      ],
+      "correctIdx": 2,
+      "fact": "One oxygen atom covalently bonded to two hydrogen atoms",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-65338356",
+      "category": "science",
+      "difficulty": "easy",
+      "prompt": "The human heart has how many chambers?",
+      "choices": [
+        "4",
+        "2",
+        "6",
+        "3"
+      ],
+      "correctIdx": 0,
+      "fact": "Two upper atria receive blood, while two lower ventricles pump it out",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-08000089",
+      "category": "science",
+      "difficulty": "easy",
+      "prompt": "71% of the Earth's surface is made up of",
+      "choices": [
+        "Deserts",
+        "Water",
+        "Continents",
+        "Forests"
+      ],
+      "correctIdx": 1,
+      "fact": "Primarily in the form of oceans",
+      "source": "opentdb"
+    },
+    {
+      "id": "science-97065709",
+      "category": "science",
+      "difficulty": "easy",
+      "prompt": "What does the letter 'S' stand for in 'NASA'?",
+      "choices": [
+        "Science",
+        "Space",
+        "Society",
+        "Star"
+      ],
+      "correctIdx": 1,
+      "fact": "NASA is an acronym for the National Aeronautics and Space Administration",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-32816892",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "Who won the 1994 San Marino Grand Prix, the race in which Ayrton Senna was killed?",
+      "choices": [
+        "Michael Schumacher",
+        "Nicola Larini",
+        "Gerhard Berger",
+        "Mika Häkkinen"
+      ],
+      "correctIdx": 0,
+      "fact": "Michael Schumacher, driving for Benetton-Ford won the 1994 San Marino Grand Prix in Imola",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-77531668",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "Which of these jersey numbers has Shaquille O'Neal never worn?",
+      "choices": [
+        "35",
+        "36",
+        "33",
+        "32"
+      ],
+      "correctIdx": 0,
+      "fact": "Shaquille O'Neal has worn jersey numbers 32, 33, 34, and 36 during his professional NBA career",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-97613257",
+      "category": "sports",
+      "difficulty": "easy",
+      "prompt": "What sport features the terms love, deuce, match and volley?",
+      "choices": [
+        "Cricket",
+        "Tennis",
+        "Basketball",
+        "Curling"
+      ],
+      "correctIdx": 1,
+      "fact": "These terms are central to the unique scoring system and gameplay mechanics of tennis",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-72263207",
+      "category": "sports",
+      "difficulty": "easy",
+      "prompt": "In bowling, what is the term used for getting three consecutive strikes?",
+      "choices": [
+        "Flamingo",
+        "Turkey",
+        "Birdie",
+        "Eagle"
+      ],
+      "correctIdx": 1,
+      "fact": "Other consecutive strike terms include a \"double\" (two strikes) and a \"hambone\" (four strikes)",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-43025287",
+      "category": "sports",
+      "difficulty": "easy",
+      "prompt": "Which African American is in part responsible for integrating  Major League baseball?",
+      "choices": [
+        "Curt Flood",
+        "Jackie Robinson",
+        "Roy Campanella",
+        "Satchell Paige"
+      ],
+      "correctIdx": 1,
+      "fact": "His entry into the league was not only a sporting milestone but a major moment in the American Civil Rights Movement, challenging traditional segregation",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-68743552",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "Which Formula 1 driver switched teams in the middle of the 2017 season?",
+      "choices": [
+        "Carlos Sainz Jr.",
+        "Daniil Kvyat",
+        "Jolyon Palmer",
+        "Rio Haryanto"
+      ],
+      "correctIdx": 0,
+      "fact": "He moved from Toro Rosso to Renault starting at the 2017 United States Grand Prix",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-72810285",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "Which basketball team has attended the most NBA grand finals?",
+      "choices": [
+        "Boston Celtics",
+        "Los Angeles Lakers",
+        "Philadelphia 76ers",
+        "Golden State Warriors"
+      ],
+      "correctIdx": 1,
+      "fact": "They reached the championship series 32 times",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-12282101",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "Which nation hosted the FIFA World Cup in 2006?",
+      "choices": [
+        "United Kingdom",
+        "Germany",
+        "Brazil",
+        "South Africa"
+      ],
+      "correctIdx": 1,
+      "fact": "This was Germany's first as a unified country. Italy won the 2006 tournament, defeating France in the final.",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-24723289",
+      "category": "sports",
+      "difficulty": "easy",
+      "prompt": "Which boxer was banned for taking a bite out of Evander Holyfield's ear in 1997?",
+      "choices": [
+        "Roy Jones Jr.",
+        "Evander Holyfield",
+        "Lennox Lewis",
+        "Mike Tyson"
+      ],
+      "correctIdx": 3,
+      "fact": "The incident, often called \"The Bite Fight,\" resulted in a 16-month suspension and a $3 million fine",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-44703220",
+      "category": "sports",
+      "difficulty": "easy",
+      "prompt": "How many soccer players should be on the field at the same time?",
+      "choices": [
+        "22",
+        "20",
+        "24",
+        "26"
+      ],
+      "correctIdx": 0,
+      "fact": "11 players per team",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-51213389",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "How many premier league trophies did Sir Alex Ferguson win during his time at Manchester United?",
+      "choices": [
+        "11",
+        "20",
+        "22",
+        "13"
+      ],
+      "correctIdx": 3,
+      "fact": "He won 13 Premier League titles during his tenure as Manchester United manager between 1986 and 2013",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-23641119",
+      "category": "sports",
+      "difficulty": "easy",
+      "prompt": "The Los Angeles Dodgers were originally from what U.S. city?",
+      "choices": [
+        "Las Vegas",
+        "Brooklyn",
+        "Boston",
+        "Seattle"
+      ],
+      "correctIdx": 1,
+      "fact": "Founded in 1883, the team played in Brooklyn for over 70 years",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-78681154",
+      "category": "sports",
+      "difficulty": "easy",
+      "prompt": "Who won the 2016 Formula 1 World Driver's Championship?",
+      "choices": [
+        "Lewis Hamilton",
+        "Max Verstappen",
+        "Nico Rosberg",
+        "Kimi Raikkonen"
+      ],
+      "correctIdx": 2,
+      "fact": "Driving for the Mercedes AMG Petronas team, he secured his first and only world title by finishing 5 points ahead of teammate Lewis Hamilton",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-03906170",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "What is the highest belt you can get in Taekwondo?",
+      "choices": [
+        "White",
+        "Red",
+        "Black",
+        "Green"
+      ],
+      "correctIdx": 2,
+      "fact": "Often considered the highest attainable rank for a Grandmaster",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-79784743",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "Which team was the 2014-2015 NBA Champions?",
+      "choices": [
+        "Cleveland Cavaliers",
+        "Golden State Warriors",
+        "Houston Rockets",
+        "Atlanta Hawks"
+      ],
+      "correctIdx": 1,
+      "fact": "They defeated the Cleveland Cavaliers 4-2",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-94738031",
+      "category": "sports",
+      "difficulty": "easy",
+      "prompt": "What is the name of Manchester United's home stadium?",
+      "choices": [
+        "Anfield",
+        "Old Trafford",
+        "City of Manchester Stadium",
+        "St James Park"
+      ],
+      "correctIdx": 1,
+      "fact": "Often referred to as the \"Theatre of Dreams\"",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-81982154",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "Which darts player has won the most World Championship titles?",
+      "choices": [
+        "Michael van Gerwen",
+        "Raymond van Barneveld",
+        "Phil Taylor",
+        "Eric Bristow"
+      ],
+      "correctIdx": 2,
+      "fact": "He secured a record 16 world titles",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-36750987",
+      "category": "sports",
+      "difficulty": "easy",
+      "prompt": "Which driver has been the Formula 1 world champion for a record 7 times?",
+      "choices": [
+        "Ayrton Senna",
+        "Michael Schumacher",
+        "Fernando Alonso",
+        "Jim Clark"
+      ],
+      "correctIdx": 1,
+      "fact": "Michael Schumacher and Lewis Hamilton are the only two Formula 1 drivers to hold the record of winning seven World Drivers' Championships",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-43370776",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "What was Sir Donald Bradman's batting average in test matches?",
+      "choices": [
+        "99.94",
+        "100",
+        "69.51",
+        "44.78"
+      ],
+      "correctIdx": 0,
+      "fact": "This average is famously regarded as the greatest statistical achievement in any major sport",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-87700899",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "With which team did Michael Schumacher make his Formula One debut at the 1991 Belgian Grand Prix?",
+      "choices": [
+        "Benetton",
+        "Ferrari",
+        "Mercedes",
+        "Jordan"
+      ],
+      "correctIdx": 3,
+      "fact": "Driving the No. 32 Jordan 191, he impressed by qualifying seventh but retired on the opening lap due to a clutch failure",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-29894843",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "Why was The Green Monster at Fenway Park was originally built?",
+      "choices": [
+        "To make getting home runs harder.",
+        "To display advertisements.",
+        "To provide extra seating.",
+        "To prevent viewing games from outside the park."
+      ],
+      "correctIdx": 3,
+      "fact": "Then owner commissioned the high wall to block the view from nearby businesses and to protect their windows from baseballs",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-15157143",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "Who is Manchester United's top premier league goal scorer?",
+      "choices": [
+        "Sir Bobby Charlton",
+        "Wayne Rooney",
+        "Ryan Giggs",
+        "David Beckham"
+      ],
+      "correctIdx": 1,
+      "fact": "He scored 183 goals",
+      "source": "opentdb"
+    },
+    {
+      "id": "sports-19956327",
+      "category": "sports",
+      "difficulty": "medium",
+      "prompt": "What cricketing term denotes a batsman being dismissed with a score of zero?",
+      "choices": [
+        "Bye",
+        "Duck",
+        "Beamer",
+        "Carry"
+      ],
+      "correctIdx": 1,
+      "fact": "It comes from \"duck’s egg,\" because a zero looks like an egg.",
+      "source": "opentdb"
     }
   ]
 }
