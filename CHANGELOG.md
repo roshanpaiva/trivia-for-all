@@ -2,6 +2,42 @@
 
 All notable changes to Trivia for All are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.3.0.0] - 2026-04-29
+
+### Added
+- **`src/lib/timer.ts`** — pure-function game state machine with `gameReducer` and 7 event types (`start`, `reading-complete`, `tap-answer`, `soft-cap-elapsed`, `validation-result`, `reveal-complete`, `tick`, `pause`, `resume`). Implements the READING → ANSWERING → VALIDATING → REVEAL → NEXT loop from the design doc. Pure: no setInterval. The hook owns the tick loop. Per D2 from `/plan-eng-review`: client owns the clock at v1.
+- **`src/lib/api.ts`** — typed fetch client for the backend routes: `startAttempt`, `getCurrentAttempt`, `submitAnswer`, `submitAnswerWithRetry` (10-retry / 3s backoff per D6 from `/plan-design-review`), `finalizeAttempt`, `getLeaderboard`, `signupForNotify`. `ApiError` class with `code` field for branchable error handling.
+- **`src/hooks/useAudio.ts`** — React adapter around `createAudioService`. Owns lifecycle (unlock once, teardown on unmount).
+- **`src/hooks/useGame.ts`** — game loop hook. Owns the timer reducer + 100ms tick loop (only ticks during `answering`) + 12s soft-cap timer + API calls + audio wiring. Components stay simple — they render based on `state.phase`.
+- **Components (`src/components/`):**
+  - `BrandMark` — Trivia·for·All + audio waveform
+  - `AudioWaveform` — 5-bar mark, animates when audio active, respects `prefers-reduced-motion`
+  - `Clock` — big mm:ss display, tabular numerals, +10s/+15s flying number animation
+  - `StreakDots` — segmented progress dots toward next bonus (D4 from `/plan-design-review`)
+  - `ChoiceTile` — phase-driven button styling (reading/answering/validating-this/validating-other/reveal-correct/reveal-wrong/reveal-other) per D7
+  - `PauseOverlay` — hard network failure recovery with auto-retry + manual button + escalation copy at retry cap (D6)
+  - `Home` — three variants: first-time (D5 how-to-play in the slot), returning user, 0/5-used with practice CTA + reset countdown (D8)
+  - `InGame` — composes Clock + StreakDots + ChoiceTile, owns keyboard nav (1-4 keys), auto-advances reveal after 3.5s, reading after a proportional length, calls back on tap
+  - `PostGame` — score reveal + best card + "Play another" / "Practice mode" CTAs; 5/5-used variant adds the Notify-me email form with GDPR-friendly copy
+  - `Leaderboard` — three explicit UI states (loading skeleton, empty Day-1, error), top 100 + your rank pinned at the bottom (Krug rule)
+- **Pages:**
+  - `src/app/page.tsx` — top-level GamePage, switches between Home / InGame / PostGame based on `useGame.status` + `state.phase`. Replaces the placeholder from PR #3.
+  - `src/app/leaderboard/page.tsx` — server-rendered shell for the Leaderboard component.
+
+### Tests (Vitest, 32 new — 114 total)
+- `tests/lib/timer.test.ts` — 14 tests: every phase transition, tick decrement only in answering, barge-in path, streak announcement boundaries, time-out and max-questions end conditions, soft-cap-elapsed, ignored events in wrong phase.
+- `tests/lib/api.test.ts` — 14 tests: every typed function, ApiError shape on every status code, `submitAnswerWithRetry` retries 5xx but NOT 4xx (user fault), gives up after maxRetries.
+- `tests/components/StreakDots.test.tsx` — 5 tests: 0/3/5/7/12 streak counts, aria-label content per state.
+- `tests/components/Home.test.tsx` — 6 tests: first-time / returning / 0-used variants, Start + Practice click handlers, resumable button label.
+- `tests/components/Clock.test.tsx` — 8 tests: format mm:ss, pad, round-up, clamp negative, bonus rise visibility, aria-label.
+- `tests/components/ChoiceTile.test.tsx` — 9 tests: every ChoiceState renders correctly, click disabled when not tappable.
+
+### Notes
+- `tests/smoke.test.tsx` updated: the original asserted the placeholder page text from PR #3, but `src/app/page.tsx` is now a client component with hooks (would need fetch mocking to render). Smoke now asserts BrandMark renders — proves the test pipeline + Tailwind + `@/*` aliases all work end-to-end.
+- All 114 tests pass. TypeScript strict mode clean. `npm run build` succeeds, registers `/`, `/leaderboard`, and `/_not-found`.
+- **Heads-up about merge order with PR #6 (backend):** Lane B branched off origin/main when main was at v0.2.0.0 (after PR #5 merged). Lane A (PR #6) bumps to 0.3.0.0 too. If PR #6 merges first, this PR needs a trivial 3-way merge on VERSION + CHANGELOG (and a probable bump to 0.4.0.0 or 0.3.1.0).
+- **Components don't render against a real backend yet** — until PR #6 merges + Neon is provisioned + the question bank is seeded, `npm run dev` will show the home but `Start` will fail. Component tests cover the rendering surface; E2E coverage lands once both PRs merge and Neon is live.
+
 ## [0.2.0.0] - 2026-04-28
 
 ### Added
