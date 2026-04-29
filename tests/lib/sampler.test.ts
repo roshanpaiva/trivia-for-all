@@ -83,7 +83,7 @@ describe("sampleAttemptQuestions — edge cases", () => {
   });
 
   it("bank with only one difficulty is fully usable (top-up fallback)", () => {
-    const bank = makeBank({ easy: 50, medium: 0, hard: 0 });
+    const bank = makeBank({ easy: 200, medium: 0, hard: 0 });
     const ids = sampleAttemptQuestions(bank, { rng: mulberry32(7) });
     expect(ids).toHaveLength(TOTAL_PER_ATTEMPT);
     // Every pick should be from easy (only bucket available)
@@ -132,7 +132,7 @@ describe("sampleAttemptQuestions — empty bucket fallback (eng review critical 
   });
 
   it("when only hard has questions, returns all hard up to TOTAL_PER_ATTEMPT", () => {
-    const bank = makeBank({ easy: 0, medium: 0, hard: 50 });
+    const bank = makeBank({ easy: 0, medium: 0, hard: 200 });
     const ids = sampleAttemptQuestions(bank, { rng: mulberry32(7) });
     expect(ids).toHaveLength(TOTAL_PER_ATTEMPT);
 
@@ -144,10 +144,10 @@ describe("sampleAttemptQuestions — empty bucket fallback (eng review critical 
 
   it("doesn't silently ship a shorter game when a bucket is short", () => {
     // The eng review critical gap: empty hard bucket + small bank used to mean
-    // the user got 16 questions instead of 20 silently. Now we top up.
-    const bank = makeBank({ easy: 8, medium: 12, hard: 0 });
+    // the user got fewer questions than expected silently. Now we top up.
+    const bank = makeBank({ easy: 50, medium: 60, hard: 0 });
     const ids = sampleAttemptQuestions(bank, { rng: mulberry32(7) });
-    expect(ids).toHaveLength(TOTAL_PER_ATTEMPT); // 20, not 18 (6 easy + 10 medium + 0 hard)
+    expect(ids).toHaveLength(TOTAL_PER_ATTEMPT); // 100 (50 easy + 50 medium top-up), not 80
   });
 });
 

@@ -18,6 +18,10 @@ type Props = {
   bestToday: number;
   attemptsRemaining: number;
   msUntilReset: number;
+  /** Why the game ended. "max-questions" only fires when the player runs the
+   * entire shuffled question pool — extremely rare given 120s + bonus time
+   * vs ~6-10s/question. We celebrate that case explicitly. */
+  endReason?: "time-out" | "max-questions" | null;
   onPlayAgain: () => void;
   onPractice: () => void;
 };
@@ -107,11 +111,13 @@ export const PostGame = ({
   bestToday,
   attemptsRemaining,
   msUntilReset,
+  endReason = null,
   onPlayAgain,
   onPractice,
 }: Props) => {
   const isExhausted = attemptsRemaining === 0;
   const isNewBest = score >= bestToday;
+  const ranTheTable = endReason === "max-questions";
 
   return (
     <main
@@ -122,6 +128,22 @@ export const PostGame = ({
         {isExhausted ? "attempt 5 of 5 done" : `attempt done — ${attemptsRemaining} left today`}
       </div>
 
+      {ranTheTable && (
+        <div
+          className="mt-5 px-4 py-3 rounded-lg bg-[var(--accent-soft)] text-[var(--accent-strong)] text-center"
+          data-testid="brainiac-banner"
+          role="status"
+          aria-live="polite"
+        >
+          <div className="font-display font-extrabold text-[22px] leading-tight">
+            🤓 Wow, you're a real brainiac!
+          </div>
+          <div className="text-[14px] mt-1">
+            You answered every question we have. We're refreshing the bank — come back soon, we'll be ready.
+          </div>
+        </div>
+      )}
+
       <div
         className="font-display font-extrabold text-[96px] leading-none tracking-tighter text-center text-[var(--accent)] tabular-nums mt-4"
         data-testid="score-display"
@@ -129,7 +151,7 @@ export const PostGame = ({
         {score}
       </div>
       <div className="text-[var(--muted)] text-[12px] uppercase tracking-[0.12em] text-center mt-2">
-        {isExhausted ? "your best today" : "correct in 90s"}
+        {isExhausted ? "your best today" : "correct in 120s"}
       </div>
 
       <div className="flex justify-center gap-2 my-5">

@@ -24,7 +24,7 @@ export const BASE_CLOCK_MS = 120_000;
 export const STREAK_BONUS_5_MS = 10_000;
 export const STREAK_BONUS_10_MS = 15_000;
 export const MAX_CLOCK_MS = 240_000;
-export const MAX_QUESTIONS = 20;
+export const MAX_QUESTIONS = 100;
 export const PER_QUESTION_SOFT_CAP_MS = 12_000;
 
 /** The streak threshold that triggers a bonus reveal (audio + visual). */

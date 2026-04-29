@@ -9,6 +9,7 @@
 
 import { NextResponse } from "next/server";
 import { getLeaderboard } from "@/db/scores";
+import { countScoredAttempts, DAILY_SCORED_LIMIT } from "@/db/attempts";
 import { readCookieId, todayUtc } from "@/lib/identity";
 
 export const dynamic = "force-dynamic";
@@ -17,7 +18,17 @@ export async function GET() {
   const cookieId = await readCookieId();
   const dateUtc = todayUtc();
 
-  const result = await getLeaderboard({ dateUtc, cookieId, limit: 100 });
+  const [result, scoredCount] = await Promise.all([
+    getLeaderboard({ dateUtc, cookieId, limit: 100 }),
+    cookieId ? countScoredAttempts(cookieId, dateUtc) : Promise.resolve(0),
+  ]);
+
+  // The Home page hits this endpoint on mount, so it's the natural place to
+  // include the caller's remaining daily attempts. Saves a separate /api/me
+  // round trip and keeps the count truthful on first paint.
+  const yourAttemptsRemaining = cookieId
+    ? Math.max(0, DAILY_SCORED_LIMIT - scoredCount)
+    : DAILY_SCORED_LIMIT;
 
   return NextResponse.json({
     top: result.top.map((e) => ({
@@ -31,6 +42,7 @@ export async function GET() {
     })),
     yourRank: result.yourRank,
     yourBestToday: result.yourBestToday,
+    yourAttemptsRemaining,
     totalPlayers: result.totalPlayers,
     dateUtc: result.dateUtc,
   });
