@@ -10,6 +10,7 @@
 
 import { useState, type FormEvent } from "react";
 import { signupForNotify, ApiError } from "@/lib/api";
+import { Attribution } from "./Attribution";
 
 type Props = {
   score: number;
@@ -186,6 +187,10 @@ export const PostGame = ({
       >
         View leaderboard
       </a>
+
+      <div className="mt-auto pt-6 text-center">
+        <Attribution />
+      </div>
     </main>
   );
 };
