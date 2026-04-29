@@ -2,6 +2,11 @@
 
 All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.6.1.1] - 2026-04-30
+
+### Fixed
+- **"View leaderboard" on Home (exhausted variant) started a practice game.** When `attemptsRemaining === 0`, the secondary CTA's label flipped to "View leaderboard" but its `onClick` still called `handleStart("practice")`. Replaced with an `<a href="/leaderboard">` styled to match the button. Added a regression test asserting the element is a real link, not a click handler.
+
 ## [0.6.1.0] - 2026-04-30
 
 ### Fixed
