@@ -109,18 +109,38 @@ export const useGame = (): UseGameReturn => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.phase, state.questionIdx, attempt]);
 
-  // === Speak the streak announcement when REVEAL fires with one ===
+  // === Speak the result + fact (or streak announcement) when REVEAL fires ===
   useEffect(() => {
     if (state.phase !== "reveal" || !state.reveal) return;
     if (state.reveal.streakAnnouncement === "streak-5") {
       audio.speak("Five in a row! Bonus time activated, ten extra seconds per correct answer.");
-    } else if (state.reveal.streakAnnouncement === "streak-10") {
-      audio.speak("Ten in a row! You're on fire — fifteen extra seconds per correct answer now.");
-    } else if (state.reveal.fact) {
-      audio.speak(state.reveal.fact);
+      return;
     }
+    if (state.reveal.streakAnnouncement === "streak-10") {
+      audio.speak("Ten in a row! You're on fire — fifteen extra seconds per correct answer now.");
+      return;
+    }
+    // Result prefix gives positive reinforcement on correct + clarity on wrong.
+    const prefix = state.reveal.correct ? "Correct." : "Incorrect.";
+    const text = state.reveal.fact ? `${prefix} ${state.reveal.fact}` : prefix;
+    audio.speak(text);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.phase, state.reveal]);
+
+  // === Announce game-end (time's up / all done) ===
+  // Fires after the finalize effect's audio.cancel(); a small delay keeps the
+  // cancel from clipping the start of this announcement.
+  useEffect(() => {
+    if (state.phase !== "finished" || !state.endReason) return;
+    const correct = state.score.correctCount;
+    const noun = correct === 1 ? "answer" : "answers";
+    const intro = state.endReason === "time-out" ? "Time's up." : "All done.";
+    const id = window.setTimeout(() => {
+      audio.speak(`${intro} You got ${correct} ${noun} right.`);
+    }, 150);
+    return () => window.clearTimeout(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.phase, state.endReason, state.score.correctCount]);
 
   // === Finalize when the game ends ===
   useEffect(() => {

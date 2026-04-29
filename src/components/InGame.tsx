@@ -56,16 +56,9 @@ export const InGame = ({
   onFinishReading,
   onFinishReveal,
 }: Props) => {
-  // Track which choice the player tapped (for validating-this + reveal-wrong styling)
-  const tappedChoiceIdx =
-    state.phase === "validating" || state.phase === "reveal"
-      ? // We don't have direct access to the tapped index in GameState, so derive
-        // from reveal.correct: if revealing wrong, it was the tapped choice that
-        // was wrong; if revealing correct, the tapped was the correct choice.
-        state.reveal?.correct
-          ? state.reveal.correctIdx
-          : null  // will need explicit tapped tracking — see Note below
-      : null;
+  // Tapped choice is tracked in GameState (set on tap-answer, cleared on
+  // reveal-complete). Drives validating-this + reveal-wrong styling.
+  const tappedChoiceIdx = state.tappedChoiceIdx;
 
   // Keyboard nav: 1-4 keys map to choices (per CLAUDE.md a11y baseline)
   useEffect(() => {
@@ -121,6 +114,17 @@ export const InGame = ({
         <span data-testid="question-counter">
           Q{questionNumber} of {totalQuestions}
         </span>
+        <span data-testid="correct-counter" className="tabular-nums">
+          <span className="text-[var(--success)] font-semibold">{state.score.correctCount}</span>
+          <span> correct</span>
+          {state.score.wrongCount > 0 && (
+            <>
+              <span> · </span>
+              <span className="text-[var(--error)] font-semibold">{state.score.wrongCount}</span>
+              <span> wrong</span>
+            </>
+          )}
+        </span>
         <span className="flex items-center gap-2">
           <AudioWaveform active={audioActive} />
           {state.phase === "reading" ? "Reading" : ""}
@@ -156,6 +160,24 @@ export const InGame = ({
       <div className="font-display font-semibold text-[22px] leading-tight my-6">
         {question.prompt}
       </div>
+
+      {/* Result label on reveal (skipped when a streak announcement is showing) */}
+      {state.phase === "reveal" && state.reveal && !state.reveal.streakAnnouncement && (
+        <div
+          className={`text-center mb-3 font-display font-bold text-[22px] ${
+            state.reveal.correct ? "text-[var(--success)]" : "text-[var(--error)]"
+          }`}
+          data-testid="result-label"
+          role="status"
+          aria-live="assertive"
+        >
+          {state.reveal.correct
+            ? "Correct"
+            : state.reveal.correctIdx >= 0
+              ? `Incorrect — the answer was ${question.choices[state.reveal.correctIdx]}`
+              : "Out of time"}
+        </div>
+      )}
 
       {/* Choices */}
       <div>
