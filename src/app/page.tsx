@@ -36,11 +36,12 @@ export default function GamePage() {
     setDisplayName(loadDisplayName());
   }, []);
 
-  // Initial load: best score + resumable attempt
+  // Initial load: best score + remaining attempts + resumable attempt
   useEffect(() => {
     Promise.all([getLeaderboard(), getCurrentAttempt()])
       .then(([lb, current]) => {
         setBestToday(lb.yourBestToday);
+        setAttemptsRemaining(lb.yourAttemptsRemaining);
         if (current.status === "in_progress") {
           setHasResumable(true);
         }
@@ -112,6 +113,7 @@ export default function GamePage() {
         bestToday={bestToday ?? game.finalScore.score}
         attemptsRemaining={game.finalScore.attemptsRemaining}
         msUntilReset={msUntilNextUtcMidnight()}
+        endReason={game.state.endReason}
         onPlayAgain={() => window.location.reload()}
         onPractice={() => window.location.reload()}
       />

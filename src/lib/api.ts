@@ -80,6 +80,10 @@ export type LeaderboardResponse = {
   }>;
   yourRank: number | null;
   yourBestToday: number | null;
+  /** Scored attempts remaining today (5 max). Always present; defaults to 5
+   * for anonymous (no-cookie) callers. Lets Home show the right pill on first
+   * paint without a separate request. */
+  yourAttemptsRemaining: number;
   totalPlayers: number;
   dateUtc: string;
 };

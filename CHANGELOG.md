@@ -2,6 +2,22 @@
 
 All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.6.1.0] - 2026-04-30
+
+### Fixed
+- **Game stopped at 20 questions even with time left.** `sampler.TOTAL_PER_ATTEMPT` was 20 and `scoring.MAX_QUESTIONS` was 20. Bumped both to 100 so the clock is the natural game-end. With 120s + bonus time and ~6-10s per question, a player tops out around 30-40 — 100 gives plenty of headroom and lets the clock actually be the pressure mechanic. Sampler still clamps to bank size when fewer than 100 audited questions exist.
+- **"5 of 5 attempts left" always shown on Home.** `attemptsRemaining` defaulted to 5 in client state and only updated after a finalize round-trip. `GET /api/leaderboard` now returns `yourAttemptsRemaining` (computed from `countScoredAttempts(cookieId, today)`); page.tsx hydrates from it on mount. Anonymous callers still get 5.
+
+### Added
+- **🤓 Brainiac end-screen** when the player runs the entire shuffled question pool (rare). PostGame shows a celebratory banner — "Wow, you're a real brainiac! You answered every question we have. We're refreshing the bank — come back soon, we'll be ready." TTS announces "Wow, you ran the table!" too. Triggered when `endReason === "max-questions"`.
+- **`endReason` plumbed from `useGame.state` through `page.tsx` to `PostGame`** as a typed prop so the celebratory branch can fire.
+
+### Changed
+- PostGame copy: "correct in 90s" → "correct in 120s" (matches the 0.5.1.0 clock bump that this label missed).
+
+### Tests
+Sampler test fixtures bumped proportionally (50 → 200 in single-bucket cases; small fixtures expanded so `TOTAL_PER_ATTEMPT` assertions hold). 168 tests still pass.
+
 ## [0.6.0.0] - 2026-04-30
 
 ### Added — Share-with-friends ready

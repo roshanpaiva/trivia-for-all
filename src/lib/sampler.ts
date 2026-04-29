@@ -1,30 +1,35 @@
 /**
  * Question sampling for an attempt.
  *
- * Per design doc → "Question Sampling Algorithm". Random per-attempt — no shared
- * seed across players or attempts. Each scored or practice attempt gets a fresh
- * 20-question draw.
+ * Each attempt draws fresh — no shared seed across players or attempts.
+ *
+ * Why TOTAL_PER_ATTEMPT is large (100): the game ends when the clock hits 0
+ * OR when the question pool is exhausted, whichever comes first. With a 120s
+ * base clock + streak bonuses (up to 240s), the upper bound on how many
+ * questions a player can plausibly answer is ~30-40. Sampling 100 gives plenty
+ * of headroom so the clock is the natural end. If the bank itself has fewer
+ * than 100 audited rows, the sampler returns the whole bank shuffled and the
+ * game can end via "max-questions" (the celebratory "you ran the table" path).
  *
  * Difficulty distribution target (from the design doc):
- *   30% easy   (6 of 20)
- *   50% medium (10 of 20)
- *   20% hard   (4 of 20)
+ *   30% easy   (30 of 100)
+ *   50% medium (50 of 100)
+ *   20% hard   (20 of 100)
  *
  * EMPTY-BUCKET FALLBACK (eng review critical gap #2):
- * If a difficulty bucket can't supply its target count (early-bank state, e.g.
- * zero hard questions), the sampler tops up from the remaining bank rather than
- * silently shipping a shorter game. Order of preference for top-up: medium →
- * easy → hard. The total is capped at the bank size; if the bank is smaller
- * than TOTAL_PER_ATTEMPT, the sampler returns the whole bank shuffled.
+ * If a difficulty bucket can't supply its target count, the sampler tops up
+ * from the remaining bank rather than silently shipping a shorter game. Order
+ * of preference for top-up: medium → easy → hard. The total is capped at the
+ * bank size.
  */
 
 import type { Question, Difficulty } from "./types";
 
-export const TOTAL_PER_ATTEMPT = 20;
+export const TOTAL_PER_ATTEMPT = 100;
 export const TARGET_BY_DIFFICULTY: Record<Difficulty, number> = {
-  easy: 6,
-  medium: 10,
-  hard: 4,
+  easy: 30,
+  medium: 50,
+  hard: 20,
 };
 
 /** Top-up preference when a bucket is short. Earlier = preferred. */

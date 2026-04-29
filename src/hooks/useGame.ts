@@ -148,14 +148,17 @@ export const useGame = (opts: { displayName?: string | null } = {}): UseGameRetu
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.phase, state.reveal, attempt, state.questionIdx]);
 
-  // === Announce game-end (time's up / all done) ===
+  // === Announce game-end (time's up / all done / brainiac) ===
   // Fires after the finalize effect's audio.cancel(); a small delay keeps the
   // cancel from clipping the start of this announcement.
   useEffect(() => {
     if (state.phase !== "finished" || !state.endReason) return;
     const correct = state.score.correctCount;
     const noun = correct === 1 ? "answer" : "answers";
-    const intro = state.endReason === "time-out" ? "Time's up." : "All done.";
+    const intro =
+      state.endReason === "time-out"
+        ? "Time's up."
+        : "Wow, you ran the table!"; // max-questions: rare celebratory case
     const id = window.setTimeout(() => {
       audio.speak(`${intro} You got ${correct} ${noun} right.`);
     }, 150);
