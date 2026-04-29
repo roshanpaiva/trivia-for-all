@@ -485,6 +485,681 @@
       "correctIdx": 3,
       "fact": "The tale of Robin Hood originates from England",
       "source": "opentdb"
+    },
+    {
+      "id": "general-94712845",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "What is \"dabbing\"?",
+      "choices": [
+        "A medical procedure",
+        "A dance",
+        "A sport",
+        "A language"
+      ],
+      "correctIdx": 1,
+      "fact": "The dab is a 2010s viral dance move originating from Atlanta hip-hop culture",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-37406823",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "Area 51 is located in which US state?",
+      "choices": [
+        "Arizona",
+        "Nevada",
+        "New Mexico",
+        "Utah"
+      ],
+      "correctIdx": 1,
+      "fact": "Area 51 is located in the US state of Nevada",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-46434264",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "Which of the following presidents is not on Mount Rushmore?",
+      "choices": [
+        "John F. Kennedy",
+        "Theodore Roosevelt",
+        "Abraham Lincoln",
+        "Thomas Jefferson"
+      ],
+      "correctIdx": 0,
+      "fact": "Mount Rushmore National Memorial features the carved faces of only four U.S. presidents: George Washington, Thomas Jefferson, Theodore Roosevelt, and Abraham Lincoln.",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-64671136",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "What is the name of the extra pedal on a manual or standard transmission car?",
+      "choices": [
+        "Clutch",
+        "Shifter",
+        "Booster",
+        "Parking Brake"
+      ],
+      "correctIdx": 0,
+      "fact": "The clutch  is used to disengage the engine from the transmission, allowing the driver to change gears.",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-86503620",
+      "category": "general",
+      "difficulty": "medium",
+      "prompt": "What is real haggis made of?",
+      "choices": [
+        "Sheep's Heart, Liver and Lungs",
+        "Sheep's Heart, Kidneys and Lungs",
+        "Sheep's Liver, Kidneys and Eyes",
+        "Whole Sheep"
+      ],
+      "correctIdx": 0,
+      "fact": "Traditional haggis is a savory Scottish pudding made from sheep's \"pluck\" (heart, liver, and lungs), minced with onion, oatmeal, suet (fat), spices (like pepper, nutmeg, or coriander), and stock",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-62725675",
+      "category": "general",
+      "difficulty": "hard",
+      "prompt": "Which of the following is not another name for the eggplant?",
+      "choices": [
+        "Brinjal",
+        "Guinea Squash",
+        "Melongene",
+        "Potimarron"
+      ],
+      "correctIdx": 3,
+      "fact": "Potimarron is a small, pear-shaped, French winter squash not eggplant.",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-77171090",
+      "category": "general",
+      "difficulty": "hard",
+      "prompt": "Which church's interior in Vatican City was designed in 1503 by renaissance architects including Bramante, Michelangelo and Bernini?",
+      "choices": [
+        "Catania Cathedral",
+        "St. Mark’s Basilica",
+        "St. Peter's Basilica",
+        "The Duomo of Florence"
+      ],
+      "correctIdx": 2,
+      "fact": "The largest, most iconic church is St. Peter's Basilica",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-17769796",
+      "category": "general",
+      "difficulty": "hard",
+      "prompt": "How many notes are there on a standard grand piano?",
+      "choices": [
+        "88",
+        "98",
+        "108",
+        "78"
+      ],
+      "correctIdx": 0,
+      "fact": "A standard grand piano has 88 keys (notes), consisting of 52 white keys and 36 black keys",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-59226715",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "According to the nursery rhyme, what fruit did Little Jack Horner pull out of his Christmas pie?",
+      "choices": [
+        "Apple",
+        "Plum",
+        "Peach",
+        "Pear"
+      ],
+      "correctIdx": 1,
+      "fact": "He put in his thumb, / And pulled out a plum, / And said, 'What a good boy am I",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-81336275",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "Which canal connects the Mediterranean Sea with the Red Sea?",
+      "choices": [
+        "Panama Canal",
+        "Sinai Canal",
+        "Qaraqum Canal",
+        "Suez Canal"
+      ],
+      "correctIdx": 3,
+      "fact": "The Suez Canal is a 193-km (120-mile) artificial sea-level waterway in Egypt, serving as the critical, shortest maritime shortcut between Europe and Asia",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-33182146",
+      "category": "general",
+      "difficulty": "hard",
+      "prompt": "What is the longest bridge in the world?",
+      "choices": [
+        "Lake Pontchartrain Causeway, United States",
+        "King Fahd Causeway Bridge I, Saudi Arabia",
+        "Danyang–Kunshan Grand Bridge, China",
+        "Sultan Abdul Halim Muadzam Shah Bridge, Malaysia"
+      ],
+      "correctIdx": 2,
+      "fact": "Completed in 2011, this massive structure on the Beijing-Shanghai High-Speed Railway spans approximately 164.8 kilometers (102.4 miles)",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-15106456",
+      "category": "general",
+      "difficulty": "hard",
+      "prompt": "Before the 19th Century, the \"Living Room\" was originally called the...",
+      "choices": [
+        "Parlor",
+        "Open Room",
+        "Sitting Room",
+        "Loft"
+      ],
+      "correctIdx": 0,
+      "fact": "The Parlor was traditionally a formal space used for entertaining guests, holding social events",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-86323672",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "What machine element is located in the center of fidget spinners?",
+      "choices": [
+        "Bearings",
+        "Axles",
+        "Gears",
+        "Belts"
+      ],
+      "correctIdx": 0,
+      "fact": "bearings are rolling-element components that reduce friction between moving parts",
+      "source": "opentdb"
+    },
+    {
+      "id": "general-46014744",
+      "category": "general",
+      "difficulty": "easy",
+      "prompt": "Which of these words refers to something made, distributed, or sold illegally?",
+      "choices": [
+        "Bootleg",
+        "Bootblack",
+        "Bootlace",
+        "Bootstrap"
+      ],
+      "correctIdx": 0,
+      "fact": "bootleg refers to goods—traditionally alcohol, but now commonly computer software, recordings, or films—that are produced, distributed, or sold illegally",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-09988285",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "Which of these American cities has fewer than 1,000,000 people?",
+      "choices": [
+        "Phoenix, Arizona",
+        "San Antonio, Texas",
+        "Philadelphia, Pennsylvania",
+        "San Francisco, California"
+      ],
+      "correctIdx": 3,
+      "fact": "A foggy, iconic coastal city defined by steep hills, Victorian charm, cable cars, and the stunning Golden Gate Bridge",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-72337236",
+      "category": "geography",
+      "difficulty": "hard",
+      "prompt": "What was the original name of Ho Chi Minh City?",
+      "choices": [
+        "Saigon",
+        "Hanoi",
+        "Dar Es Salaam",
+        "Angkor Wat"
+      ],
+      "correctIdx": 0,
+      "fact": "Saigon (Ho Chi Minh City) is a vibrant, fast-paced metropolis where motorbike-filled streets merge historic charm with rapid modern development",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-13087099",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "Which European city has the highest mileage of canals in the world?",
+      "choices": [
+        "Venice",
+        "Amsterdam",
+        "Berlin",
+        "Birmingham"
+      ],
+      "correctIdx": 3,
+      "fact": "Birmingham has over 100 miles of canals, far exceeding Amsterdam (~60) and Venice (26).",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-64740421",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "Where is the area commonly known as the Bermuda Triangle?",
+      "choices": [
+        "North Pacific Ocean, between Japan and the USA",
+        "North Atlantic Ocean, between Florida and Puerto Rico",
+        "In the Caribbean Sea",
+        "South Pacific Ocean, far off Chile"
+      ],
+      "correctIdx": 1,
+      "fact": "t is known for alleged, unproven mysteries, though it is a heavily traveled, non-hazardous region",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-40538472",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "What is the state capital of South Dakota?",
+      "choices": [
+        "Pierre",
+        "Sioux Falls",
+        "Rapid City",
+        "Watertown"
+      ],
+      "correctIdx": 0,
+      "fact": "Pronounced \"Peer,\" South Dakota's capital is a charming, small-town hub on the Missouri River",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-65409043",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "What is the capital of Estonia?",
+      "choices": [
+        "Helsinki",
+        "Tartu",
+        "Riga",
+        "Tallinn"
+      ],
+      "correctIdx": 3,
+      "fact": "Located on the northern coast along the Gulf of Finland, it is the country's largest city, primary financial hub",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-23059277",
+      "category": "geography",
+      "difficulty": "hard",
+      "prompt": "How many countries share a land border with Russia? (Not including disputed territories)",
+      "choices": [
+        "12",
+        "14",
+        "10",
+        "8"
+      ],
+      "correctIdx": 1,
+      "fact": "sovereign states. These countries are: Norway, Finland, Estonia, Latvia, Lithuania, Poland, Belarus, Ukraine, Georgia, Azerbaijan, Kazakhstan, China, Mongolia, and North Korea.",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-09975394",
+      "category": "geography",
+      "difficulty": "easy",
+      "prompt": "Which country is the home of the largest Japanese population outside of Japan?",
+      "choices": [
+        "China",
+        "Russia",
+        "Brazil",
+        "The United States"
+      ],
+      "correctIdx": 2,
+      "fact": "an estimated 1.5 to over 2 million people of Japanese descent (nikkei) residing there",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-40542952",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "The Pyrenees mountains are located on the border of which two countries?",
+      "choices": [
+        "France and Spain",
+        "Italy and Switzerland",
+        "Norway and Sweden",
+        "Russia and Ukraine"
+      ],
+      "correctIdx": 0,
+      "fact": "This mountain range separates the Iberian Peninsula from the rest of Europe",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-93731986",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "How tall is One World Trade Center in New York City?",
+      "choices": [
+        "1,888 ft",
+        "1,225 ft",
+        "1,776 ft",
+        "1,960 ft"
+      ],
+      "correctIdx": 2,
+      "fact": "It is the tallest building in the Western Hemisphere and was completed in 2014.",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-32936644",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "Which Oceanian nation is known in Māori as Aotearoa?",
+      "choices": [
+        "New Zealand",
+        "Australia",
+        "Solomon Islands",
+        "New Caledonia"
+      ],
+      "correctIdx": 0,
+      "fact": "Often translated as \"Land of the Long White Cloud\"",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-56781844",
+      "category": "geography",
+      "difficulty": "easy",
+      "prompt": "What is the smallest country in the world?",
+      "choices": [
+        "Vatican City",
+        "Maldives",
+        "Monaco",
+        "Malta"
+      ],
+      "correctIdx": 0,
+      "fact": "This 121-acre city-state sits inside Rome, serves as the Catholic Church's center, and houses roughly 800 people.",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-52450367",
+      "category": "geography",
+      "difficulty": "hard",
+      "prompt": "The Hunua Ranges is located in...",
+      "choices": [
+        "Nepal",
+        "China",
+        "Mexico",
+        "New Zealand"
+      ],
+      "correctIdx": 3,
+      "fact": "located on the southeast side of the Auckland region on the North Island of New Zealand",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-68490983",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "What mountain range lines the border between Spain and France?",
+      "choices": [
+        "Alps",
+        "Pyrenees",
+        "Carpathians",
+        "Urals"
+      ],
+      "correctIdx": 1,
+      "fact": "acts as the natural border between Spain and France",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-11085285",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "The White Cliffs of Dover is located in which country? ",
+      "choices": [
+        "United States",
+        "Netherlands",
+        "Sweden",
+        "United Kingdom"
+      ],
+      "correctIdx": 3,
+      "fact": "they are situated along the coastline of Kent in southeast England, facing the Strait of Dover and France",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-73278689",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "On a London Underground map, what colour is the Circle Line?",
+      "choices": [
+        "Red",
+        "Blue",
+        "Green",
+        "Yellow"
+      ],
+      "correctIdx": 3,
+      "fact": "The line, which serves 36 stations in a loop around central London",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-71152558",
+      "category": "geography",
+      "difficulty": "easy",
+      "prompt": "On which continent does the Andes mountain range lie?",
+      "choices": [
+        "Europe",
+        "Asia",
+        "South America",
+        "Africa"
+      ],
+      "correctIdx": 2,
+      "fact": "the world's longest continental mountain range",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-71906453",
+      "category": "geography",
+      "difficulty": "easy",
+      "prompt": "Harvard University is located in which city?",
+      "choices": [
+        "Providence",
+        "New York",
+        "Washington D.C.",
+        "Cambridge"
+      ],
+      "correctIdx": 3,
+      "fact": "is a historic and vibrant city renowned as an intellectual powerhouse, home to Harvard University and MIT",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-52207889",
+      "category": "geography",
+      "difficulty": "easy",
+      "prompt": "Which Borough is the farthest in the north of New York City?",
+      "choices": [
+        "Queens",
+        "Bronx",
+        "Brooklyn",
+        "Manhattan"
+      ],
+      "correctIdx": 1,
+      "fact": "It is the only borough situated primarily on the United States mainland",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-92818028",
+      "category": "geography",
+      "difficulty": "easy",
+      "prompt": "The country of Belize borders which country?",
+      "choices": [
+        "Guatemala",
+        "Laos",
+        "Perú",
+        "Kenya"
+      ],
+      "correctIdx": 0,
+      "fact": "bordered by Mexico to the north and northwest, and by Guatemala to the west and south",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-63192522",
+      "category": "geography",
+      "difficulty": "easy",
+      "prompt": "What state is the largest state of the United States of America?",
+      "choices": [
+        "California",
+        "Texas",
+        "Alaska",
+        "Washington"
+      ],
+      "correctIdx": 2,
+      "fact": "It's bigger than Texas, California, and Montana combined.",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-93910755",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "What tiny principality lies between Spain and France?",
+      "choices": [
+        "Liechtenstein",
+        "Monaco",
+        "San Marino",
+        "Andorra"
+      ],
+      "correctIdx": 3,
+      "fact": "It's bigger than Texas, California, and Montana combined.",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-07051403",
+      "category": "geography",
+      "difficulty": "hard",
+      "prompt": "What is the land connecting North America and South America?",
+      "choices": [
+        "Isthmus of Suez",
+        "Urals",
+        "Australasia",
+        "Isthmus of Panama"
+      ],
+      "correctIdx": 3,
+      "fact": "Panama connects North and South America and separates two oceans (Atlantic and Pacific)",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-17255642",
+      "category": "geography",
+      "difficulty": "hard",
+      "prompt": "What is the name of the Canadian national anthem?",
+      "choices": [
+        "O Red Maple",
+        "Leaf-Spangled Banner",
+        "O Canada",
+        "March of the Puck Drop"
+      ],
+      "correctIdx": 2,
+      "fact": "It is sung in both official languages (English and French)",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-88224446",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "The land mass of modern day Turkey is called what?",
+      "choices": [
+        "Ismuth of Ottoma",
+        "Ottoma",
+        "Anatolia",
+        "Ismuth of Anatolia"
+      ],
+      "correctIdx": 2,
+      "fact": "It forms a large peninsula bridging Asia and Europe",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-75171124",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "How many states are in Australia?",
+      "choices": [
+        "6",
+        "7",
+        "8",
+        "5"
+      ],
+      "correctIdx": 0,
+      "fact": "New South Wales, Queensland, South Australia, Tasmania, Victoria, and Western Australia",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-57519641",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "What is the fifth largest country by area?",
+      "choices": [
+        "United States",
+        "Australia",
+        "India",
+        "Brazil"
+      ],
+      "correctIdx": 3,
+      "fact": "Brazil follows Russia, Canada, China, and the United States in size, ranking just ahead of Australia",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-06916272",
+      "category": "geography",
+      "difficulty": "hard",
+      "prompt": "What North American tourist attraction is served by the \"Maid of the Mist\" tour company?",
+      "choices": [
+        "Niagara Falls",
+        "Whistler, British Columbia",
+        "Disney World",
+        "Yosemite National Park"
+      ],
+      "correctIdx": 0,
+      "fact": "This historic attraction takes passengers from the Niagara River gorge into the mist of all three falls",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-67544901",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "What is the capital of the U.S. state Texas?",
+      "choices": [
+        "Dallas",
+        "Austin",
+        "Santa Fe",
+        "Houston"
+      ],
+      "correctIdx": 1,
+      "fact": "Austin is known as the \"Live Music Capital of the World\"",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-26114591",
+      "category": "geography",
+      "difficulty": "medium",
+      "prompt": "What is the capital of Australia?",
+      "choices": [
+        "Sydney",
+        "Melbourne",
+        "Brisbane",
+        "Canberra"
+      ],
+      "correctIdx": 3,
+      "fact": "it was founded in 1913 as a compromise between rivals Sydney and Melbourne",
+      "source": "opentdb"
+    },
+    {
+      "id": "geography-31426169",
+      "category": "geography",
+      "difficulty": "easy",
+      "prompt": "What is the capital of Denmark?",
+      "choices": [
+        "Aarhus",
+        "Copenhagen",
+        "Odense",
+        "Aalborg"
+      ],
+      "correctIdx": 1,
+      "fact": "it is known for its historic architecture, vibrant harbor (Nyhavn), and biking culture",
+      "source": "opentdb"
     }
   ]
 }
