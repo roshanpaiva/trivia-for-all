@@ -27,6 +27,38 @@ All notable changes to Trivia for All are documented here. Format follows [Keep 
 - `src/lib/timer.ts` (in-game state machine: READING → ANSWERING → VALIDATING → REVEAL+FACT → NEXT) is **deferred** to the React-component PR — it's UI-coupled (setInterval, refs, layout effects) and lands cleaner alongside the components that own it.
 - **Heads-up about CHANGELOG history:** scaffold (#3, v0.2.0.0) and TTS (#2, v0.1.0.1) were merged into main but their CHANGELOG entries got dropped during the merge resolution. This PR bumps from the current main (`0.1.1.0`) to `0.2.0.0` rather than `0.3.0.0`, and the historical entries are left to be restored in a separate housekeeping PR if desired.
 
+## [0.3.0.0] - 2026-04-29
+
+### Added
+- **Database schema** — `src/db/schema.sql` (idempotent CREATE IF NOT EXISTS for all 5 tables: `questions`, `attempts`, `answers`, `scores`, `notify_signups`) plus a one-shot migration runner at `scripts/migrate.ts`.
+- **DB connection layer** — `src/db/client.ts` wraps `@neondatabase/serverless` with a lazy-initialized cached SQL client. Tests inject a fake `SqlTag` via service factory args (no real DB needed for unit tests).
+- **Question bank loader** — `src/db/questions.ts` with in-memory cache (eng review D6 decision); one Postgres read per Vercel function instance cold-start, then ~0ms sampling per attempt.
+- **Attempts service** — `src/db/attempts.ts`. Includes the **concurrent attempt-start race fix** (eng review critical gap #1): the daily-limit check + insert run in a single SQL statement so two tabs on the same cookie can never both pass a count=4 check and both insert.
+- **Answers service** — `src/db/answers.ts` with server-authoritative validation + idempotent retry (duplicate `(attemptId, questionId)` returns the original record without double-counting).
+- **Scores service** — `src/db/scores.ts` with idempotent `writeScore` (ON CONFLICT (attempt_id) DO UPDATE) and the leaderboard query (best-per-cookie ranking with stable tiebreakers — no random tiebreak).
+- **Notify-me signup** — `src/db/notify.ts` with email validation, idempotent ON CONFLICT (email) DO UPDATE that refreshes personalization fields (cookie, best_score, locale).
+- **Cookie identity** — `src/lib/identity.ts`. `getOrMintCookieId()` for routes that mint, `readCookieId()` for routes that read-only.
+- **5 API route handlers:**
+  - `POST /api/attempt/start` { mode } → attempt + ClientQuestion[] (correctIdx + fact stripped) + attemptsRemaining; 429 on daily_limit_reached
+  - `GET /api/attempt/current` → in-progress attempt + answeredCount + currentStreak (computed from per-answer rows)
+  - `POST /api/answer` → server-authoritative correct/incorrect + reveal payload; idempotent on retry; 401/403/404/409 for the obvious failure modes
+  - `POST /api/attempt/finalize` → server-tallied score + attemptsRemaining; idempotent
+  - `GET /api/leaderboard` → top 100 with anonymized handles + yourRank + yourBestToday + totalPlayers
+  - `POST /api/notify` → email signup with cookie + best-score-today personalization
+- **`@neondatabase/serverless` 1.0.2** dependency added to `package.json`.
+- **`src/db/README.md`** — first-time Neon setup, testing pattern, and the concurrent-race fix explained in detail.
+
+### Tests (Vitest, 30 new — 87 total)
+- `tests/db/_fakeSql.ts` — small fake SQL tag with substring-fingerprint matching.
+- `tests/db/attempts.test.ts` — 9 tests including the explicit verification that the scored INSERT statement contains the count + WHERE filter (the race fix).
+- `tests/db/answers.test.ts` — 8 tests including idempotent retry, choice-out-of-range, and question-not-in-attempt rejection.
+- `tests/db/scores.test.ts` — 6 tests including ranks with multiple cookies + empty leaderboard + custom limit.
+- `tests/db/notify.test.ts` — 7 tests including invalid-email rejection, lowercase-email normalization, ON CONFLICT idempotency.
+
+### Notes
+- All tests pass against a mocked `SqlTag`. End-to-end against a real Neon DB requires `DATABASE_URL` to be set + `npx tsx scripts/migrate.ts` to apply the schema. See `src/db/README.md` for the 5-step first-time setup.
+- The leaderboard handle (`cobalt-otter` style) is a deterministic FNV-1a hash of the cookie ID. v2 with auth replaces this with the user's chosen display name (D9 from `/plan-design-review`).
+
 ## [0.1.1.0] - 2026-04-28
 
 ### Added
