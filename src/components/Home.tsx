@@ -8,6 +8,7 @@
  */
 
 import { BrandMark } from "./BrandMark";
+import { Attribution } from "./Attribution";
 import { useState } from "react";
 import { MAX_LENGTH as NAME_MAX_LENGTH, sanitize as sanitizeName } from "@/lib/displayName";
 import type { AttemptMode } from "@/lib/types";
@@ -229,11 +230,14 @@ export const Home = ({
       </button>
 
       {/* Footer */}
-      <div className="mt-auto pt-6 border-t border-dashed border-[var(--line)] flex items-center justify-between text-[14px] text-[var(--muted)]">
-        <span>Resets at midnight UTC</span>
-        <a href="/leaderboard" className="text-[var(--ink)] underline">
-          Leaderboard
-        </a>
+      <div className="mt-auto pt-6 border-t border-dashed border-[var(--line)]">
+        <div className="flex items-center justify-between text-[14px] text-[var(--muted)] mb-2">
+          <span>Resets at midnight UTC</span>
+          <a href="/leaderboard" className="text-[var(--ink)] underline">
+            Leaderboard
+          </a>
+        </div>
+        <Attribution />
       </div>
     </main>
   );

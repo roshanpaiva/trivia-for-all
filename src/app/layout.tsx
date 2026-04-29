@@ -9,9 +9,32 @@ const geistSans = Geist({
   display: "swap",
 });
 
+const SITE_URL = "https://tryquizzle.com";
+const SITE_NAME = "Quizzle";
+const TAGLINE = "120 seconds. As many as you can get.";
+
 export const metadata: Metadata = {
-  title: "Quizzle",
-  description: "120 seconds. As many as you can get.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} — 120s sprint trivia`,
+    template: `%s · ${SITE_NAME}`,
+  },
+  description: `A 120-second sprint trivia game. Audio-first, daily leaderboard, for kids and adults at the same table. ${TAGLINE}`,
+  applicationName: SITE_NAME,
+  keywords: ["trivia", "quiz", "daily", "sprint", "audio", "family", "kids"],
+  openGraph: {
+    type: "website",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} — 120s sprint trivia`,
+    description: TAGLINE,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} — 120s sprint trivia`,
+    description: TAGLINE,
+  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({

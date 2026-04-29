@@ -10,6 +10,7 @@
 
 import { useEffect, useState } from "react";
 import { getLeaderboard, type LeaderboardResponse } from "@/lib/api";
+import { Attribution } from "./Attribution";
 
 export const Leaderboard = () => {
   const [data, setData] = useState<LeaderboardResponse | null>(null);
@@ -100,6 +101,9 @@ export const Leaderboard = () => {
         </div>
       )}
 
+      <div className="mt-auto pt-6">
+        <Attribution />
+      </div>
     </main>
   );
 };

@@ -2,6 +2,18 @@
 
 All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.6.0.0] - 2026-04-30
+
+### Added — Share-with-friends ready
+- **`LICENSE-CONTENT.md`** at repo root — CC BY-SA 4.0 attribution + ShareAlike notice for the OTDB-derived question bank. Keeps the project legally clean for public sharing.
+- **`Attribution` component** — small footer line "Questions from Open Trivia DB · CC BY-SA 4.0" with links. Mounted on `Home`, `PostGame`, and `Leaderboard` (every public surface).
+- **OG / Twitter card metadata** in `app/layout.tsx`. Shared links now render with title + description + image preview in iMessage / Slack / WhatsApp / Twitter / etc. `metadataBase` set to `https://tryquizzle.com`. Title template `%s · Quizzle` + default `Quizzle — 120s sprint trivia`.
+- **`app/opengraph-image.tsx`** — code-generated 1200×630 OG image at `/opengraph-image`. Warm cream canvas, BrandMark up top with the burnt-orange "izz" + 5-bar waveform, hero copy "120 seconds. As many as you can get." with the design-system tokens, footer with `tryquizzle.com` and tagline. Edge-rendered at build time; no font fetch needed (system fonts only).
+
+### Notes
+- `tryquizzle.com` (apex + www) verified live with HTTPS, redirects HTTP→HTTPS, www→apex. Vercel deploy already pointing at it.
+- 77 audited questions live in Neon (up from 32 last session). Distribution: ~36/47/17% easy/medium/hard, heavy on general+geography for now — `sampler.ts` empty-bucket fallback handles the skew gracefully.
+
 ## [0.5.3.0] - 2026-04-29
 
 ### Changed — Layout fills viewport on every screen
