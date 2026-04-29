@@ -13,12 +13,12 @@ export const AudioWaveform = ({ active = false, className = "" }: Props) => {
       className={`inline-flex items-end gap-[2px] h-4 ${className}`}
       aria-hidden="true"
     >
-      {[7, 13, 16, 10, 14].map((h, i) => (
+      {[44, 81, 100, 63, 88].map((pct, i) => (
         <span
           key={i}
           className={`w-[3px] rounded-[1px] ${active ? "bg-[var(--accent)]" : "bg-[var(--ink)]"} ${active ? "wave-bar" : ""}`}
           style={{
-            height: `${h}px`,
+            height: `${pct}%`,
             animationDelay: active ? `${i * 100}ms` : undefined,
           }}
         />
