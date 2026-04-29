@@ -1,4 +1,4 @@
-# Design System — Trivia for All
+# Design System — Quizzle
 
 > **Memorable thing:** "Learning when it doesn't feel like learning."
 > Every decision below serves this. If a future change makes the product feel more like classroom or more like SaaS, it's the wrong change.

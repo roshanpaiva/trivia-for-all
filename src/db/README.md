@@ -15,7 +15,7 @@ Postgres on Neon (serverless), accessed via `@neondatabase/serverless`. Connecti
 ## First-time setup
 
 1. **Sign up at https://neon.tech** (free tier — generous for v1).
-2. Create a project, name it `trivia-for-all`. Note the connection string from the dashboard (looks like `postgres://user:pass@host/db?sslmode=require`).
+2. Create a project, name it `quizzle` (or whatever you like — only the connection string matters). Note it from the dashboard (looks like `postgres://user:pass@host/db?sslmode=require`).
 3. Add to `.env.local` in the repo root:
    ```
    DATABASE_URL=postgres://...

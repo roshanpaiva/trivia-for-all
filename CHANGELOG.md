@@ -1,6 +1,21 @@
 # Changelog
 
-All notable changes to Trivia for All are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
+All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
+
+## [0.5.0.0] - 2026-04-29
+
+### Changed — Renamed to **Quizzle**
+- Branding rename. Friendlier, single-syllable, instantly genre-clear, doubles as a memorable URL. Originally "Trivia for All".
+- **`BrandMark`:** "Trivia·for·All" → "Qu**izz**le" with the middle "izz" in `--accent` (burnt orange). Waveform mark unchanged — it still pairs naturally as the "voice" indicator.
+- **Page title** + meta description: "Quizzle".
+- **`package.json` + `package-lock.json` `name`:** `quizzle`.
+- Doc references updated cosmetically (README, DESIGN, TESTING, schema header, lib/types header). Historical CHANGELOG entries are left as-is — they record what was true at the time. Planning artifacts under `~/.gstack/projects/roshanpaiva-trivia-for-all/` keep the original folder name (real filesystem path).
+- Smoke test now asserts `Quizzle` instead of the three split tokens.
+
+### Notes
+- Repo name on GitHub still `trivia-for-all` (rename via Settings if desired — git remote handles redirects automatically).
+- Vercel project name still `budapest` / domain still `budapest-eta.vercel.app` (rename via Vercel dashboard if desired).
+- No schema/API/runtime behavior change — purely a brand rename + cosmetic docs.
 
 ## [0.4.1.1] - 2026-04-29
 

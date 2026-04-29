@@ -10,7 +10,7 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "Trivia for All",
+  title: "Quizzle",
   description: "90 seconds. As many as you can get.",
 };
 

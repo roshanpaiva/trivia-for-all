@@ -1,5 +1,5 @@
 /**
- * Shared types for Trivia for All.
+ * Shared types for Quizzle.
  *
  * The split between Question and ClientQuestion enforces the server-authoritative
  * answer rule from the design doc: correctIdx never leaves the server. The client
