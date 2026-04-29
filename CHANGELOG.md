@@ -2,6 +2,11 @@
 
 All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.5.1.0] - 2026-04-29
+
+### Changed
+- **Base clock 90s → 120s.** TTS reads on the slower side, which made the original 90s feel too tight. 33% more breathing room without changing streak math (5-in-row +10s, 10-in-row +15s replaces). Cap stays at 240s. All user-facing copy ("90 seconds. As many as you can get.", "90s. Tap fast.", meta description) updated to "120 seconds." Tests use the `BASE_CLOCK_MS` constant so most pass through; one Home test referenced "90s" literally and was bumped.
+
 ## [0.5.0.2] - 2026-04-29
 
 ### Changed

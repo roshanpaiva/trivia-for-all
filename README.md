@@ -1,6 +1,6 @@
 # Quizzle
 
-A 90-second sprint trivia game for kids and adults at the same table. Audio-first, daily leaderboard, edutainment. (Originally codenamed "Trivia for All" — renamed at v0.5.0.0; planning artifacts in `~/.gstack/projects/roshanpaiva-trivia-for-all/` keep the original path.)
+A 120-second sprint trivia game for kids and adults at the same table. Audio-first, daily leaderboard, edutainment. (Originally codenamed "Trivia for All" — renamed at v0.5.0.0; planning artifacts in `~/.gstack/projects/roshanpaiva-trivia-for-all/` keep the original path.)
 
 > Memorable thing: **"Learning when it doesn't feel like learning."**
 
