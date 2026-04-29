@@ -80,17 +80,18 @@ export const Home = ({
       className="flex min-h-screen flex-col mx-auto max-w-[420px] px-5 py-6 bg-[var(--canvas)] text-[var(--ink)]"
       data-testid="home"
     >
-      {/* Header */}
-      <div className="flex items-center justify-between mb-6 pb-4 border-b border-dashed border-[var(--line)]">
+      {/* Header — brand on top, status text below. Stacked so the bigger
+          BrandMark (28px) gets room without squeezing the status copy. */}
+      <div className="mb-6 pb-4 border-b border-dashed border-[var(--line)]">
         <BrandMark audioActive={audioActive} />
         {isFirstTime ? (
-          <span className="text-[14px] text-[var(--muted)]" data-testid="how-to-play">
+          <p className="text-[14px] text-[var(--muted)] mt-2" data-testid="how-to-play">
             120s. Tap fast. Streaks add bonus time.
-          </span>
+          </p>
         ) : (
-          <span className="text-[14px] text-[var(--muted)]">
+          <p className="text-[14px] text-[var(--muted)] mt-2">
             Best today: <strong className="text-[var(--ink)] font-display tabular-nums">{bestToday ?? "—"}</strong>
-          </span>
+          </p>
         )}
       </div>
 

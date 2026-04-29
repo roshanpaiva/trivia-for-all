@@ -2,6 +2,11 @@
 
 All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.5.1.2] - 2026-04-29
+
+### Fixed
+- **Home header: brand mark and status text were squashed together.** The header was a `flex items-center justify-between` row with both children inline — fine when BrandMark was 18px, cramped after the 28px bump (especially on narrow phones where the first-time copy "120s. Tap fast. Streaks add bonus time." had no room). Stacked vertically: BrandMark on top, status copy on its own line with `mt-2` spacing.
+
 ## [0.5.1.1] - 2026-04-29
 
 ### Changed
