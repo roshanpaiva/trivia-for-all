@@ -93,7 +93,7 @@
         "Germany"
       ],
       "correctIdx": 2,
-      "fact": "Russia. Sochi 2014 was the most expensive Olympics in history at the time.",
+      "fact": "Sochi 2014 was the most expensive Olympics in history at the time.",
       "source": "opentdb"
     },
     {
@@ -183,7 +183,7 @@
         "Peter Pan's Flight"
       ],
       "correctIdx": 2,
-      "fact": "The Twilight Zone Tower of Terror",
+      "fact": "Where random, faster-than-gravity thrills await inside the abandoned Hollywood Tower Hotel.",
       "source": "opentdb"
     },
     {
@@ -198,7 +198,7 @@
         "Pilcrow"
       ],
       "correctIdx": 2,
-      "fact": "The ampersand",
+      "fact": "It acts as a stylized, one-line substitute for \"and\"",
       "source": "opentdb"
     },
     {
@@ -213,7 +213,7 @@
         "Yahoo"
       ],
       "correctIdx": 0,
-      "fact": "Microsoft owns Outlook",
+      "fact": "Part of the Microsoft 365 suite, formerly known as Hotmail",
       "source": "opentdb"
     },
     {
@@ -243,7 +243,7 @@
         "American Revolutionary War"
       ],
       "correctIdx": 1,
-      "fact": "The World War II Memorial.",
+      "fact": "Features 4,048 gold stars on a dark wall, representing over 400,000 Americans who died",
       "source": "opentdb"
     },
     {
@@ -288,7 +288,7 @@
         "1998"
       ],
       "correctIdx": 2,
-      "fact": "The first Apple iPod was introduced on October 23, 2001.",
+      "fact": "Was introduced on October 23, 2001, by Steve Jobs.",
       "source": "opentdb"
     },
     {
@@ -363,7 +363,7 @@
         "Numbers"
       ],
       "correctIdx": 0,
-      "fact": "Genesis. ",
+      "fact": "The name originates from Greek, meaning \"origin\" or \"beginning,\". ",
       "source": "opentdb"
     },
     {
@@ -378,7 +378,7 @@
         "Stanford"
       ],
       "correctIdx": 3,
-      "fact": "Stanford",
+      "fact": "While not an Ivy, Stanford is considered \"Ivy Plus,\" placing it among the most elite institutions in the world.",
       "source": "opentdb"
     },
     {
@@ -408,14 +408,14 @@
         "Mariachi"
       ],
       "correctIdx": 2,
-      "fact": "Bullfighting",
+      "fact": "In 2010, Catalonia banned bullfighting (effective 2012). Though Spain's high court overturned the ban in 2016, the practice has not returned",
       "source": "opentdb"
     },
     {
       "id": "general-33064815",
       "category": "general",
       "difficulty": "medium",
-      "prompt": " In which country was the Michelin tire company founded in 1889?",
+      "prompt": "In which country was the Michelin tire company founded in 1889?",
       "choices": [
         "United Kingdom",
         "Italy",
@@ -453,7 +453,7 @@
         "Gevora Hotal, United Arab Emirates"
       ],
       "correctIdx": 1,
-      "fact": "Empire State Building, United States",
+      "fact": "It was the world's tallest building for 40 years",
       "source": "opentdb"
     },
     {
@@ -468,7 +468,7 @@
         "Sonic"
       ],
       "correctIdx": 2,
-      "fact": "McDonald's ",
+      "fact": "McDonald's mascot is Ronald McDonald. This red-haired, yellow-suited icon debuted in 1963 to appeal to children globally. ",
       "source": "opentdb"
     },
     {
@@ -483,7 +483,7 @@
         "England"
       ],
       "correctIdx": 3,
-      "fact": "The tale of Robin Hood originates from England",
+      "fact": "The legend is rooted in English folklore, specifically tied to locations like Sherwood Forest ",
       "source": "opentdb"
     },
     {
@@ -513,7 +513,7 @@
         "Utah"
       ],
       "correctIdx": 1,
-      "fact": "Area 51 is located in the US state of Nevada",
+      "fact": "Area 51 is a highly classified United States Air Force facility ",
       "source": "opentdb"
     },
     {
@@ -558,7 +558,7 @@
         "Whole Sheep"
       ],
       "correctIdx": 0,
-      "fact": "Traditional haggis is a savory Scottish pudding made from sheep's \"pluck\" (heart, liver, and lungs), minced with onion, oatmeal, suet (fat), spices (like pepper, nutmeg, or coriander), and stock",
+      "fact": "Traditional haggis is a savory Scottish pudding made from sheep's heart, liver, and lungs, minced with onion, oatmeal, suet (fat), spices, and stock",
       "source": "opentdb"
     },
     {
@@ -603,7 +603,7 @@
         "78"
       ],
       "correctIdx": 0,
-      "fact": "A standard grand piano has 88 keys (notes), consisting of 52 white keys and 36 black keys",
+      "fact": "A standard grand piano has 88 keys, consisting of 52 white keys and 36 black keys",
       "source": "opentdb"
     },
     {
@@ -678,7 +678,7 @@
         "Belts"
       ],
       "correctIdx": 0,
-      "fact": "bearings are rolling-element components that reduce friction between moving parts",
+      "fact": "Bearings are rolling-element components that reduce friction between moving parts",
       "source": "opentdb"
     },
     {
@@ -693,7 +693,7 @@
         "Bootstrap"
       ],
       "correctIdx": 0,
-      "fact": "bootleg refers to goods—traditionally alcohol, but now commonly computer software, recordings, or films—that are produced, distributed, or sold illegally",
+      "fact": "Bootleg refers to goods—traditionally alcohol, but now commonly computer software, recordings, or films—that are produced, distributed, or sold illegally",
       "source": "opentdb"
     },
     {
@@ -753,7 +753,7 @@
         "South Pacific Ocean, far off Chile"
       ],
       "correctIdx": 1,
-      "fact": "t is known for alleged, unproven mysteries, though it is a heavily traveled, non-hazardous region",
+      "fact": "It is known for alleged, unproven mysteries, though it is a heavily traveled, non-hazardous region",
       "source": "opentdb"
     },
     {
@@ -798,7 +798,7 @@
         "8"
       ],
       "correctIdx": 1,
-      "fact": "sovereign states. These countries are: Norway, Finland, Estonia, Latvia, Lithuania, Poland, Belarus, Ukraine, Georgia, Azerbaijan, Kazakhstan, China, Mongolia, and North Korea.",
+      "fact": "These countries are: Norway, Finland, Estonia, Latvia, Lithuania, Poland, Belarus, Ukraine, Georgia, Azerbaijan, Kazakhstan, China, Mongolia, and North Korea.",
       "source": "opentdb"
     },
     {
@@ -813,7 +813,7 @@
         "The United States"
       ],
       "correctIdx": 2,
-      "fact": "an estimated 1.5 to over 2 million people of Japanese descent (nikkei) residing there",
+      "fact": "An estimated 1.5 to over 2 million people of Japanese descent (nikkei) residing there",
       "source": "opentdb"
     },
     {
@@ -888,7 +888,7 @@
         "New Zealand"
       ],
       "correctIdx": 3,
-      "fact": "located on the southeast side of the Auckland region on the North Island of New Zealand",
+      "fact": "Located on the southeast side of the Auckland region on the North Island of New Zealand",
       "source": "opentdb"
     },
     {
@@ -903,7 +903,7 @@
         "Urals"
       ],
       "correctIdx": 1,
-      "fact": "acts as the natural border between Spain and France",
+      "fact": "Acts as the natural border between Spain and France",
       "source": "opentdb"
     },
     {
@@ -918,7 +918,7 @@
         "United Kingdom"
       ],
       "correctIdx": 3,
-      "fact": "they are situated along the coastline of Kent in southeast England, facing the Strait of Dover and France",
+      "fact": "They are situated along the coastline of Kent in southeast England, facing the Strait of Dover and France",
       "source": "opentdb"
     },
     {
@@ -948,7 +948,7 @@
         "Africa"
       ],
       "correctIdx": 2,
-      "fact": "the world's longest continental mountain range",
+      "fact": "The world's longest continental mountain range",
       "source": "opentdb"
     },
     {
@@ -963,7 +963,7 @@
         "Cambridge"
       ],
       "correctIdx": 3,
-      "fact": "is a historic and vibrant city renowned as an intellectual powerhouse, home to Harvard University and MIT",
+      "fact": "Is a historic and vibrant city renowned as an intellectual powerhouse, home to Harvard University and MIT",
       "source": "opentdb"
     },
     {
@@ -993,7 +993,7 @@
         "Kenya"
       ],
       "correctIdx": 0,
-      "fact": "bordered by Mexico to the north and northwest, and by Guatemala to the west and south",
+      "fact": "Bordered by Mexico to the north and northwest, and by Guatemala to the west and south",
       "source": "opentdb"
     },
     {
@@ -1023,7 +1023,7 @@
         "Andorra"
       ],
       "correctIdx": 3,
-      "fact": "It's bigger than Texas, California, and Montana combined.",
+      "fact": "Its two heads of state are the President of France and the Bishop of Urgell in Spain",
       "source": "opentdb"
     },
     {
@@ -1143,7 +1143,7 @@
         "Canberra"
       ],
       "correctIdx": 3,
-      "fact": "it was founded in 1913 as a compromise between rivals Sydney and Melbourne",
+      "fact": "It was founded in 1913 as a compromise between rivals Sydney and Melbourne",
       "source": "opentdb"
     },
     {
@@ -1158,7 +1158,7 @@
         "Aalborg"
       ],
       "correctIdx": 1,
-      "fact": "it is known for its historic architecture, vibrant harbor (Nyhavn), and biking culture",
+      "fact": "It is known for its historic architecture, vibrant harbor (Nyhavn), and biking culture",
       "source": "opentdb"
     }
   ]
