@@ -259,7 +259,7 @@ describe("createAudioService — speak", () => {
     const real = vi.mocked(synthMock.synth.speak).mock.calls[1][0];
     expect(real.text).toBe("What is the capital of Australia?");
     expect(real.volume).toBe(1.0);
-    expect(real.rate).toBe(1.0);
+    expect(real.rate).toBe(1.1);
   });
 
   it("speak() cancels any in-flight utterance first (barge-in pattern)", () => {
