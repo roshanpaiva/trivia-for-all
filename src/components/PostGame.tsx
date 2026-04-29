@@ -23,8 +23,11 @@ type Props = {
 
 const formatCountdown = (ms: number): string => {
   const totalMin = Math.max(0, Math.floor(ms / 60_000));
+  if (totalMin < 1) return "less than a minute";
   const h = Math.floor(totalMin / 60);
   const m = totalMin % 60;
+  if (h === 0) return `${m}m`;
+  if (m === 0) return `${h}h`;
   return `${h}h ${m}m`;
 };
 
@@ -150,7 +153,7 @@ export const PostGame = ({
         <div className="text-center my-5">
           <div className="font-display font-semibold text-[22px]">All 5 attempts used</div>
           <div className="text-[var(--muted)] text-[18px] mt-2">
-            Resets in {formatCountdown(msUntilReset)}
+            Try again in <span className="text-[var(--ink)] font-semibold">{formatCountdown(msUntilReset)}</span>
           </div>
         </div>
       )}

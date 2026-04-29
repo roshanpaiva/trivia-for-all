@@ -32,8 +32,11 @@ type Props = {
 
 const formatCountdown = (ms: number): string => {
   const totalMin = Math.max(0, Math.floor(ms / 60_000));
+  if (totalMin < 1) return "less than a minute";
   const h = Math.floor(totalMin / 60);
   const m = totalMin % 60;
+  if (h === 0) return `${m}m`;
+  if (m === 0) return `${h}h`;
   return `${h}h ${m}m`;
 };
 
@@ -94,11 +97,11 @@ export const Home = ({
       {/* Headline */}
       <div className="mb-6">
         <div className="text-[12px] uppercase tracking-[0.12em] text-[var(--muted)] mb-1">
-          {isExhausted ? "All done today" : "Today's daily"}
+          {isExhausted ? "Daily refresh" : "Today's daily"}
         </div>
         <h1 className="font-display font-bold text-[28px] leading-tight tracking-tight">
           {isExhausted ? (
-            <>Resets in <span className="text-[var(--accent)]">{msUntilReset !== undefined ? formatCountdown(msUntilReset) : "—"}</span></>
+            <>Try again in <span className="text-[var(--accent)]">{msUntilReset !== undefined ? formatCountdown(msUntilReset) : "—"}</span></>
           ) : (
             <>90 seconds. <span className="text-[var(--accent)]">As many as you can get.</span></>
           )}

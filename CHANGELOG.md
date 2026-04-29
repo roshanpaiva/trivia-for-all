@@ -2,6 +2,12 @@
 
 All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.5.0.2] - 2026-04-29
+
+### Changed
+- **Friendlier exhausted-attempts copy.** Home headline: "Resets in **4h 14m**" → "Try again in **4h 14m**". Kicker: "All done today" → "Daily refresh". PostGame 5/5-used variant: "Resets in 4h 14m" → "Try again in **4h 14m**" (with the time bolded for scanability).
+- **`formatCountdown` no longer renders "0h 14m" or "4h 0m"** — drops the zero unit ("14m" or "4h") and falls back to "less than a minute" under 60s. Both Home and PostGame copies updated.
+
 ## [0.5.0.1] - 2026-04-29
 
 ### Changed
