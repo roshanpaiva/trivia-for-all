@@ -19,6 +19,13 @@ All notable changes to Trivia for All are documented here. Format follows [Keep 
 - Day 0 TTS spike result (browser-native speechSynthesis) committed separately on `roshanpaiva/day-0-tts-spike` → PR #2. If that PR merges before this one, the TTS Strategy section in CLAUDE.md will need a trivial 3-way merge (this PR adds `## Testing`, that PR adds `## TTS Strategy`).
 - `npm test` runs Vitest. `npm run test:e2e` runs Playwright (first-time needs `npx playwright install --with-deps chromium webkit`).
 - `npm run build` succeeds. TypeScript type-checks cleanly. Vitest passes 2/2.
+## [0.1.0.1] - 2026-04-28
+
+### Added
+- `CLAUDE.md` — `## TTS Strategy` section. v1 ships browser-native `speechSynthesis` after Day 0 device spike confirmed both gating devices (iPhone Safari + Android Chrome) cleared the failure threshold. Saves the half-to-one weekend that server-cached MP3 infrastructure would have cost. Caveats and v2 wake-lock revisit conditions documented.
+
+### Notes
+- Spike artifact (test page + filled scorecard) archived at `~/.gstack/projects/roshanpaiva-trivia-for-all/spikes/`.
 
 ## [0.1.0.0] - 2026-04-27
 
