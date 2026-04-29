@@ -2,6 +2,17 @@
 
 All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.5.2.2] - 2026-04-29
+
+### Changed — PostGame: hero treatment matches Home
+After bumping Home typography in 0.5.2.1, the PostGame felt undersized by comparison. Same scale-up rules applied.
+
+- **Best-today card:** `p-5 → p-6`, value text `text-[22px] font-bold → text-[32px] font-extrabold`, "Best today" label gets `uppercase tracking-[0.12em]` to match the kicker pattern, "— new best!" rendered at `text-[20px]` (was inheriting parent size).
+- **Play another CTA:** `min-h-[64px] text-[22px]` → `min-h-[76px] text-[28px]`. Matches Home Start button.
+- **Practice CTA:** `min-h-[56px] text-[18px]` → `min-h-[68px] text-[22px]`. Matches Home secondary practice.
+
+The 420px column constraint is unchanged — same as Home/InGame/Leaderboard for visual consistency. If we want elements to fill wide screens (tablet/desktop), that's a separate design decision.
+
 ## [0.5.2.1] - 2026-04-29
 
 ### Changed — Home: poster-sized typography
