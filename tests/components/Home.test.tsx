@@ -34,11 +34,22 @@ describe("Home — variants", () => {
     expect(screen.getByText(/4h 14m/)).toBeInTheDocument();
   });
 
-  it("Start tap calls onStart with mode='scored'", () => {
+  it("Start tap calls onStart with mode='scored' (when a name is set)", () => {
     const onStart = vi.fn();
-    render(<Home bestToday={null} attemptsRemaining={5} onStart={onStart} />);
+    render(<Home bestToday={null} attemptsRemaining={5} displayName="Alex" onStart={onStart} />);
     fireEvent.click(screen.getByTestId("start-button"));
     expect(onStart).toHaveBeenCalledWith("scored");
+  });
+
+  it("Start is disabled when no name is set (scored requires a name)", () => {
+    const onStart = vi.fn();
+    render(<Home bestToday={null} attemptsRemaining={5} onStart={onStart} />);
+    const startBtn = screen.getByTestId("start-button") as HTMLButtonElement;
+    expect(startBtn.disabled).toBe(true);
+    expect(screen.getByTestId("name-required-hint")).toBeInTheDocument();
+    // Clicking the disabled button is a no-op
+    fireEvent.click(startBtn);
+    expect(onStart).not.toHaveBeenCalled();
   });
 
   it("Practice tap calls onStart with mode='practice'", () => {

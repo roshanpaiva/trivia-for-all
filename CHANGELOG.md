@@ -2,6 +2,19 @@
 
 All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.5.2.0] - 2026-04-29
+
+### Changed
+- **Name required for scored play.** Start button is disabled when no display name is set (in input or localStorage). Helper hint: "Add your name above to play scored. Practice mode below works without one." Solves leaderboard rows with anonymous "wise-harbor" auto-handles for new users who skipped the input.
+- **🔥 On-a-roll indicator.** Persistent badge in the in-game top section while `streak >= 5` ("🔥 On a roll"), with `--accent-soft` background. Disappears the moment the streak resets to 0.
+- **💔 Bonus streak lost message.** When a wrong answer breaks a `>=5` streak, a small "💔 Bonus streak lost" line shows during the reveal. Reducer tracks `bonusStreakLost` on `RevealResult`.
+- **In-game layout fits viewport — sticky top bar.** Status row + Clock + streak indicator are now in a `sticky top-0` bar so they're always visible regardless of scroll. Body shrinks slightly (text-22 → text-20 for prompt + result label, mt-4 → mt-3 on fact box) so 4 choices + fact + sticky header fit on iPhone SE without scrolling. Replaces the prior layout where scrolling for the fact pushed the timer off-screen.
+- **PostGame "Saving your score…" loading state** between game-end and finalize-resolved. Was falling through to Home, which flashed the name-input + Start CTA briefly. Now renders a quiet centered loader during the API roundtrip (typically 200-500ms).
+- **Best-today card width parity:** added explicit `w-full`, bumped padding `p-4 → p-5`, `rounded-md → rounded-lg` to match the visual weight of the Start/Resume buttons.
+
+### Tests
+3 new (168 total): Start disabled when no name set, `bonusStreakLost` true on streak break, `bonusStreakLost` false otherwise.
+
 ## [0.5.1.2] - 2026-04-29
 
 ### Fixed

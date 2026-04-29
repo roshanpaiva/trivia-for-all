@@ -58,6 +58,11 @@ export const Home = ({
   const [nameInput, setNameInput] = useState(displayName ?? "");
 
   const showNameInput = !displayName || isEditingName;
+  // Resolved name considering an in-flight typing buffer too.
+  const effectiveName = sanitizeName(displayName) ?? sanitizeName(nameInput);
+  // Scored mode requires a name (so leaderboard rows are meaningful). Practice
+  // stays anonymous-allowed — it never lands on the leaderboard anyway.
+  const needsNameForScored = !effectiveName;
 
   const commitName = () => {
     const cleaned = sanitizeName(nameInput);
@@ -184,15 +189,22 @@ export const Home = ({
 
       {/* Primary CTA */}
       {!isExhausted ? (
-        <button
-          type="button"
-          onClick={() => handleStart("scored")}
-          disabled={isStarting}
-          className="w-full min-h-[64px] rounded-lg bg-[var(--ink)] text-[var(--canvas)] font-bold text-[22px] hover:opacity-85 transition-opacity disabled:opacity-60 disabled:cursor-not-allowed"
-          data-testid="start-button"
-        >
-          {isStarting ? "Starting…" : hasResumableAttempt ? "Resume ▸" : "Start ▸"}
-        </button>
+        <>
+          <button
+            type="button"
+            onClick={() => handleStart("scored")}
+            disabled={isStarting || needsNameForScored}
+            className="w-full min-h-[64px] rounded-lg bg-[var(--ink)] text-[var(--canvas)] font-bold text-[22px] hover:opacity-85 transition-opacity disabled:opacity-60 disabled:cursor-not-allowed"
+            data-testid="start-button"
+          >
+            {isStarting ? "Starting…" : hasResumableAttempt ? "Resume ▸" : "Start ▸"}
+          </button>
+          {needsNameForScored && (
+            <p className="mt-2 text-[12px] text-[var(--muted)] text-center" data-testid="name-required-hint">
+              Add your name above to play scored. Practice mode below works without one.
+            </p>
+          )}
+        </>
       ) : (
         <button
           type="button"
