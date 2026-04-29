@@ -2,6 +2,12 @@
 
 All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.5.0.1] - 2026-04-29
+
+### Changed
+- **`BrandMark` is now `--display-m` size (28px)** instead of 18px. Matches DESIGN.md typography for "section headlines / brand mark". The home header brand was visually undersized after the Quizzle rename.
+- **`AudioWaveform` bar heights are percentages, not fixed pixels.** Bars now scale with container height — `className="h-6"` from `BrandMark` actually grows the bars proportionally instead of leaving them stuck at 16px tall in a 24px container.
+
 ## [0.5.0.0] - 2026-04-29
 
 ### Changed — Renamed to **Quizzle**
