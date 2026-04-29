@@ -1,26 +1,98 @@
 @import "tailwindcss";
 
+/*
+ * Trivia for All — design tokens. Source of truth: DESIGN.md.
+ * Light mode only in v1; dark mode tokens are commented for v2.
+ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Color — light mode */
+  --ink: #1a1a1a;
+  --canvas: #faf7f2;
+  --surface: #f2ede5;
+  --line: #d4ccbe;
+  --muted: #8a8378;
+  --accent: #d4622a;
+  --accent-soft: rgba(212, 98, 42, 0.12);
+  --accent-strong: #b85525;
+  --success: #3a7d44;
+  --error: #a33b2a;
+
+  /* Type scale */
+  --display-xl: 64px;
+  --display-l: 36px;
+  --display-m: 28px;
+  --body-l: 22px;
+  --body: 18px;
+  --small: 14px;
+  --micro: 12px;
+
+  /* Spacing */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+
+  /* Radii */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-pill: 9999px;
 }
 
+/*
+ * Map design tokens into Tailwind v4's @theme so utilities like
+ * `bg-canvas`, `text-ink`, `font-display`, `font-body` resolve correctly.
+ *
+ * The font-family slots reference next/font CSS variables set on <html>
+ * in src/app/layout.tsx (Geist via next/font/google) and the Fontshare
+ * stylesheet linked in <head> (Cabinet Grotesk).
+ */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-ink: var(--ink);
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-strong: var(--accent-strong);
+  --color-success: var(--success);
+  --color-error: var(--error);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-display: "Cabinet Grotesk", "Geist", system-ui, -apple-system, sans-serif;
+  --font-body: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  font-size: var(--body);
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--canvas);
+}
+
+h1,
+h2,
+h3,
+.brand,
+.font-display {
+  font-family: "Cabinet Grotesk", var(--font-geist-sans), system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.tabular-nums {
+  font-feature-settings: "tnum";
+}
+
+/* Visible focus ring for keyboard nav (DESIGN.md → A11y baseline) */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
