@@ -29,13 +29,22 @@ export const Leaderboard = () => {
       className="flex min-h-screen flex-col mx-auto max-w-[420px] px-5 py-6 bg-[var(--canvas)] text-[var(--ink)]"
       data-testid="leaderboard"
     >
-      {/* Header */}
-      <div className="flex items-baseline justify-between mb-1">
-        <h1 className="font-display font-bold text-[28px] tracking-tight">Today</h1>
+      {/* Top nav — back is always visible above the fold */}
+      <div className="flex items-center justify-between mb-4">
+        <a
+          href="/"
+          className="inline-flex items-center gap-1 text-[14px] text-[var(--ink)] hover:text-[var(--accent)] transition-colors"
+          data-testid="leaderboard-back"
+        >
+          ← Back
+        </a>
         <span className="text-[14px] text-[var(--muted)]">
           {data?.dateUtc ?? ""} · UTC
         </span>
       </div>
+
+      {/* Header */}
+      <h1 className="font-display font-bold text-[28px] tracking-tight">Today</h1>
       <p className="text-[14px] text-[var(--muted)] mb-6">
         {status === "ok" && data
           ? `${data.totalPlayers} players · resets at midnight UTC`
@@ -91,12 +100,6 @@ export const Leaderboard = () => {
         </div>
       )}
 
-      <a
-        href="/"
-        className="mt-auto pt-6 text-[14px] text-[var(--ink)] underline"
-      >
-        ← Back
-      </a>
     </main>
   );
 };
