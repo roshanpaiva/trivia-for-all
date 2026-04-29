@@ -138,12 +138,12 @@ export const PostGame = ({
       </div>
 
       {!isExhausted && (
-        <div className="w-full bg-[var(--surface)] border border-[var(--line)] rounded-lg p-5 text-center mb-5" data-testid="best-card">
-          <div className="text-[14px] text-[var(--muted)]">Best today</div>
-          <div className="font-display font-bold text-[22px] mt-1">
+        <div className="w-full bg-[var(--surface)] border border-[var(--line)] rounded-lg p-6 text-center mb-5" data-testid="best-card">
+          <div className="text-[14px] text-[var(--muted)] uppercase tracking-[0.12em]">Best today</div>
+          <div className="font-display font-extrabold text-[32px] mt-2">
             {bestToday}{" "}
             {isNewBest && (
-              <span className="text-[var(--accent)] font-semibold">— new best!</span>
+              <span className="text-[var(--accent)] font-semibold text-[20px]">— new best!</span>
             )}
           </div>
         </div>
@@ -164,7 +164,7 @@ export const PostGame = ({
         <button
           type="button"
           onClick={onPlayAgain}
-          className="w-full min-h-[64px] rounded-lg bg-[var(--ink)] text-[var(--canvas)] font-bold text-[22px] hover:opacity-85 mb-3"
+          className="w-full min-h-[76px] rounded-lg bg-[var(--ink)] text-[var(--canvas)] font-bold text-[28px] hover:opacity-85 mb-3"
           data-testid="play-again"
         >
           Play another ({attemptsRemaining} left)
@@ -174,7 +174,7 @@ export const PostGame = ({
       <button
         type="button"
         onClick={onPractice}
-        className="w-full min-h-[56px] rounded-lg border border-[var(--line)] bg-[var(--canvas)] text-[var(--ink)] font-semibold text-[18px] hover:border-[var(--ink)]"
+        className="w-full min-h-[68px] rounded-lg border border-[var(--line)] bg-[var(--canvas)] text-[var(--ink)] font-semibold text-[22px] hover:border-[var(--ink)]"
         data-testid="practice-cta"
       >
         Practice mode {isExhausted && "(still unlimited)"}
