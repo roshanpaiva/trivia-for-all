@@ -52,10 +52,16 @@ export type UseGameReturn = {
   finishReveal: () => void;
 };
 
-export const useGame = (): UseGameReturn => {
+export const useGame = (opts: { displayName?: string | null } = {}): UseGameReturn => {
   // Declared before useReducer so the reducer closure can read it on the first
   // dispatch — JS temporal-dead-zone would otherwise throw on initial render.
   const attemptRef = useRef<UseGameReturn["attempt"]>(null);
+  // Mirror the latest displayName into a ref so the finalize effect uses the
+  // current value without needing it as an effect dep (would cause double-fires).
+  const displayNameRef = useRef<string | null>(opts.displayName ?? null);
+  useEffect(() => {
+    displayNameRef.current = opts.displayName ?? null;
+  }, [opts.displayName]);
 
   const [state, baseDispatch] = useReducer(
     (s: GameState, e: GameEvent) => gameReducer(s, e, attemptRef.current?.questions.length ?? 0),
@@ -163,7 +169,7 @@ export const useGame = (): UseGameReturn => {
     if (status === "finalizing" || status === "finalized") return;
     setStatus("finalizing");
     audio.cancel();
-    finalizeAttemptApi(attempt.id)
+    finalizeAttemptApi(attempt.id, displayNameRef.current)
       .then((result) => {
         setFinalScore({
           score: result.score,

@@ -15,6 +15,7 @@ import { PostGame } from "@/components/PostGame";
 import { useGame } from "@/hooks/useGame";
 import { useAudio } from "@/hooks/useAudio";
 import { getLeaderboard, getCurrentAttempt } from "@/lib/api";
+import { loadDisplayName, saveDisplayName } from "@/lib/displayName";
 import type { AttemptMode } from "@/lib/types";
 
 const msUntilNextUtcMidnight = (now: Date = new Date()): number => {
@@ -23,11 +24,17 @@ const msUntilNextUtcMidnight = (now: Date = new Date()): number => {
 };
 
 export default function GamePage() {
-  const game = useGame();
+  const [displayName, setDisplayName] = useState<string | null>(null);
+  const game = useGame({ displayName });
   const audio = useAudio();
   const [bestToday, setBestToday] = useState<number | null>(null);
   const [attemptsRemaining, setAttemptsRemaining] = useState<number>(5);
   const [hasResumable, setHasResumable] = useState(false);
+
+  // Hydrate display name from localStorage on mount (client-only).
+  useEffect(() => {
+    setDisplayName(loadDisplayName());
+  }, []);
 
   // Initial load: best score + resumable attempt
   useEffect(() => {
@@ -42,6 +49,11 @@ export default function GamePage() {
         // Silent; user lands on first-time home variant
       });
   }, []);
+
+  const handleNameChange = (raw: string | null) => {
+    const cleaned = saveDisplayName(raw);
+    setDisplayName(cleaned);
+  };
 
   // After finalize, refresh best + remaining
   useEffect(() => {
@@ -105,6 +117,8 @@ export default function GamePage() {
       msUntilReset={attemptsRemaining === 0 ? msUntilNextUtcMidnight() : undefined}
       errorMessage={friendlyError}
       isStarting={game.status === "starting"}
+      displayName={displayName}
+      onNameChange={handleNameChange}
     />
   );
 }

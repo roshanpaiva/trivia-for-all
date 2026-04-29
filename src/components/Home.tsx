@@ -9,6 +9,7 @@
 
 import { BrandMark } from "./BrandMark";
 import { useState } from "react";
+import { MAX_LENGTH as NAME_MAX_LENGTH, sanitize as sanitizeName } from "@/lib/displayName";
 import type { AttemptMode } from "@/lib/types";
 
 type Props = {
@@ -23,6 +24,10 @@ type Props = {
   errorMessage?: string | null;
   /** True while the start request is in flight; disables the button + shows label. */
   isStarting?: boolean;
+  /** Player-supplied display name; null until the player sets one. */
+  displayName?: string | null;
+  /** Persist a new name (parent owns localStorage). Pass null to clear. */
+  onNameChange?: (name: string | null) => void;
 };
 
 const formatCountdown = (ms: number): string => {
@@ -40,10 +45,32 @@ export const Home = ({
   msUntilReset,
   errorMessage = null,
   isStarting = false,
+  displayName = null,
+  onNameChange,
 }: Props) => {
   const isFirstTime = bestToday === null && attemptsRemaining === 5;
   const isExhausted = attemptsRemaining === 0;
   const [audioActive] = useState(false); // future: animate when TTS plays a sample
+  const [isEditingName, setIsEditingName] = useState(false);
+  const [nameInput, setNameInput] = useState(displayName ?? "");
+
+  const showNameInput = !displayName || isEditingName;
+
+  const commitName = () => {
+    const cleaned = sanitizeName(nameInput);
+    onNameChange?.(cleaned);
+    setIsEditingName(false);
+  };
+
+  const handleStart = (mode: AttemptMode) => {
+    // If the player typed a name but never confirmed (no blur, no Enter), save
+    // it on Start so the score lands on the leaderboard with their name.
+    if (showNameInput && nameInput.trim().length > 0) {
+      const cleaned = sanitizeName(nameInput);
+      if (cleaned !== displayName) onNameChange?.(cleaned);
+    }
+    onStart(mode);
+  };
 
   return (
     <main
@@ -78,6 +105,54 @@ export const Home = ({
         </h1>
       </div>
 
+      {/* Name field — first-time + edit mode show the input; otherwise show
+          "Playing as <name> · Edit". */}
+      {showNameInput ? (
+        <div className="mb-4">
+          <label htmlFor="display-name" className="block text-[12px] uppercase tracking-[0.12em] text-[var(--muted)] mb-1">
+            Name or team name
+          </label>
+          <input
+            id="display-name"
+            type="text"
+            value={nameInput}
+            maxLength={NAME_MAX_LENGTH}
+            placeholder="e.g. Alex, or The Smiths"
+            autoComplete="nickname"
+            onChange={(e) => setNameInput(e.target.value)}
+            onBlur={commitName}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                commitName();
+              }
+            }}
+            className="w-full min-h-[48px] px-3 rounded-md border border-[var(--line)] bg-[var(--canvas)] text-[var(--ink)] text-[18px] focus:border-[var(--accent)] focus:outline-none"
+            data-testid="display-name-input"
+          />
+          <p className="text-[12px] text-[var(--muted)] mt-1">
+            Shown on the leaderboard. You can change it anytime.
+          </p>
+        </div>
+      ) : (
+        <div className="mb-4 flex items-center gap-2 text-[14px] text-[var(--muted)]" data-testid="display-name-summary">
+          <span>Playing as</span>
+          <strong className="text-[var(--ink)]">{displayName}</strong>
+          <span>·</span>
+          <button
+            type="button"
+            onClick={() => {
+              setNameInput(displayName ?? "");
+              setIsEditingName(true);
+            }}
+            className="text-[var(--ink)] underline"
+            data-testid="edit-name-button"
+          >
+            Edit
+          </button>
+        </div>
+      )}
+
       {/* Status pill */}
       <div className="mb-4">
         <span
@@ -107,7 +182,7 @@ export const Home = ({
       {!isExhausted ? (
         <button
           type="button"
-          onClick={() => onStart("scored")}
+          onClick={() => handleStart("scored")}
           disabled={isStarting}
           className="w-full min-h-[64px] rounded-lg bg-[var(--ink)] text-[var(--canvas)] font-bold text-[22px] hover:opacity-85 transition-opacity disabled:opacity-60 disabled:cursor-not-allowed"
           data-testid="start-button"
@@ -117,7 +192,7 @@ export const Home = ({
       ) : (
         <button
           type="button"
-          onClick={() => onStart("practice")}
+          onClick={() => handleStart("practice")}
           disabled={isStarting}
           className="w-full min-h-[64px] rounded-lg bg-[var(--ink)] text-[var(--canvas)] font-bold text-[22px] hover:opacity-85 transition-opacity disabled:opacity-60 disabled:cursor-not-allowed"
           data-testid="practice-primary-cta"
@@ -129,7 +204,7 @@ export const Home = ({
       {/* Secondary CTA */}
       <button
         type="button"
-        onClick={() => onStart("practice")}
+        onClick={() => handleStart("practice")}
         className="w-full min-h-[56px] rounded-lg border border-[var(--line)] bg-[var(--canvas)] text-[var(--ink)] font-semibold text-[18px] mt-3 hover:border-[var(--ink)] transition-colors"
         data-testid="practice-secondary-cta"
       >

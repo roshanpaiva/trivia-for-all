@@ -74,6 +74,7 @@ export type LeaderboardResponse = {
   top: Array<{
     rank: number;
     handle: string;
+    isYou: boolean;
     bestScore: number;
     bestWrong: number;
   }>;
@@ -113,11 +114,14 @@ export const submitAnswer = async (params: {
   return json<AnswerResponse>(res);
 };
 
-export const finalizeAttempt = async (attemptId: string): Promise<FinalizeResponse> => {
+export const finalizeAttempt = async (
+  attemptId: string,
+  displayName?: string | null,
+): Promise<FinalizeResponse> => {
   const res = await fetch("/api/attempt/finalize", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ attemptId }),
+    body: JSON.stringify({ attemptId, displayName: displayName ?? null }),
     credentials: "same-origin",
   });
   return json<FinalizeResponse>(res);

@@ -55,3 +55,68 @@ describe("Home — variants", () => {
     expect(screen.getByTestId("start-button").textContent).toContain("Resume");
   });
 });
+
+describe("Home — name capture", () => {
+  it("first-time visitor sees the name input", () => {
+    render(<Home bestToday={null} attemptsRemaining={5} onStart={() => {}} />);
+    expect(screen.getByTestId("display-name-input")).toBeInTheDocument();
+    expect(screen.queryByTestId("display-name-summary")).not.toBeInTheDocument();
+  });
+
+  it("returning visitor with a name sees the 'Playing as <name> · Edit' summary", () => {
+    render(
+      <Home bestToday={14} attemptsRemaining={3} displayName="Alex" onStart={() => {}} />,
+    );
+    const summary = screen.getByTestId("display-name-summary");
+    expect(summary.textContent).toContain("Alex");
+    expect(screen.getByTestId("edit-name-button")).toBeInTheDocument();
+    expect(screen.queryByTestId("display-name-input")).not.toBeInTheDocument();
+  });
+
+  it("clicking Edit reopens the input", () => {
+    render(
+      <Home bestToday={14} attemptsRemaining={3} displayName="Alex" onStart={() => {}} />,
+    );
+    fireEvent.click(screen.getByTestId("edit-name-button"));
+    expect(screen.getByTestId("display-name-input")).toBeInTheDocument();
+  });
+
+  it("typing + blurring calls onNameChange with the trimmed value", () => {
+    const onNameChange = vi.fn();
+    render(
+      <Home bestToday={null} attemptsRemaining={5} onStart={() => {}} onNameChange={onNameChange} />,
+    );
+    const input = screen.getByTestId("display-name-input") as HTMLInputElement;
+    fireEvent.change(input, { target: { value: "  Alex  " } });
+    fireEvent.blur(input);
+    expect(onNameChange).toHaveBeenCalledWith("Alex");
+  });
+
+  it("Enter inside the input commits the name", () => {
+    const onNameChange = vi.fn();
+    render(
+      <Home bestToday={null} attemptsRemaining={5} onStart={() => {}} onNameChange={onNameChange} />,
+    );
+    const input = screen.getByTestId("display-name-input");
+    fireEvent.change(input, { target: { value: "Sam" } });
+    fireEvent.keyDown(input, { key: "Enter" });
+    expect(onNameChange).toHaveBeenCalledWith("Sam");
+  });
+
+  it("clicking Start saves a typed-but-uncommitted name first", () => {
+    const onNameChange = vi.fn();
+    const onStart = vi.fn();
+    render(
+      <Home
+        bestToday={null}
+        attemptsRemaining={5}
+        onStart={onStart}
+        onNameChange={onNameChange}
+      />,
+    );
+    fireEvent.change(screen.getByTestId("display-name-input"), { target: { value: "Pat" } });
+    fireEvent.click(screen.getByTestId("start-button"));
+    expect(onNameChange).toHaveBeenCalledWith("Pat");
+    expect(onStart).toHaveBeenCalledWith("scored");
+  });
+});
