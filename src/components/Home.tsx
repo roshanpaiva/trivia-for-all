@@ -219,15 +219,27 @@ export const Home = ({
         </button>
       )}
 
-      {/* Secondary CTA */}
-      <button
-        type="button"
-        onClick={() => handleStart("practice")}
-        className="w-full min-h-[68px] rounded-lg border border-[var(--line)] bg-[var(--canvas)] text-[var(--ink)] font-semibold text-[22px] mt-3 hover:border-[var(--ink)] transition-colors"
-        data-testid="practice-secondary-cta"
-      >
-        {isExhausted ? "View leaderboard" : "Practice mode (unlimited)"}
-      </button>
+      {/* Secondary CTA — when exhausted, this is a leaderboard link, not
+          another start-game button. Render as an anchor so middle-click /
+          right-click "open in new tab" work too. */}
+      {isExhausted ? (
+        <a
+          href="/leaderboard"
+          className="w-full min-h-[68px] rounded-lg border border-[var(--line)] bg-[var(--canvas)] text-[var(--ink)] font-semibold text-[22px] mt-3 hover:border-[var(--ink)] transition-colors flex items-center justify-center"
+          data-testid="practice-secondary-cta"
+        >
+          View leaderboard
+        </a>
+      ) : (
+        <button
+          type="button"
+          onClick={() => handleStart("practice")}
+          className="w-full min-h-[68px] rounded-lg border border-[var(--line)] bg-[var(--canvas)] text-[var(--ink)] font-semibold text-[22px] mt-3 hover:border-[var(--ink)] transition-colors"
+          data-testid="practice-secondary-cta"
+        >
+          Practice mode (unlimited)
+        </button>
+      )}
 
       {/* Footer */}
       <div className="mt-auto pt-6 border-t border-dashed border-[var(--line)]">

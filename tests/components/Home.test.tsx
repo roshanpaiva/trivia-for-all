@@ -59,6 +59,25 @@ describe("Home — variants", () => {
     expect(onStart).toHaveBeenCalledWith("practice");
   });
 
+  it("0/5-used: secondary CTA is a leaderboard link, not a start button", () => {
+    // Regression: previously this rendered as a button with onClick=handleStart,
+    // so clicking "View leaderboard" actually started a practice game.
+    const onStart = vi.fn();
+    render(
+      <Home
+        bestToday={21}
+        attemptsRemaining={0}
+        onStart={onStart}
+        msUntilReset={4 * 60 * 60 * 1000}
+      />,
+    );
+    const secondary = screen.getByTestId("practice-secondary-cta");
+    expect(secondary.tagName).toBe("A");
+    expect(secondary.getAttribute("href")).toBe("/leaderboard");
+    fireEvent.click(secondary);
+    expect(onStart).not.toHaveBeenCalled();
+  });
+
   it("resumable attempt: button label changes to Resume", () => {
     render(
       <Home bestToday={14} attemptsRemaining={3} hasResumableAttempt onStart={() => {}} />
