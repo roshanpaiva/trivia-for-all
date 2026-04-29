@@ -2,6 +2,11 @@
 
 All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.5.1.1] - 2026-04-29
+
+### Changed
+- **TTS rate 1.0 → 1.1.** ~10% faster speech to address "audio reads slowly" feedback. Test fixture updated. Pairs with the 90→120s clock bump from 0.5.1.0 to give the player both more time AND faster reads.
+
 ## [0.5.1.0] - 2026-04-29
 
 ### Changed

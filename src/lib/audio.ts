@@ -152,7 +152,7 @@ export const createAudioService = (
       // explicitly later by extending this to take a voice name).
       u.voice = voices.find((v) => v.default) ?? voices[0];
     }
-    u.rate = 1.0;
+    u.rate = 1.1;
     u.pitch = 1.0;
     u.volume = 1.0;
 
