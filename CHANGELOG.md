@@ -2,6 +2,21 @@
 
 All notable changes to Trivia for All are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.4.1.0] - 2026-04-29
+
+### Added — Player display names
+First-class name capture replaces the `cobalt-otter` auto-handle on the leaderboard. Solves "which one is me?" and gives the leaderboard meaning beyond a single user's session.
+
+- **Schema:** `scores.display_name TEXT` (additive; `ALTER TABLE ... ADD COLUMN IF NOT EXISTS` so re-running `migrate.ts` is safe). Live Neon already migrated.
+- **`src/lib/displayName.ts`** — localStorage round-trip + `sanitize()` (trim, 30-char cap, empty → null). Mirrors the same constraint server-side in `db/scores.ts → sanitizeDisplayName`.
+- **API:** `POST /api/attempt/finalize` accepts optional `displayName`. Server-side validation always re-runs (never trusts the client value at face). `GET /api/leaderboard` returns `displayName` (preferred) and `isYou` flag for the row matching the caller's cookie.
+- **Home screen:** name field shown for first-time visitors and on Edit. Returning visits show "Playing as **<name>** · Edit". Pressing Start with a typed-but-uncommitted name auto-commits it (no orphaned attempts).
+- **Leaderboard:** prefers `display_name`, falls back to the auto-handle for older rows or skipped names. The caller's row gets an accent-soft background + a small "you" pill.
+- **Scoring service `writeScore`:** `ON CONFLICT DO UPDATE` now uses `COALESCE(EXCLUDED.display_name, scores.display_name)` so a re-finalize without a name doesn't blank an existing one.
+
+### Tests
+18 new (165 total): `sanitizeDisplayName` (5), `displayName` localStorage round-trip (4), Home name capture variants (5), `writeScore` displayName persistence (1), `getLeaderboard` displayName surface (1), name-input commit-on-Start (2).
+
 ## [0.4.0.3] - 2026-04-29
 
 ### Changed

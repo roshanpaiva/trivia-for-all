@@ -17,6 +17,7 @@ export type ScoreRow = {
   correctCount: number;
   wrongCount: number;
   finishedAt: Date;
+  displayName: string | null;
 };
 
 export type LeaderboardEntry = {
@@ -25,6 +26,7 @@ export type LeaderboardEntry = {
   bestScore: number;
   bestWrong: number;
   bestFinishedAt: Date;
+  displayName: string | null;
 };
 
 export type LeaderboardResult = {
@@ -43,6 +45,7 @@ type RawScoreRow = {
   correct_count: number;
   wrong_count: number;
   finished_at: Date;
+  display_name: string | null;
 };
 
 const rowToScore = (r: RawScoreRow): ScoreRow => ({
@@ -53,7 +56,19 @@ const rowToScore = (r: RawScoreRow): ScoreRow => ({
   correctCount: r.correct_count,
   wrongCount: r.wrong_count,
   finishedAt: new Date(r.finished_at),
+  displayName: r.display_name ?? null,
 });
+
+/**
+ * Trim + length-clamp a player-supplied display name. Returns null for empty
+ * or whitespace-only input. 30 char cap matches the schema (text but capped
+ * here at the boundary) and keeps leaderboard rows from breaking layout.
+ */
+export const sanitizeDisplayName = (raw: string | null | undefined): string | null => {
+  if (typeof raw !== "string") return null;
+  const trimmed = raw.trim().slice(0, 30);
+  return trimmed.length > 0 ? trimmed : null;
+};
 
 /**
  * Persist the final score for an attempt. Idempotent — the unique constraint
@@ -66,23 +81,27 @@ export const writeScore = async (params: {
   dateUtc: string;
   correctCount: number;
   wrongCount: number;
+  displayName?: string | null;
   sql?: SqlTag;
 }): Promise<ScoreRow> => {
   const sql = params.sql ?? getSql();
+  const displayName = sanitizeDisplayName(params.displayName ?? null);
   const rows = await sql<RawScoreRow>`
-    INSERT INTO scores (attempt_id, cookie_id, date_utc, correct_count, wrong_count, finished_at)
+    INSERT INTO scores (attempt_id, cookie_id, date_utc, correct_count, wrong_count, finished_at, display_name)
     VALUES (
       ${params.attemptId},
       ${params.cookieId},
       ${params.dateUtc}::date,
       ${params.correctCount},
       ${params.wrongCount},
-      NOW()
+      NOW(),
+      ${displayName}
     )
     ON CONFLICT (attempt_id) DO UPDATE
       SET correct_count = EXCLUDED.correct_count,
-          wrong_count   = EXCLUDED.wrong_count
-    RETURNING id, attempt_id, cookie_id, date_utc, correct_count, wrong_count, finished_at
+          wrong_count   = EXCLUDED.wrong_count,
+          display_name  = COALESCE(EXCLUDED.display_name, scores.display_name)
+    RETURNING id, attempt_id, cookie_id, date_utc, correct_count, wrong_count, finished_at, display_name
   `;
   return rowToScore(rows[0]);
 };
@@ -105,17 +124,29 @@ export const getLeaderboard = async (params: {
   const sql = params.sql ?? getSql();
   const limit = params.limit ?? 100;
 
-  // Top-N: best per cookie, ranked.
+  // Top-N: best per cookie, ranked. display_name picks the most recent non-null
+  // value for the cookie that day (so a player can rename mid-day and the new
+  // name shows up on the leaderboard).
   const topRows = await sql<{
     cookie_id: string;
     best_score: number;
     best_wrong: number;
     best_finished_at: Date;
+    display_name: string | null;
   }>`
     SELECT cookie_id,
            MAX(correct_count) AS best_score,
            MIN(wrong_count) AS best_wrong,
-           MIN(finished_at) AS best_finished_at
+           MIN(finished_at) AS best_finished_at,
+           (
+             SELECT s2.display_name
+             FROM scores s2
+             WHERE s2.cookie_id = scores.cookie_id
+               AND s2.date_utc = ${params.dateUtc}::date
+               AND s2.display_name IS NOT NULL
+             ORDER BY s2.finished_at DESC
+             LIMIT 1
+           ) AS display_name
     FROM scores
     WHERE date_utc = ${params.dateUtc}::date
     GROUP BY cookie_id
@@ -129,6 +160,7 @@ export const getLeaderboard = async (params: {
     bestScore: r.best_score,
     bestWrong: r.best_wrong,
     bestFinishedAt: new Date(r.best_finished_at),
+    displayName: r.display_name ?? null,
   }));
 
   // Total players (cookies) today.

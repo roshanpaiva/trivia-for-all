@@ -16,7 +16,7 @@ import { readCookieId } from "@/lib/identity";
 
 export const dynamic = "force-dynamic";
 
-type Body = { attemptId?: string };
+type Body = { attemptId?: string; displayName?: string | null };
 
 export async function POST(req: Request) {
   let body: Body;
@@ -28,6 +28,9 @@ export async function POST(req: Request) {
   if (typeof body.attemptId !== "string") {
     return NextResponse.json({ error: "missing_fields" }, { status: 400 });
   }
+  // Display name is optional; sanitization (trim, length cap, empty → null) is
+  // handled inside writeScore so this route stays a thin pass-through.
+  const displayName = typeof body.displayName === "string" ? body.displayName : null;
 
   const cookieId = await readCookieId();
   if (!cookieId) {
@@ -55,6 +58,7 @@ export async function POST(req: Request) {
       dateUtc: attempt.dateUtc,
       correctCount: tally.correctCount,
       wrongCount: tally.wrongCount,
+      displayName,
     });
   }
 

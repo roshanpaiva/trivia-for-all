@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { writeScore, getLeaderboard } from "@/db/scores";
+import { writeScore, getLeaderboard, sanitizeDisplayName } from "@/db/scores";
 import { makeFakeSql } from "./_fakeSql";
 
 describe("writeScore", () => {
@@ -99,5 +99,40 @@ describe("getLeaderboard", () => {
     const groupByCall = sql.__calls.find((c) => c.query.includes("GROUP BY cookie_id"));
     // Limit shows up as a parameter, not inline
     expect(groupByCall?.params).toContain(10);
+  });
+
+  it("returns displayName when present on the row", async () => {
+    const sql = makeFakeSql([
+      { match: "GROUP BY cookie_id", rows: [
+        { cookie_id: "c-1", best_score: 10, best_wrong: 1, best_finished_at: new Date(), display_name: "Alex" },
+        { cookie_id: "c-2", best_score: 8, best_wrong: 2, best_finished_at: new Date(), display_name: null },
+      ] },
+      { match: "DISTINCT cookie_id", rows: [{ count: "2" }] },
+    ]);
+    const lb = await getLeaderboard({ dateUtc: "2026-04-29", cookieId: null, sql });
+    expect(lb.top[0].displayName).toBe("Alex");
+    expect(lb.top[1].displayName).toBeNull();
+  });
+});
+
+describe("sanitizeDisplayName", () => {
+  it("trims whitespace", () => {
+    expect(sanitizeDisplayName("  Alex  ")).toBe("Alex");
+  });
+  it("returns null for empty + whitespace-only input", () => {
+    expect(sanitizeDisplayName("")).toBeNull();
+    expect(sanitizeDisplayName("   ")).toBeNull();
+  });
+  it("returns null for null + undefined + non-strings", () => {
+    expect(sanitizeDisplayName(null)).toBeNull();
+    expect(sanitizeDisplayName(undefined)).toBeNull();
+  });
+  it("clamps to 30 chars", () => {
+    const long = "x".repeat(50);
+    expect(sanitizeDisplayName(long)).toHaveLength(30);
+  });
+  it("preserves middle whitespace + emoji + unicode", () => {
+    expect(sanitizeDisplayName("The Smiths")).toBe("The Smiths");
+    expect(sanitizeDisplayName("José 🎉")).toBe("José 🎉");
   });
 });

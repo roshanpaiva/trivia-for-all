@@ -69,8 +69,8 @@ export const Leaderboard = () => {
 
       {status === "ok" && data && data.top.length > 0 && (
         <div data-testid="leaderboard-rows">
-          {data.top.map((row) => (
-            <Row key={row.handle} {...row} isYou={false} />
+          {data.top.map((row, i) => (
+            <Row key={`${row.rank}-${row.handle}-${i}`} {...row} />
           ))}
 
           {/* Pin "you" at the bottom if outside top N (Krug rule) */}
@@ -129,10 +129,14 @@ const Row = ({
   isYou: boolean;
 }) => (
   <div
-    className={`grid grid-cols-[32px_1fr_auto] gap-3 items-center py-2.5 border-b border-[var(--line)] text-[16px] ${isYou ? "bg-[var(--surface)] -mx-2 px-2 rounded-md" : ""}`}
+    className={`grid grid-cols-[32px_1fr_auto] gap-3 items-center py-2.5 border-b border-[var(--line)] text-[16px] ${isYou ? "bg-[var(--accent-soft)] -mx-2 px-2 rounded-md" : ""}`}
+    data-testid={isYou ? "leaderboard-you-row" : undefined}
   >
     <div className="font-bold text-[var(--muted)] tabular-nums">{rank}</div>
-    <div className="font-medium">{handle}</div>
+    <div className="font-medium">
+      {handle}
+      {isYou && <span className="ml-2 text-[12px] uppercase tracking-[0.12em] text-[var(--accent-strong)]">you</span>}
+    </div>
     <div className="font-bold tabular-nums">{bestScore}</div>
   </div>
 );

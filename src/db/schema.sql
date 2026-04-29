@@ -67,8 +67,13 @@ CREATE TABLE IF NOT EXISTS scores (
   date_utc      DATE NOT NULL,
   correct_count INT NOT NULL,
   wrong_count   INT NOT NULL,
-  finished_at   TIMESTAMPTZ NOT NULL
+  finished_at   TIMESTAMPTZ NOT NULL,
+  display_name  TEXT
 );
+
+-- v0.4.1.0: backfill the display_name column on existing deploys (first-class
+-- name capture replaces the cobalt-otter auto-handle on the leaderboard).
+ALTER TABLE scores ADD COLUMN IF NOT EXISTS display_name TEXT;
 
 -- Composite index supports the leaderboard query order (correct DESC, wrong ASC, finished_at ASC, id ASC).
 CREATE INDEX IF NOT EXISTS scores_leaderboard

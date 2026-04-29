@@ -22,9 +22,10 @@ export async function GET() {
   return NextResponse.json({
     top: result.top.map((e) => ({
       rank: e.rank,
-      // Anonymize cookie IDs for the public leaderboard. Future: replace with
-      // chosen username from the name input modal (D9, lands with components).
-      handle: anonymizeCookieId(e.cookieId),
+      // Prefer the player-supplied display name; fall back to the deterministic
+      // auto-handle for older rows (pre-name-capture) or skipped names.
+      handle: e.displayName ?? anonymizeCookieId(e.cookieId),
+      isYou: cookieId !== null && e.cookieId === cookieId,
       bestScore: e.bestScore,
       bestWrong: e.bestWrong,
     })),
@@ -36,12 +37,10 @@ export async function GET() {
 }
 
 /**
- * Convert a cookie UUID into a stable two-word handle. The wireframe shows
- * "cobalt-otter" style names — until the name input modal (D9) lands, this
- * derives a deterministic handle from the cookie hash so the leaderboard is
- * never bare hex.
+ * Convert a cookie UUID into a stable two-word handle. The fallback when the
+ * player hasn't supplied a display name yet (or is on a pre-name-capture row).
  *
- * v2 with auth: replace this with the user's chosen display name.
+ * v2 with auth: this becomes the seed for an avatar / fallback display only.
  */
 const ADJECTIVES = [
   "cobalt", "amber", "quiet", "brisk", "tall", "soft", "dark", "slow",
