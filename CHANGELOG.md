@@ -2,6 +2,14 @@
 
 All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.6.2.0] - 2026-04-30
+
+### Fixed
+- **Difficulty curve: easy questions front-loaded.** Real-user feedback before this change: "lots of folks come back saying it was very hard." The sampler was picking 30/50/20 easy/medium/hard but then **fully shuffling all 100 questions**, so a hard question could land at Q3 in many attempts. First impression broken.
+- New ordering: easy → medium → hard, randomized within each band. Same totals, same distribution, just front-loads momentum builders. The clock-pressure sprint now has a real difficulty curve instead of a roulette wheel.
+- `src/lib/sampler.ts`: replaced final `shuffle(picks)` with `orderByDifficultyCurve(picks)` which groups by difficulty and shuffles within each band before concatenating.
+- 4 new tests in `tests/lib/sampler.test.ts` covering: first 30 are easy, last 20 are hard, difficulty indices non-decreasing, top-up fallback respects the curve. 173 tests total pass.
+
 ## [0.7.0.0-spike] - 2026-04-30
 
 ### Added — V2 Speech Recognition Spike (TEMPORARY)
