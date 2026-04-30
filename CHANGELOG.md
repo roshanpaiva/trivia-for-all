@@ -2,6 +2,24 @@
 
 All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.7.0.0-spike] - 2026-04-30
+
+### Added — V2 Speech Recognition Spike (TEMPORARY)
+- **`src/app/spike/page.tsx`** — internal test page at `/spike` (undocumented, not linked anywhere). Tests `webkitSpeechRecognition` on iPhone Safari + Android Chrome to decide whether voice-first party mode is shippable for v2. Per the v2 design doc (`~/.gstack/projects/roshanpaiva-trivia-for-all/...-audit-bank-124-design-*.md`).
+
+Five tests, each running locally against the spec's gates:
+- T1 single-word recognition (5 trials, ≥90% / <500ms)
+- T2 multi-word answers (5 trials, ≥90%)
+- T3 numbers / years (5 trials, ≥80% with number-form tolerance)
+- T4 concurrent TTS+STT (the killer iOS Safari case — same words as T1, but TTS prompts before each)
+- T5 multi-question loop (10 prompts back-to-back, watches for silent drops)
+
+Results saved to localStorage and exportable as JSON. **This page should be removed after the spike completes** (post-v2 decision). It's not in the sitemap, robots, or any nav.
+
+### Notes
+- VERSION suffix `-spike` flags this as a research-only release. The 0.7.0.0 slot is reserved for the actual v2 ship; if the spike informs a different decision, this VERSION will be replaced.
+- 169 tests still pass. Build clean. New `/spike` static route registered.
+
 ## [0.6.1.1] - 2026-04-30
 
 ### Fixed
