@@ -2,6 +2,19 @@
 
 All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.6.3.0] - 2026-04-30
+
+### Added
+- **`scripts/stats.ts`** — read-only CLI dashboard against the live Neon DB. Run `npx tsx scripts/stats.ts` for today's metrics, or `--days 7` for the last 7 days. Outputs:
+  - Funnel (distinct players, attempts started, finalized, completion %, median duration)
+  - Score distribution (avg, median, P90, max, lockouts hit)
+  - Difficulty calibration (per-band hit rate + difficulty index 1-3)
+  - Returning-cookie rate (windows ≥ 2 days)
+  - Top 5 hardest + top 5 easiest questions in window (audit signal for re-tagging or removal)
+  - Bank state (total + per-difficulty distribution)
+- All metrics computed from existing schema — no new tracking, no new tables. Just SQL aggregations on `attempts`/`scores`/`answers`/`questions`. No PII surfaces (only aggregates and prompt text).
+- First real read against production: 16 distinct players in 7 days, 74% completion, ~50% hit rate across all 3 difficulty bands (the "it's hard" complaint was the random shuffle, not the bank — fixed in 0.6.2.0). 4 cookie-days hit the 5/5 lockout — real signal for v2.1 monetization.
+
 ## [0.6.2.0] - 2026-04-30
 
 ### Fixed
