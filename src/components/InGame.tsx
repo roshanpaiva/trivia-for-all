@@ -98,7 +98,11 @@ export const InGame = ({
         ? `Incorrect. The correct answer is ${correctChoice}.`
         : "Incorrect.";
     }
-    const ms = Math.min(14_000, Math.max(3_500, spoken.length * 70 + 1_500));
+    // Tuned for the 1.1× TTS rate (set in src/lib/audio.ts) plus user feedback
+    // that the inter-question gap felt long. ~55ms/char ≈ 1090 wpm/1.1×, plus
+    // a 500ms tail beat after speech ends. 2500ms floor keeps "Correct." from
+    // feeling rushed; 12000ms ceiling caps unusually long facts.
+    const ms = Math.min(12_000, Math.max(2_500, spoken.length * 55 + 500));
     const id = window.setTimeout(onFinishReveal, ms);
     return () => window.clearTimeout(id);
   }, [state.phase, state.reveal, question.choices, onFinishReveal]);

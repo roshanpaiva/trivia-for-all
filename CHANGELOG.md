@@ -2,6 +2,18 @@
 
 All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.6.3.1] - 2026-04-30
+
+### Changed
+- **Snappier reveal-to-next-question gap.** User feedback: "once it reads the correct or incorrect answer, there's too long a gap before the next question." The reveal-advance timer was tuned for 1.0× TTS rate but we bumped to 1.1× a while back, so estimates ran long. Plus the post-speech padding was generous.
+- New constants: `ms = min(12000, max(2500, spoken.length * 55 + 500))`. Was `min(14000, max(3500, spoken.length * 70 + 1500))`.
+- Concrete deltas:
+  - "Correct." (8 chars) → 2500ms (floor) — was 3500ms. **−1.0s**
+  - "Incorrect. The correct answer is Banana." (~40 chars) → 2700ms — was 4300ms. **−1.6s**
+  - "Correct. \<medium-length fact\>" (~80 chars) → 4900ms — was 7100ms. **−2.2s**
+  - Long fact (~120 chars) → 7100ms — was 9900ms. **−2.8s**
+- 173 tests still pass; the timing constants live inside a useEffect and aren't asserted directly by any test.
+
 ## [0.6.3.0] - 2026-04-30
 
 ### Added
