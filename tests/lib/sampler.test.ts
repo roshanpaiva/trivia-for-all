@@ -56,7 +56,7 @@ describe("sampleAttemptQuestions — full bank (target distribution)", () => {
     expect(counts.hard).toBe(TARGET_BY_DIFFICULTY.hard);
   });
 
-  it("returns IDs in randomized order (final shuffle pass)", () => {
+  it("returns IDs in randomized order within each difficulty band", () => {
     const bank = makeBank({ easy: 50, medium: 50, hard: 50 });
     const idsA = sampleAttemptQuestions(bank, { rng: mulberry32(1) });
     const idsB = sampleAttemptQuestions(bank, { rng: mulberry32(2) });
@@ -67,6 +67,67 @@ describe("sampleAttemptQuestions — full bank (target distribution)", () => {
     const bank = makeBank({ easy: 50, medium: 50, hard: 50 });
     const ids = sampleAttemptQuestions(bank, { rng: mulberry32(42) });
     expect(new Set(ids).size).toBe(ids.length);
+  });
+});
+
+describe("sampleAttemptQuestions — difficulty curve (easy → medium → hard)", () => {
+  // User feedback before this change: "lots of folks come back saying it was very
+  // hard". The fully-random shuffle dropped hard questions at Q3 in many attempts.
+  // The curve front-loads easy questions so players build momentum.
+  const indexOfDifficulty = (ids: string[], lookup: Map<string, Question>, d: Difficulty) =>
+    ids.map((id, i) => ({ i, q: lookup.get(id)! })).filter((x) => x.q.difficulty === d);
+
+  it("first 30 IDs are all easy when target distribution holds", () => {
+    const bank = makeBank({ easy: 50, medium: 50, hard: 50 });
+    const ids = sampleAttemptQuestions(bank, { rng: mulberry32(7) });
+    const lookup = new Map(bank.map((q) => [q.id, q]));
+    // First 30 should be easy (TARGET_BY_DIFFICULTY.easy)
+    for (let i = 0; i < TARGET_BY_DIFFICULTY.easy; i++) {
+      expect(lookup.get(ids[i])!.difficulty).toBe("easy");
+    }
+  });
+
+  it("last 20 IDs are all hard when target distribution holds", () => {
+    const bank = makeBank({ easy: 50, medium: 50, hard: 50 });
+    const ids = sampleAttemptQuestions(bank, { rng: mulberry32(7) });
+    const lookup = new Map(bank.map((q) => [q.id, q]));
+    // Last 20 should be hard
+    for (let i = ids.length - TARGET_BY_DIFFICULTY.hard; i < ids.length; i++) {
+      expect(lookup.get(ids[i])!.difficulty).toBe("hard");
+    }
+  });
+
+  it("difficulty indices are non-decreasing (easy < medium < hard)", () => {
+    const bank = makeBank({ easy: 50, medium: 50, hard: 50 });
+    const ids = sampleAttemptQuestions(bank, { rng: mulberry32(99) });
+    const lookup = new Map(bank.map((q) => [q.id, q]));
+    const easyIdxs = indexOfDifficulty(ids, lookup, "easy").map((x) => x.i);
+    const mediumIdxs = indexOfDifficulty(ids, lookup, "medium").map((x) => x.i);
+    const hardIdxs = indexOfDifficulty(ids, lookup, "hard").map((x) => x.i);
+    // No easy after the first medium; no medium after the first hard.
+    if (easyIdxs.length && mediumIdxs.length) {
+      expect(Math.max(...easyIdxs)).toBeLessThan(Math.min(...mediumIdxs));
+    }
+    if (mediumIdxs.length && hardIdxs.length) {
+      expect(Math.max(...mediumIdxs)).toBeLessThan(Math.min(...hardIdxs));
+    }
+  });
+
+  it("with empty hard bucket, curve still ends with the topped-up difficulty", () => {
+    // Top-up fills hard from medium; the order is easy → medium → hard,
+    // so the topped-up mediums-as-hard end up at the front of the medium band.
+    const bank = makeBank({ easy: 50, medium: 100, hard: 0 });
+    const ids = sampleAttemptQuestions(bank, { rng: mulberry32(7) });
+    const lookup = new Map(bank.map((q) => [q.id, q]));
+    expect(ids).toHaveLength(TOTAL_PER_ATTEMPT);
+    // First 30 still easy
+    for (let i = 0; i < TARGET_BY_DIFFICULTY.easy; i++) {
+      expect(lookup.get(ids[i])!.difficulty).toBe("easy");
+    }
+    // Rest medium (no hards in the bank)
+    for (let i = TARGET_BY_DIFFICULTY.easy; i < ids.length; i++) {
+      expect(lookup.get(ids[i])!.difficulty).toBe("medium");
+    }
   });
 });
 

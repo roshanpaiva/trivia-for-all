@@ -8,13 +8,21 @@
  * base clock + streak bonuses (up to 240s), the upper bound on how many
  * questions a player can plausibly answer is ~30-40. Sampling 100 gives plenty
  * of headroom so the clock is the natural end. If the bank itself has fewer
- * than 100 audited rows, the sampler returns the whole bank shuffled and the
- * game can end via "max-questions" (the celebratory "you ran the table" path).
+ * than 100 audited rows, the sampler returns the whole bank and the game can
+ * end via "max-questions" (the celebratory "you ran the table" path).
  *
- * Difficulty distribution target (from the design doc):
+ * Difficulty distribution target:
  *   30% easy   (30 of 100)
  *   50% medium (50 of 100)
  *   20% hard   (20 of 100)
+ *
+ * DIFFICULTY CURVE (v0.7.0):
+ * Within an attempt, questions are ordered easy → medium → hard so the player
+ * builds momentum on the early questions and ramps up. Within each difficulty
+ * band the order is randomized per attempt (no positional bias). Real-user
+ * feedback before this change: "lots of folks come back saying it was very
+ * hard" — caused by the prior fully-random shuffle dropping a hard question
+ * at Q3 in many attempts. The curve fixes that without changing the totals.
  *
  * EMPTY-BUCKET FALLBACK (eng review critical gap #2):
  * If a difficulty bucket can't supply its target count, the sampler tops up
@@ -91,8 +99,24 @@ export const sampleAttemptQuestions = (
     }
   }
 
-  // Final shuffle: order is randomized per attempt (no positional bias)
-  return shuffle(picks, rng).map((q) => q.id);
+  // Difficulty curve: easy → medium → hard, randomized within each band.
+  // Front-loads the early questions with easy ones so players build momentum
+  // before hitting the harder ones.
+  return orderByDifficultyCurve(picks, rng).map((q) => q.id);
+};
+
+/**
+ * Order picks easy → medium → hard, with within-band randomization.
+ * Pure: does not mutate input.
+ */
+const orderByDifficultyCurve = (picks: Question[], rng: () => number): Question[] => {
+  const byDiff: Record<Difficulty, Question[]> = { easy: [], medium: [], hard: [] };
+  for (const q of picks) byDiff[q.difficulty].push(q);
+  return [
+    ...shuffle(byDiff.easy, rng),
+    ...shuffle(byDiff.medium, rng),
+    ...shuffle(byDiff.hard, rng),
+  ];
 };
 
 /**
