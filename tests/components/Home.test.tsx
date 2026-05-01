@@ -254,6 +254,103 @@ describe("Home — party-mode picker (gated behind partyEnabled)", () => {
     expect(startBtn.disabled).toBe(false);
   });
 
+  it("mic permission banner shows in party mode when permission='unknown'", () => {
+    render(
+      <Home
+        bestToday={null}
+        attemptsRemaining={5}
+        onStart={() => {}}
+        partyEnabled
+        playMode="party"
+        displayName="The Smiths"
+        micPermission="unknown"
+      />,
+    );
+    expect(screen.getByTestId("mic-permission-banner")).toBeInTheDocument();
+    expect(screen.getByTestId("mic-allow-button")).toBeInTheDocument();
+  });
+
+  it("mic permission banner is HIDDEN when permission='granted'", () => {
+    render(
+      <Home
+        bestToday={null}
+        attemptsRemaining={5}
+        onStart={() => {}}
+        partyEnabled
+        playMode="party"
+        displayName="The Smiths"
+        micPermission="granted"
+      />,
+    );
+    expect(screen.queryByTestId("mic-permission-banner")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("mic-denied-banner")).not.toBeInTheDocument();
+  });
+
+  it("denied banner replaces the request banner when permission='denied'", () => {
+    render(
+      <Home
+        bestToday={null}
+        attemptsRemaining={5}
+        onStart={() => {}}
+        partyEnabled
+        playMode="party"
+        displayName="The Smiths"
+        micPermission="denied"
+      />,
+    );
+    expect(screen.queryByTestId("mic-permission-banner")).not.toBeInTheDocument();
+    expect(screen.getByTestId("mic-denied-banner").textContent).toContain("Voice off");
+  });
+
+  it("denied banner is hidden once dismissed", () => {
+    render(
+      <Home
+        bestToday={null}
+        attemptsRemaining={5}
+        onStart={() => {}}
+        partyEnabled
+        playMode="party"
+        displayName="The Smiths"
+        micPermission="denied"
+        micDeniedDismissed
+      />,
+    );
+    expect(screen.queryByTestId("mic-denied-banner")).not.toBeInTheDocument();
+  });
+
+  it("Allow button calls onRequestMicPermission", () => {
+    const onRequestMicPermission = vi.fn();
+    render(
+      <Home
+        bestToday={null}
+        attemptsRemaining={5}
+        onStart={() => {}}
+        partyEnabled
+        playMode="party"
+        displayName="The Smiths"
+        micPermission="unknown"
+        onRequestMicPermission={onRequestMicPermission}
+      />,
+    );
+    fireEvent.click(screen.getByTestId("mic-allow-button"));
+    expect(onRequestMicPermission).toHaveBeenCalledTimes(1);
+  });
+
+  it("permission banner does NOT render in Solo mode even with party enabled", () => {
+    render(
+      <Home
+        bestToday={null}
+        attemptsRemaining={5}
+        onStart={() => {}}
+        partyEnabled
+        playMode="solo"
+        displayName="Alex"
+        micPermission="unknown"
+      />,
+    );
+    expect(screen.queryByTestId("mic-permission-banner")).not.toBeInTheDocument();
+  });
+
   it("name-field label is 'Your name' in solo mode (DD7)", () => {
     render(
       <Home
