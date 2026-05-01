@@ -14,7 +14,7 @@ import { InGame } from "@/components/InGame";
 import { PostGame } from "@/components/PostGame";
 import { useGame } from "@/hooks/useGame";
 import { useAudio } from "@/hooks/useAudio";
-import { getLeaderboard, getCurrentAttempt } from "@/lib/api";
+import { getLeaderboard, getCurrentAttempt, reportSttDegrade } from "@/lib/api";
 import { loadDisplayName, saveDisplayName, loadGroupName, saveGroupName } from "@/lib/displayName";
 import type { AttemptMode, PlayMode } from "@/lib/types";
 
@@ -210,6 +210,7 @@ export default function GamePage() {
         onFinishReading={game.finishReading}
         onFinishReveal={game.finishReveal}
         voiceEnabled={voiceEnabled}
+        onSttDegrade={() => { void reportSttDegrade(game.attempt!.id); }}
       />
     );
   }

@@ -30,6 +30,10 @@ type Props = {
    * phase and useStt listens for spoken answers. Caller (page.tsx) gates this
    * on partyEnabled + playMode==='party' + micPermission==='granted' + !sttDisabled. */
   voiceEnabled?: boolean;
+  /** v2 telemetry: notified when the useStt watchdog escalates to "degraded".
+   * Parent fires `reportSttDegrade(attemptId)` so we can answer "what % of
+   * party attempts had to degrade to tap-only" from the data alone. */
+  onSttDegrade?: () => void;
 };
 
 const choiceStateFor = (
@@ -62,6 +66,7 @@ export const InGame = ({
   onFinishReading,
   onFinishReveal,
   voiceEnabled = false,
+  onSttDegrade,
 }: Props) => {
   // Tapped choice is tracked in GameState (set on tap-answer, cleared on
   // reveal-complete). Drives validating-this + reveal-wrong styling.
@@ -71,6 +76,11 @@ export const InGame = ({
   // the recognition every time the parent re-binds it.
   const onTapChoiceRef = useRef(onTapChoice);
   useEffect(() => { onTapChoiceRef.current = onTapChoice; }, [onTapChoice]);
+
+  // Hold onSttDegrade in a ref so the useStt subscription doesn't churn when
+  // the parent re-binds the callback every render.
+  const onSttDegradeRef = useRef(onSttDegrade);
+  useEffect(() => { onSttDegradeRef.current = onSttDegrade; }, [onSttDegrade]);
 
   // STT (party mode only). Match against the current question's choices with
   // strictness=1 (party — strict; eng D7 + DD7).
@@ -82,6 +92,7 @@ export const InGame = ({
       // No-match: leave the listen cycle alone; the watchdog will restart on
       // the natural onend or the user can tap to answer.
     },
+    onDegrade: () => onSttDegradeRef.current?.(),
   });
 
   // Drive STT lifecycle from the game phase. Listen ONLY during answering;
