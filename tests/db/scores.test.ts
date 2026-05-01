@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { writeScore, getLeaderboard, sanitizeDisplayName } from "@/db/scores";
+import { writeScore, getLeaderboard, getAllTimeLeaderboard, sanitizeDisplayName } from "@/db/scores";
 import { makeFakeSql } from "./_fakeSql";
 
 describe("writeScore", () => {
@@ -112,6 +112,86 @@ describe("getLeaderboard", () => {
     const lb = await getLeaderboard({ dateUtc: "2026-04-29", cookieId: null, sql });
     expect(lb.top[0].displayName).toBe("Alex");
     expect(lb.top[1].displayName).toBeNull();
+  });
+});
+
+describe("getAllTimeLeaderboard", () => {
+  it("ranks rows by best-per-cookie across all time (no date filter)", async () => {
+    const sql = makeFakeSql([
+      { match: "GROUP BY cookie_id\n    ORDER BY", rows: [
+        { cookie_id: "c-1", best_score: 27, best_wrong: 0, best_finished_at: new Date("2026-04-22T10:00:00Z"), display_name: "Pat" },
+        { cookie_id: "c-2", best_score: 24, best_wrong: 1, best_finished_at: new Date("2026-04-25T10:00:00Z"), display_name: "Sam" },
+      ] },
+    ]);
+    const lb = await getAllTimeLeaderboard({ cookieId: null, sql });
+    expect(lb.top).toHaveLength(2);
+    expect(lb.top[0].rank).toBe(1);
+    expect(lb.top[0].bestScore).toBe(27);
+    expect(lb.top[0].displayName).toBe("Pat");
+    expect(lb.yourRank).toBeNull();
+    expect(lb.yourPersonalBest).toBeNull();
+  });
+
+  it("does NOT filter by date_utc (the whole point of all-time)", async () => {
+    const sql = makeFakeSql([
+      { match: "GROUP BY cookie_id\n    ORDER BY", rows: [] },
+    ]);
+    await getAllTimeLeaderboard({ cookieId: null, sql });
+    const topCall = sql.__calls.find((c) => c.query.includes("GROUP BY cookie_id\n    ORDER BY"));
+    // The only date_utc reference allowed is inside the display_name subquery
+    // (which doesn't filter — it picks the most-recent name per cookie).
+    expect(topCall?.query).not.toContain("WHERE date_utc");
+  });
+
+  it("returns yourPersonalBest + yourRank when cookie has scores", async () => {
+    const sql = makeFakeSql([
+      { match: "lb_strictly_better_alltime", rows: [{ rank: "3" }] },
+      { match: "WHERE cookie_id = ?\n    ", rows: [{ best_score: 22, best_wrong: 1, best_finished_at: new Date("2026-04-26T10:00:00Z") }] },
+      { match: "GROUP BY cookie_id\n    ORDER BY", rows: [] },
+    ]);
+    const lb = await getAllTimeLeaderboard({ cookieId: "cookie-mine", sql });
+    expect(lb.yourPersonalBest).toBe(22);
+    expect(lb.yourRank).toBe(4); // 3 ahead + 1
+  });
+
+  it("yourPersonalBest is null when cookie has no scores ever", async () => {
+    const sql = makeFakeSql([
+      { match: "WHERE cookie_id = ?\n    ", rows: [{ best_score: null, best_wrong: null, best_finished_at: null }] },
+      { match: "GROUP BY cookie_id\n    ORDER BY", rows: [] },
+    ]);
+    const lb = await getAllTimeLeaderboard({ cookieId: "fresh-cookie", sql });
+    expect(lb.yourPersonalBest).toBeNull();
+    expect(lb.yourRank).toBeNull();
+  });
+
+  it("default limit is 10 (top 10, not top 100)", async () => {
+    const sql = makeFakeSql([
+      { match: "GROUP BY cookie_id\n    ORDER BY", rows: [] },
+    ]);
+    await getAllTimeLeaderboard({ cookieId: null, sql });
+    const topCall = sql.__calls.find((c) => c.query.includes("GROUP BY cookie_id\n    ORDER BY"));
+    expect(topCall?.params).toContain(10);
+  });
+
+  it("respects custom limit", async () => {
+    const sql = makeFakeSql([
+      { match: "GROUP BY cookie_id\n    ORDER BY", rows: [] },
+    ]);
+    await getAllTimeLeaderboard({ cookieId: null, limit: 25, sql });
+    const topCall = sql.__calls.find((c) => c.query.includes("GROUP BY cookie_id\n    ORDER BY"));
+    expect(topCall?.params).toContain(25);
+  });
+
+  it("anonymous request (no cookie) returns top + nulls for caller fields", async () => {
+    const sql = makeFakeSql([
+      { match: "GROUP BY cookie_id\n    ORDER BY", rows: [
+        { cookie_id: "c-1", best_score: 30, best_wrong: 0, best_finished_at: new Date(), display_name: "Top" },
+      ] },
+    ]);
+    const lb = await getAllTimeLeaderboard({ cookieId: null, sql });
+    expect(lb.top).toHaveLength(1);
+    expect(lb.yourRank).toBeNull();
+    expect(lb.yourPersonalBest).toBeNull();
   });
 });
 

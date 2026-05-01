@@ -44,7 +44,7 @@ export const Leaderboard = () => {
         </span>
       </div>
 
-      {/* Header */}
+      {/* Today section header */}
       <h1 className="font-display font-bold text-[28px] tracking-tight">Today</h1>
       <p className="text-[14px] text-[var(--muted)] mb-6">
         {status === "ok" && data
@@ -52,7 +52,7 @@ export const Leaderboard = () => {
           : "Loading…"}
       </p>
 
-      {/* Body */}
+      {/* Today body */}
       {status === "loading" && <SkeletonRows />}
 
       {status === "error" && (
@@ -99,6 +99,43 @@ export const Leaderboard = () => {
               </>
             )}
         </div>
+      )}
+
+      {/* All-time top 10 — pride preserved across the daily reset. Same row
+          component, same Krug-pin rule. Only renders when today's load is OK
+          (we share one fetch). */}
+      {status === "ok" && data && (
+        <section data-testid="leaderboard-all-time" className="mt-10">
+          <h2 className="font-display font-bold text-[22px] tracking-tight">All time</h2>
+          <p className="text-[14px] text-[var(--muted)] mb-4">Top 10 highest scores ever.</p>
+
+          {data.allTime.top.length === 0 ? (
+            <div className="text-[var(--muted)] text-[14px] py-3" data-testid="leaderboard-all-time-empty">
+              No scores yet. Be the first to land here.
+            </div>
+          ) : (
+            <div data-testid="leaderboard-all-time-rows">
+              {data.allTime.top.map((row, i) => (
+                <Row key={`at-${row.rank}-${row.handle}-${i}`} {...row} />
+              ))}
+
+              {data.allTime.yourRank !== null &&
+                data.yourPersonalBest !== null &&
+                data.allTime.yourRank > data.allTime.top.length && (
+                  <>
+                    <div className="text-center text-[var(--muted)] py-2">⋯</div>
+                    <Row
+                      rank={data.allTime.yourRank}
+                      handle={`you (best: ${data.yourPersonalBest})`}
+                      bestScore={data.yourPersonalBest}
+                      bestWrong={0}
+                      isYou={true}
+                    />
+                  </>
+                )}
+            </div>
+          )}
+        </section>
       )}
 
       <div className="mt-auto pt-6">

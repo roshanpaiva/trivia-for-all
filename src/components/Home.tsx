@@ -29,6 +29,10 @@ type Props = {
   displayName?: string | null;
   /** Persist a new name (parent owns localStorage). Pass null to clear. */
   onNameChange?: (name: string | null) => void;
+  /** Caller's all-time best score. Persists across daily reset so the pride
+   * moment ("I got 26 once") doesn't evaporate at midnight UTC. Null until
+   * they've finished a scored attempt. */
+  personalBest?: number | null;
 };
 
 const formatCountdown = (ms: number): string => {
@@ -51,8 +55,13 @@ export const Home = ({
   isStarting = false,
   displayName = null,
   onNameChange,
+  personalBest = null,
 }: Props) => {
-  const isFirstTime = bestToday === null && attemptsRemaining === 5;
+  // A returning player who comes back the next day has bestToday=null +
+  // attemptsRemaining=5, but they DO have a personal best — so they shouldn't
+  // see the first-time how-to-play copy.
+  const isFirstTime =
+    bestToday === null && attemptsRemaining === 5 && (personalBest ?? 0) === 0;
   const isExhausted = attemptsRemaining === 0;
   const [audioActive] = useState(false); // future: animate when TTS plays a sample
   const [isEditingName, setIsEditingName] = useState(false);
@@ -97,6 +106,12 @@ export const Home = ({
         ) : (
           <p className="text-[14px] text-[var(--muted)] mt-2">
             Best today: <strong className="text-[var(--ink)] font-display tabular-nums">{bestToday ?? "—"}</strong>
+            {personalBest !== null && (
+              <span data-testid="personal-best">
+                {" · "}
+                Personal best: <strong className="text-[var(--ink)] font-display tabular-nums">{personalBest}</strong>
+              </span>
+            )}
           </p>
         )}
       </div>

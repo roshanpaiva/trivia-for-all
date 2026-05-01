@@ -37,6 +37,12 @@ export type LeaderboardResult = {
   dateUtc: string;
 };
 
+export type AllTimeLeaderboardResult = {
+  top: LeaderboardEntry[];
+  yourRank: number | null;
+  yourPersonalBest: number | null;
+};
+
 type RawScoreRow = {
   id: number;
   attempt_id: string;
@@ -216,4 +222,94 @@ export const getLeaderboard = async (params: {
   }
 
   return { top, yourRank, yourBestToday, totalPlayers, dateUtc: params.dateUtc };
+};
+
+/**
+ * All-time leaderboard. Same shape as today's, but with no date filter — the
+ * pride view: a kid's 26 from last week stays visible forever.
+ *
+ * Tiebreakers mirror today's: correct DESC → wrong ASC → finished_at ASC.
+ * display_name picks the most recent non-null name for each cookie (so a player
+ * who renamed last week shows under their current name).
+ */
+export const getAllTimeLeaderboard = async (params: {
+  cookieId: string | null;
+  limit?: number;
+  sql?: SqlTag;
+}): Promise<AllTimeLeaderboardResult> => {
+  const sql = params.sql ?? getSql();
+  const limit = params.limit ?? 10;
+
+  const topRows = await sql<{
+    cookie_id: string;
+    best_score: number;
+    best_wrong: number;
+    best_finished_at: Date;
+    display_name: string | null;
+  }>`
+    SELECT cookie_id,
+           MAX(correct_count) AS best_score,
+           MIN(wrong_count) AS best_wrong,
+           MIN(finished_at) AS best_finished_at,
+           (
+             SELECT s2.display_name
+             FROM scores s2
+             WHERE s2.cookie_id = scores.cookie_id
+               AND s2.display_name IS NOT NULL
+             ORDER BY s2.finished_at DESC
+             LIMIT 1
+           ) AS display_name
+    FROM scores
+    GROUP BY cookie_id
+    ORDER BY best_score DESC, best_wrong ASC, best_finished_at ASC
+    LIMIT ${limit}
+  `;
+
+  const top: LeaderboardEntry[] = topRows.map((r, i) => ({
+    rank: i + 1,
+    cookieId: r.cookie_id,
+    bestScore: r.best_score,
+    bestWrong: r.best_wrong,
+    bestFinishedAt: new Date(r.best_finished_at),
+    displayName: r.display_name ?? null,
+  }));
+
+  let yourRank: number | null = null;
+  let yourPersonalBest: number | null = null;
+  if (params.cookieId) {
+    const yourBestRows = await sql<{
+      best_score: number | null;
+      best_wrong: number | null;
+      best_finished_at: Date | null;
+    }>`
+      SELECT MAX(correct_count) AS best_score,
+             MIN(wrong_count) AS best_wrong,
+             MIN(finished_at) AS best_finished_at
+      FROM scores
+      WHERE cookie_id = ${params.cookieId}
+    `;
+    const yb = yourBestRows[0];
+    if (yb && yb.best_score !== null) {
+      yourPersonalBest = yb.best_score;
+      const rankRows = await sql<{ rank: string }>`
+        SELECT COUNT(*)::text AS rank
+        FROM (
+          SELECT cookie_id,
+                 MAX(correct_count) AS best_score,
+                 MIN(wrong_count) AS best_wrong,
+                 MIN(finished_at) AS best_finished_at
+          FROM scores
+          GROUP BY cookie_id
+        ) lb_strictly_better_alltime
+        WHERE best_score > ${yb.best_score}
+           OR (best_score = ${yb.best_score} AND best_wrong < ${yb.best_wrong})
+           OR (best_score = ${yb.best_score}
+               AND best_wrong = ${yb.best_wrong}
+               AND best_finished_at < ${yb.best_finished_at})
+      `;
+      yourRank = parseInt(rankRows[0]?.rank ?? "0", 10) + 1;
+    }
+  }
+
+  return { top, yourRank, yourPersonalBest };
 };

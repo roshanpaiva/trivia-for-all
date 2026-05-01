@@ -2,6 +2,17 @@
 
 All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.6.4.0] - 2026-04-30
+
+### Added
+- **Personal best on Home + All-time top 10 on Leaderboard.** User feedback: a kid got 26, came back the next day, and his score was gone from the leaderboard. With the daily reset, pride evaporates at midnight UTC. Now:
+  - Home shows `Best today: X · Personal best: Y` inline below the brand mark. Personal best persists across the daily reset.
+  - Leaderboard adds a stacked "All time" section below "Today" showing the top 10 highest scores ever, with the same Krug-rule pinning ("you" pinned at the bottom if outside top 10).
+  - A returning-next-day visitor (fresh attempts but already has a personal best) no longer sees the first-time how-to-play copy — personal best disambiguates.
+- New DB query: `getAllTimeLeaderboard({ cookieId, limit })` mirrors `getLeaderboard` but with no date filter. Same tiebreakers (correct DESC → wrong ASC → finished_at ASC). Display name picks the most-recent non-null name per cookie (so renamed players show under their current handle).
+- API: `/api/leaderboard` response gains `yourPersonalBest: number | null` and `allTime: { top, yourRank }`. Anonymous (no-cookie) callers get `null` for caller fields.
+- 22 new tests (191 total). Schema unchanged — pure read-side feature on the existing `scores` table.
+
 ## [0.6.3.1] - 2026-04-30
 
 ### Changed

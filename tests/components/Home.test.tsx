@@ -86,6 +86,50 @@ describe("Home — variants", () => {
   });
 });
 
+describe("Home — personal best (pride preserved across daily reset)", () => {
+  it("renders 'Personal best: X' inline when personalBest is set", () => {
+    render(
+      <Home bestToday={14} personalBest={26} attemptsRemaining={3} onStart={() => {}} />,
+    );
+    const pb = screen.getByTestId("personal-best");
+    expect(pb).toBeInTheDocument();
+    expect(pb.textContent).toContain("Personal best:");
+    expect(pb.textContent).toContain("26");
+  });
+
+  it("hides personal-best line when personalBest is null", () => {
+    render(
+      <Home bestToday={14} personalBest={null} attemptsRemaining={3} onStart={() => {}} />,
+    );
+    expect(screen.queryByTestId("personal-best")).not.toBeInTheDocument();
+  });
+
+  it("returning-next-day visitor (bestToday null but personalBest set) does NOT show how-to-play", () => {
+    // The kid who got 26 yesterday opens the app this morning with fresh
+    // attempts. attemptsRemaining=5 + bestToday=null used to mark him as
+    // first-time. Personal best disambiguates.
+    render(
+      <Home bestToday={null} personalBest={26} attemptsRemaining={5} onStart={() => {}} />,
+    );
+    expect(screen.queryByTestId("how-to-play")).not.toBeInTheDocument();
+    expect(screen.getByTestId("personal-best").textContent).toContain("26");
+  });
+
+  it("first-time visitor (no personalBest, no bestToday) still shows how-to-play", () => {
+    render(<Home bestToday={null} personalBest={null} attemptsRemaining={5} onStart={() => {}} />);
+    expect(screen.getByTestId("how-to-play")).toBeInTheDocument();
+  });
+
+  it("shows '—' for bestToday when player hasn't played today but has a personal best", () => {
+    render(
+      <Home bestToday={null} personalBest={26} attemptsRemaining={5} onStart={() => {}} />,
+    );
+    // Best today: — · Personal best: 26
+    expect(screen.getByText(/best today/i).textContent).toContain("—");
+    expect(screen.getByTestId("personal-best").textContent).toContain("26");
+  });
+});
+
 describe("Home — name capture", () => {
   it("first-time visitor sees the name input", () => {
     render(<Home bestToday={null} attemptsRemaining={5} onStart={() => {}} />);

@@ -8,7 +8,7 @@
  */
 
 import { NextResponse } from "next/server";
-import { getLeaderboard } from "@/db/scores";
+import { getLeaderboard, getAllTimeLeaderboard, type LeaderboardEntry } from "@/db/scores";
 import { countScoredAttempts, DAILY_SCORED_LIMIT } from "@/db/attempts";
 import { readCookieId, todayUtc } from "@/lib/identity";
 
@@ -18,8 +18,9 @@ export async function GET() {
   const cookieId = await readCookieId();
   const dateUtc = todayUtc();
 
-  const [result, scoredCount] = await Promise.all([
+  const [result, allTime, scoredCount] = await Promise.all([
     getLeaderboard({ dateUtc, cookieId, limit: 100 }),
+    getAllTimeLeaderboard({ cookieId, limit: 10 }),
     cookieId ? countScoredAttempts(cookieId, dateUtc) : Promise.resolve(0),
   ]);
 
@@ -30,21 +31,28 @@ export async function GET() {
     ? Math.max(0, DAILY_SCORED_LIMIT - scoredCount)
     : DAILY_SCORED_LIMIT;
 
+  const toRow = (e: LeaderboardEntry) => ({
+    rank: e.rank,
+    // Prefer the player-supplied display name; fall back to the deterministic
+    // auto-handle for older rows (pre-name-capture) or skipped names.
+    handle: e.displayName ?? anonymizeCookieId(e.cookieId),
+    isYou: cookieId !== null && e.cookieId === cookieId,
+    bestScore: e.bestScore,
+    bestWrong: e.bestWrong,
+  });
+
   return NextResponse.json({
-    top: result.top.map((e) => ({
-      rank: e.rank,
-      // Prefer the player-supplied display name; fall back to the deterministic
-      // auto-handle for older rows (pre-name-capture) or skipped names.
-      handle: e.displayName ?? anonymizeCookieId(e.cookieId),
-      isYou: cookieId !== null && e.cookieId === cookieId,
-      bestScore: e.bestScore,
-      bestWrong: e.bestWrong,
-    })),
+    top: result.top.map(toRow),
     yourRank: result.yourRank,
     yourBestToday: result.yourBestToday,
+    yourPersonalBest: allTime.yourPersonalBest,
     yourAttemptsRemaining,
     totalPlayers: result.totalPlayers,
     dateUtc: result.dateUtc,
+    allTime: {
+      top: allTime.top.map(toRow),
+      yourRank: allTime.yourRank,
+    },
   });
 }
 
