@@ -24,7 +24,7 @@ import {
   submitAnswerWithRetry,
   finalizeAttempt as finalizeAttemptApi,
 } from "@/lib/api";
-import type { AttemptMode, ClientQuestion } from "@/lib/types";
+import type { AttemptMode, ClientQuestion, PlayMode } from "@/lib/types";
 import { useAudio } from "./useAudio";
 
 const TICK_INTERVAL_MS = 100;
@@ -42,8 +42,9 @@ export type UseGameReturn = {
   error: string | null;
   /** True when an /api/answer call is in flight + pause overlay should show. */
   isRecovering: boolean;
-  /** Caller wires this to the Start button (must be inside the click handler!). */
-  startGame: (mode: AttemptMode) => Promise<void>;
+  /** Caller wires this to the Start button (must be inside the click handler!).
+   * `playMode` defaults to 'solo' so existing v1 callers don't need to change. */
+  startGame: (mode: AttemptMode, playMode?: PlayMode) => Promise<void>;
   /** Caller wires this to choice tile taps. */
   tapChoice: (choiceIdx: number) => Promise<void>;
   /** Called when TTS finishes reading the prompt. */
@@ -190,13 +191,13 @@ export const useGame = (opts: { displayName?: string | null } = {}): UseGameRetu
 
   // === Caller-driven actions ===
 
-  const startGame = useCallback(async (mode: AttemptMode) => {
+  const startGame = useCallback(async (mode: AttemptMode, playMode: PlayMode = "solo") => {
     if (status === "starting" || status === "playing" || status === "finalizing") return;
     setStatus("starting");
     setError(null);
     audio.unlock();
     try {
-      const res = await startAttemptApi(mode);
+      const res = await startAttemptApi(mode, playMode);
       const next = { id: res.attemptId, mode: res.mode, questions: res.questions };
       attemptRef.current = next;
       setAttempt(next);

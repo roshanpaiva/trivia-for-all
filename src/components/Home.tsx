@@ -11,7 +11,7 @@ import { BrandMark } from "./BrandMark";
 import { Attribution } from "./Attribution";
 import { useState } from "react";
 import { MAX_LENGTH as NAME_MAX_LENGTH, sanitize as sanitizeName } from "@/lib/displayName";
-import type { AttemptMode } from "@/lib/types";
+import type { AttemptMode, PlayMode } from "@/lib/types";
 
 type Props = {
   bestToday: number | null;
@@ -33,6 +33,21 @@ type Props = {
    * moment ("I got 26 once") doesn't evaporate at midnight UTC. Null until
    * they've finished a scored attempt. */
   personalBest?: number | null;
+  /** v2: when true, render the Solo / Party mode picker. Gated behind the
+   * `?party=1` URL flag during soft launch — until set, Home is byte-identical
+   * to v1 from the user's perspective. Parent owns the flag. */
+  partyEnabled?: boolean;
+  /** v2: currently active play mode. Parent owns the state so it can pass it
+   * to startAttempt when the user taps Start. */
+  playMode?: PlayMode;
+  /** v2: notified when the user taps a different mode tab. */
+  onPlayModeChange?: (mode: PlayMode) => void;
+  /** v2: NEW pill on the Party tab is hidden once the user has interacted with
+   * the picker. Parent owns the flag (localStorage) so the pill stays hidden
+   * across visits on the same device. */
+  partyPickerSeen?: boolean;
+  /** v2: notified the first time the user interacts with the picker. */
+  onPartyPickerSeen?: () => void;
 };
 
 const formatCountdown = (ms: number): string => {
@@ -56,6 +71,11 @@ export const Home = ({
   displayName = null,
   onNameChange,
   personalBest = null,
+  partyEnabled = false,
+  playMode = "solo",
+  onPlayModeChange,
+  partyPickerSeen = false,
+  onPartyPickerSeen,
 }: Props) => {
   // A returning player who comes back the next day has bestToday=null +
   // attemptsRemaining=5, but they DO have a personal best — so they shouldn't
@@ -136,14 +156,29 @@ export const Home = ({
       {showNameInput ? (
         <div className="mb-4">
           <label htmlFor="display-name" className="block text-[12px] uppercase tracking-[0.12em] text-[var(--muted)] mb-1">
-            Name or team name
+            {/* Conditional label tracks active mode per design DD7. Same column
+                under the hood (eng D1: reuse display_name); only the label and
+                placeholder hint change with the mode. When partyEnabled is
+                false (v1 path), the original "Name or team name" copy stays
+                so existing users see no change. */}
+            {!partyEnabled
+              ? "Name or team name"
+              : playMode === "party"
+                ? "Group name"
+                : "Your name"}
           </label>
           <input
             id="display-name"
             type="text"
             value={nameInput}
             maxLength={NAME_MAX_LENGTH}
-            placeholder="e.g. Alex, or The Smiths"
+            placeholder={
+              !partyEnabled
+                ? "e.g. Alex, or The Smiths"
+                : playMode === "party"
+                  ? "e.g. The Smiths"
+                  : "e.g. Alex"
+            }
             autoComplete="nickname"
             onChange={(e) => setNameInput(e.target.value)}
             onBlur={commitName}
@@ -192,6 +227,54 @@ export const Home = ({
           {isExhausted ? "All attempts used today" : `${attemptsRemaining} of 5 attempts left`}
         </span>
       </div>
+
+      {/* Mode picker (party-mode soft launch). Per design DD1: segmented control
+          between attempts-pill and Start CTA — decision-moment placement.
+          Only renders when partyEnabled (URL flag during soft launch). */}
+      {partyEnabled && (
+        <div
+          role="tablist"
+          aria-label="Play mode"
+          className="mb-5 flex p-1 rounded-full bg-[var(--surface)] border border-[var(--line)]"
+          data-testid="mode-picker"
+        >
+          {(["solo", "party"] as PlayMode[]).map((m) => {
+            const isActive = playMode === m;
+            return (
+              <button
+                key={m}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => {
+                  if (!partyPickerSeen) onPartyPickerSeen?.();
+                  if (m !== playMode) onPlayModeChange?.(m);
+                }}
+                className={`relative flex-1 min-h-[44px] rounded-full text-[15px] font-semibold transition-colors ${
+                  isActive
+                    ? "bg-[var(--ink)] text-[var(--canvas)]"
+                    : "bg-transparent text-[var(--muted)] hover:text-[var(--ink)]"
+                }`}
+                data-testid={`mode-tab-${m}`}
+              >
+                {m === "solo" ? "Solo" : "Party"}
+                {/* DD9: one-time NEW pill on the Party tab. --accent-soft +
+                    --accent-strong matches the existing "On a roll" pattern.
+                    Hidden once the user has interacted with either tab. */}
+                {m === "party" && !partyPickerSeen && (
+                  <span
+                    className="ml-1.5 inline-flex items-center px-1.5 py-0.5 rounded-full bg-[var(--accent-soft)] text-[var(--accent-strong)] text-[10px] uppercase tracking-[0.12em] font-bold align-middle"
+                    aria-label="New: Party mode"
+                    data-testid="party-new-pill"
+                  >
+                    New
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       {/* Error banner */}
       {errorMessage && (
