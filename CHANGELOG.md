@@ -2,6 +2,14 @@
 
 All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.6.5.0] - 2026-05-01
+
+### Added
+- **v2 Lane A: additive `play_mode` columns on `attempts` + `scores`.** First step in the v2 party-mode build. Both tables get `play_mode TEXT NOT NULL DEFAULT 'solo' CHECK (play_mode IN ('solo','party'))`. Existing rows backfill to `'solo'` via the column default. Idempotent (`ADD COLUMN IF NOT EXISTS`).
+- **Backward-safe by design.** No code reads or writes `play_mode` yet — Lane C will. Existing INSERTs that don't specify the column get `'solo'`. v1 solo plays are byte-identical in behavior. The 191 existing tests still pass with zero changes.
+- **Per-lane shipping plan (per the v2 guardrails).** Lane A = schema only. Lane B = AudioWaveform extension (default solo state unchanged). Lane C = API additions (backward-compatible field handling). Lane D = UI behind `?party=1` URL gate. Each lane stands alone — any one merging without the others does not break v1.
+- **Migration is run manually:** after merge, `npx tsx scripts/migrate.ts` against the production Neon DB picks up both new columns. The migration script is already idempotent, so re-running it is safe.
+
 ## [0.6.4.0] - 2026-04-30
 
 ### Added
