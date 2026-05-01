@@ -28,6 +28,12 @@ const baseResponse = {
     ],
     yourRank: null,
   },
+  // Empty party section — Lane D will render this, but Lane B's component
+  // ignores the field, so empty arrays here just satisfy the response type.
+  party: {
+    today: { top: [], yourRank: null, yourBestToday: null, totalPlayers: 0 },
+    allTime: { top: [], yourRank: null, yourPersonalBest: null },
+  },
 };
 
 describe("Leaderboard — All-time section", () => {

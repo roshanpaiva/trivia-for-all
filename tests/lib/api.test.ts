@@ -29,20 +29,43 @@ const mockFetch = (responses: Array<{ status: number; body: unknown }>) => {
 describe("startAttempt", () => {
   beforeEach(() => vi.unstubAllGlobals());
 
-  it("posts the mode and returns parsed JSON", async () => {
+  it("posts attemptMode + playMode (defaults to solo) and returns parsed JSON", async () => {
     const fetchMock = mockFetch([{
       status: 200,
       body: {
-        attemptId: "att-1", mode: "scored", questionIds: ["q1"], questions: [],
+        attemptId: "att-1", mode: "scored", attemptMode: "scored", playMode: "solo",
+        questionIds: ["q1"], questions: [],
         dateUtc: "2026-04-29", attemptsRemaining: 4,
       },
     }]);
     const res = await startAttempt("scored");
     expect(res.attemptId).toBe("att-1");
+    expect(res.attemptMode).toBe("scored");
+    expect(res.playMode).toBe("solo");
     const call = fetchMock.mock.calls[0];
     expect(call[0]).toBe("/api/attempt/start");
     expect((call[1] as RequestInit).method).toBe("POST");
-    expect(JSON.parse((call[1] as RequestInit).body as string)).toEqual({ mode: "scored" });
+    expect(JSON.parse((call[1] as RequestInit).body as string)).toEqual({
+      attemptMode: "scored",
+      playMode: "solo",
+    });
+  });
+
+  it("posts playMode='party' when caller passes it", async () => {
+    const fetchMock = mockFetch([{
+      status: 200,
+      body: {
+        attemptId: "att-2", mode: "scored", attemptMode: "scored", playMode: "party",
+        questionIds: ["q1"], questions: [],
+        dateUtc: "2026-04-29", attemptsRemaining: 4,
+      },
+    }]);
+    const res = await startAttempt("scored", "party");
+    expect(res.playMode).toBe("party");
+    expect(JSON.parse((fetchMock.mock.calls[0][1] as RequestInit).body as string)).toEqual({
+      attemptMode: "scored",
+      playMode: "party",
+    });
   });
 
   it("throws ApiError on 429 with the daily_limit_reached code", async () => {
@@ -99,6 +122,13 @@ describe("finalizeAttempt", () => {
 describe("getLeaderboard", () => {
   beforeEach(() => vi.unstubAllGlobals());
 
+  const emptyParty = {
+    party: {
+      today: { top: [], yourRank: null, yourBestToday: null, totalPlayers: 0 },
+      allTime: { top: [], yourRank: null, yourPersonalBest: null },
+    },
+  };
+
   it("returns top + your rank", async () => {
     mockFetch([{
       status: 200,
@@ -107,6 +137,7 @@ describe("getLeaderboard", () => {
         yourRank: 5, yourBestToday: 17, yourPersonalBest: 26, totalPlayers: 10,
         dateUtc: "2026-04-29",
         allTime: { top: [], yourRank: null },
+        ...emptyParty,
       },
     }]);
     const res = await getLeaderboard();
@@ -125,12 +156,40 @@ describe("getLeaderboard", () => {
           top: [{ rank: 1, handle: "Pat", isYou: false, bestScore: 27, bestWrong: 0 }],
           yourRank: 5,
         },
+        ...emptyParty,
       },
     }]);
     const res = await getLeaderboard();
     expect(res.yourPersonalBest).toBe(26);
     expect(res.allTime.top[0].bestScore).toBe(27);
     expect(res.allTime.yourRank).toBe(5);
+  });
+
+  it("parses the party section (separate solo + party lists per DD3)", async () => {
+    mockFetch([{
+      status: 200,
+      body: {
+        top: [{ rank: 1, handle: "Solo Pat", isYou: false, bestScore: 22, bestWrong: 1 }],
+        yourRank: null, yourBestToday: null, yourPersonalBest: null,
+        yourAttemptsRemaining: 5, totalPlayers: 1, dateUtc: "2026-05-01",
+        allTime: { top: [], yourRank: null },
+        party: {
+          today: {
+            top: [{ rank: 1, handle: "The Smiths", isYou: false, bestScore: 31, bestWrong: 2 }],
+            yourRank: null, yourBestToday: null, totalPlayers: 1,
+          },
+          allTime: {
+            top: [{ rank: 1, handle: "The Smiths", isYou: false, bestScore: 31, bestWrong: 2 }],
+            yourRank: null, yourPersonalBest: null,
+          },
+        },
+      },
+    }]);
+    const res = await getLeaderboard();
+    expect(res.top[0].handle).toBe("Solo Pat");
+    expect(res.party.today.top[0].handle).toBe("The Smiths");
+    expect(res.party.today.totalPlayers).toBe(1);
+    expect(res.party.allTime.top[0].bestScore).toBe(31);
   });
 });
 

@@ -2,6 +2,21 @@
 
 All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.6.7.0] - 2026-05-01
+
+### Added
+- **v2 Lane C: API + DB plumbing for `playMode` (backward-compatible).**
+  - `PlayMode` type added (`"solo" | "party"`), orthogonal to `AttemptMode`.
+  - `attempts.startAttempt` accepts `playMode` (default `"solo"`); INSERT now writes the column. SELECT projections in `findCurrentAttempt` and `findAttempt` return `play_mode` so the `Attempt` type carries it through.
+  - `scores.writeScore` accepts `playMode`; INSERT writes it. Denormalized from the attempt row at finalize time per eng D6 — leaderboard queries stay single-table.
+  - `getLeaderboard` and `getAllTimeLeaderboard` now require a `playMode` filter (forces caller to think; per DD3 solo and party are separate stacked sections, never mingled).
+  - `/api/attempt/start`: accepts `{ attemptMode, playMode }` (new) AND `{ mode }` (legacy alias). Server reads `attemptMode ?? mode`, defaults `playMode` to `"solo"`. Response carries both `mode` and `attemptMode` for the same backward-compat reason. Mid-game tabs running pre-Lane-C JS keep working.
+  - `/api/attempt/finalize`: reads `playMode` from the attempt row (not the request body — single source of truth) and passes it to `writeScore`.
+  - `/api/leaderboard`: now runs four queries (solo today + solo all-time + party today + party all-time) in parallel. Top-level fields (`top`, `allTime`, etc.) narrow to solo-only. New `party.today` and `party.allTime` carry the party-mode equivalents — empty arrays until the first party play lands. Old clients ignore the new field.
+  - Daily 5-attempt cap counts solo + party together (DD14: shared cap, single paywall in v2.1). The COUNT subquery in the conditional INSERT does NOT filter by play_mode; verified by a regression test.
+- **Lane C requires Lane A's migration to be live in prod before merge.** The new INSERT statements list `play_mode` explicitly; without the column they would 500.
+- 9 new tests added (214 total): playMode persistence on writeScore + startAttempt, default-to-solo back-compat, mode-shared cap regression, party-filter on both leaderboard queries, party-section parsing in the API client, party-mode startAttempt request shape.
+
 ## [0.6.6.0] - 2026-05-01
 
 ### Added
