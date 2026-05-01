@@ -104,12 +104,33 @@ describe("getLeaderboard", () => {
       status: 200,
       body: {
         top: [{ rank: 1, handle: "cobalt-otter", bestScore: 25, bestWrong: 0 }],
-        yourRank: 5, yourBestToday: 17, totalPlayers: 10, dateUtc: "2026-04-29",
+        yourRank: 5, yourBestToday: 17, yourPersonalBest: 26, totalPlayers: 10,
+        dateUtc: "2026-04-29",
+        allTime: { top: [], yourRank: null },
       },
     }]);
     const res = await getLeaderboard();
     expect(res.top).toHaveLength(1);
     expect(res.yourRank).toBe(5);
+  });
+
+  it("parses yourPersonalBest + allTime fields", async () => {
+    mockFetch([{
+      status: 200,
+      body: {
+        top: [],
+        yourRank: null, yourBestToday: null, yourPersonalBest: 26,
+        yourAttemptsRemaining: 4, totalPlayers: 0, dateUtc: "2026-04-30",
+        allTime: {
+          top: [{ rank: 1, handle: "Pat", isYou: false, bestScore: 27, bestWrong: 0 }],
+          yourRank: 5,
+        },
+      },
+    }]);
+    const res = await getLeaderboard();
+    expect(res.yourPersonalBest).toBe(26);
+    expect(res.allTime.top[0].bestScore).toBe(27);
+    expect(res.allTime.yourRank).toBe(5);
   });
 });
 

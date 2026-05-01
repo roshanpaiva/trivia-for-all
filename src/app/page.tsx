@@ -28,6 +28,7 @@ export default function GamePage() {
   const game = useGame({ displayName });
   const audio = useAudio();
   const [bestToday, setBestToday] = useState<number | null>(null);
+  const [personalBest, setPersonalBest] = useState<number | null>(null);
   const [attemptsRemaining, setAttemptsRemaining] = useState<number>(5);
   const [hasResumable, setHasResumable] = useState(false);
 
@@ -41,6 +42,7 @@ export default function GamePage() {
     Promise.all([getLeaderboard(), getCurrentAttempt()])
       .then(([lb, current]) => {
         setBestToday(lb.yourBestToday);
+        setPersonalBest(lb.yourPersonalBest);
         setAttemptsRemaining(lb.yourAttemptsRemaining);
         if (current.status === "in_progress") {
           setHasResumable(true);
@@ -56,15 +58,20 @@ export default function GamePage() {
     setDisplayName(cleaned);
   };
 
-  // After finalize, refresh best + remaining
+  // After finalize, refresh best + remaining. Personal best updates if this
+  // attempt cracked it — the kid who just got 27 sees "Personal best: 27" on
+  // Home immediately, no leaderboard reload required.
   useEffect(() => {
     if (game.status === "finalized" && game.finalScore) {
       setAttemptsRemaining(game.finalScore.attemptsRemaining);
       if (game.finalScore.score > (bestToday ?? 0)) {
         setBestToday(game.finalScore.score);
       }
+      if (game.finalScore.score > (personalBest ?? 0)) {
+        setPersonalBest(game.finalScore.score);
+      }
     }
-  }, [game.status, game.finalScore, bestToday]);
+  }, [game.status, game.finalScore, bestToday, personalBest]);
 
   const handleStart = (mode: AttemptMode) => {
     game.startGame(mode);
@@ -128,6 +135,7 @@ export default function GamePage() {
   return (
     <Home
       bestToday={bestToday}
+      personalBest={personalBest}
       attemptsRemaining={attemptsRemaining}
       onStart={handleStart}
       hasResumableAttempt={hasResumable}

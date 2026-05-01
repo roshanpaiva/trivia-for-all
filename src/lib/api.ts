@@ -70,22 +70,33 @@ export type FinalizeResponse = {
   mode: AttemptMode;
 };
 
+type LeaderboardRow = {
+  rank: number;
+  handle: string;
+  isYou: boolean;
+  bestScore: number;
+  bestWrong: number;
+};
+
 export type LeaderboardResponse = {
-  top: Array<{
-    rank: number;
-    handle: string;
-    isYou: boolean;
-    bestScore: number;
-    bestWrong: number;
-  }>;
+  top: LeaderboardRow[];
   yourRank: number | null;
   yourBestToday: number | null;
+  /** Caller's all-time personal best across every scored attempt they've ever
+   * played. Null if they've never finished a scored attempt. Persists across
+   * the daily reset so a kid's 26 from last week stays visible on Home. */
+  yourPersonalBest: number | null;
   /** Scored attempts remaining today (5 max). Always present; defaults to 5
    * for anonymous (no-cookie) callers. Lets Home show the right pill on first
    * paint without a separate request. */
   yourAttemptsRemaining: number;
   totalPlayers: number;
   dateUtc: string;
+  /** All-time top 10 + caller's all-time rank. Same row shape as today's top. */
+  allTime: {
+    top: LeaderboardRow[];
+    yourRank: number | null;
+  };
 };
 
 export const startAttempt = async (mode: AttemptMode): Promise<StartAttemptResponse> => {
