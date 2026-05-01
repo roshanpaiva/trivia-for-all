@@ -16,7 +16,28 @@ import { useGame } from "@/hooks/useGame";
 import { useAudio } from "@/hooks/useAudio";
 import { getLeaderboard, getCurrentAttempt } from "@/lib/api";
 import { loadDisplayName, saveDisplayName } from "@/lib/displayName";
-import type { AttemptMode } from "@/lib/types";
+import type { AttemptMode, PlayMode } from "@/lib/types";
+
+/** Soft-launch flag for party mode. Set with `?party=1` in the URL. Persists
+ * for the session in localStorage so a returning visitor in the same browser
+ * doesn't lose access. v2.1 will flip the default. */
+const PARTY_ENABLED_KEY = "quizzle.partyEnabled";
+const PARTY_PICKER_SEEN_KEY = "quizzle.partyPickerSeen";
+
+const readPartyEnabled = (): boolean => {
+  if (typeof window === "undefined") return false;
+  // URL flag wins on the current paint and writes through to localStorage.
+  if (window.location.search.includes("party=1")) {
+    try { window.localStorage.setItem(PARTY_ENABLED_KEY, "1"); } catch {}
+    return true;
+  }
+  try { return window.localStorage.getItem(PARTY_ENABLED_KEY) === "1"; } catch { return false; }
+};
+
+const readPartyPickerSeen = (): boolean => {
+  if (typeof window === "undefined") return false;
+  try { return window.localStorage.getItem(PARTY_PICKER_SEEN_KEY) === "1"; } catch { return false; }
+};
 
 const msUntilNextUtcMidnight = (now: Date = new Date()): number => {
   const tomorrow = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1));
@@ -31,11 +52,23 @@ export default function GamePage() {
   const [personalBest, setPersonalBest] = useState<number | null>(null);
   const [attemptsRemaining, setAttemptsRemaining] = useState<number>(5);
   const [hasResumable, setHasResumable] = useState(false);
+  // v2 party-mode soft-launch state. Both default false on SSR; hydrated from
+  // window in the mount effect to avoid an SSR/CSR text mismatch.
+  const [partyEnabled, setPartyEnabled] = useState(false);
+  const [playMode, setPlayMode] = useState<PlayMode>("solo");
+  const [partyPickerSeen, setPartyPickerSeen] = useState(false);
 
-  // Hydrate display name from localStorage on mount (client-only).
+  // Hydrate display name + party-mode flags from localStorage on mount (client-only).
   useEffect(() => {
     setDisplayName(loadDisplayName());
+    setPartyEnabled(readPartyEnabled());
+    setPartyPickerSeen(readPartyPickerSeen());
   }, []);
+
+  const handlePartyPickerSeen = () => {
+    setPartyPickerSeen(true);
+    try { window.localStorage.setItem(PARTY_PICKER_SEEN_KEY, "1"); } catch {}
+  };
 
   // Initial load: best score + remaining attempts + resumable attempt
   useEffect(() => {
@@ -74,7 +107,7 @@ export default function GamePage() {
   }, [game.status, game.finalScore, bestToday, personalBest]);
 
   const handleStart = (mode: AttemptMode) => {
-    game.startGame(mode);
+    game.startGame(mode, playMode);
   };
 
   // ===== Render switch =====
@@ -144,6 +177,11 @@ export default function GamePage() {
       isStarting={game.status === "starting"}
       displayName={displayName}
       onNameChange={handleNameChange}
+      partyEnabled={partyEnabled}
+      playMode={playMode}
+      onPlayModeChange={setPlayMode}
+      partyPickerSeen={partyPickerSeen}
+      onPartyPickerSeen={handlePartyPickerSeen}
     />
   );
 }

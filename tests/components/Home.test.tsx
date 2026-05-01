@@ -86,6 +86,149 @@ describe("Home — variants", () => {
   });
 });
 
+describe("Home — party-mode picker (gated behind partyEnabled)", () => {
+  it("does NOT render the picker when partyEnabled=false (v1 byte-identical)", () => {
+    render(<Home bestToday={14} attemptsRemaining={3} onStart={() => {}} displayName="Alex" />);
+    expect(screen.queryByTestId("mode-picker")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("mode-tab-party")).not.toBeInTheDocument();
+  });
+
+  it("v1 path keeps the original 'Name or team name' label (no party regression)", () => {
+    render(<Home bestToday={null} attemptsRemaining={5} onStart={() => {}} />);
+    // When the URL flag isn't set, the copy is byte-identical to v1: same label,
+    // same placeholder. Existing users see zero change.
+    const input = screen.getByLabelText("Name or team name") as HTMLInputElement;
+    expect(input.placeholder).toContain("Alex, or The Smiths");
+  });
+
+  it("renders the picker with Solo + Party tabs when partyEnabled=true", () => {
+    render(
+      <Home
+        bestToday={14}
+        attemptsRemaining={3}
+        onStart={() => {}}
+        displayName="Alex"
+        partyEnabled
+        playMode="solo"
+      />,
+    );
+    expect(screen.getByTestId("mode-picker")).toBeInTheDocument();
+    expect(screen.getByTestId("mode-tab-solo")).toBeInTheDocument();
+    expect(screen.getByTestId("mode-tab-party")).toBeInTheDocument();
+  });
+
+  it("aria-selected reflects the active mode", () => {
+    render(
+      <Home
+        bestToday={14}
+        attemptsRemaining={3}
+        onStart={() => {}}
+        displayName="Alex"
+        partyEnabled
+        playMode="party"
+      />,
+    );
+    expect(screen.getByTestId("mode-tab-solo").getAttribute("aria-selected")).toBe("false");
+    expect(screen.getByTestId("mode-tab-party").getAttribute("aria-selected")).toBe("true");
+  });
+
+  it("tapping a different tab calls onPlayModeChange", () => {
+    const onPlayModeChange = vi.fn();
+    render(
+      <Home
+        bestToday={14}
+        attemptsRemaining={3}
+        onStart={() => {}}
+        displayName="Alex"
+        partyEnabled
+        playMode="solo"
+        onPlayModeChange={onPlayModeChange}
+      />,
+    );
+    fireEvent.click(screen.getByTestId("mode-tab-party"));
+    expect(onPlayModeChange).toHaveBeenCalledWith("party");
+  });
+
+  it("first interaction with picker fires onPartyPickerSeen", () => {
+    const onPartyPickerSeen = vi.fn();
+    render(
+      <Home
+        bestToday={14}
+        attemptsRemaining={3}
+        onStart={() => {}}
+        displayName="Alex"
+        partyEnabled
+        playMode="solo"
+        partyPickerSeen={false}
+        onPartyPickerSeen={onPartyPickerSeen}
+      />,
+    );
+    fireEvent.click(screen.getByTestId("mode-tab-party"));
+    expect(onPartyPickerSeen).toHaveBeenCalledTimes(1);
+  });
+
+  it("NEW pill shows on Party tab when partyPickerSeen=false", () => {
+    render(
+      <Home
+        bestToday={14}
+        attemptsRemaining={3}
+        onStart={() => {}}
+        displayName="Alex"
+        partyEnabled
+        playMode="solo"
+        partyPickerSeen={false}
+      />,
+    );
+    expect(screen.getByTestId("party-new-pill")).toBeInTheDocument();
+  });
+
+  it("NEW pill is hidden once partyPickerSeen=true", () => {
+    render(
+      <Home
+        bestToday={14}
+        attemptsRemaining={3}
+        onStart={() => {}}
+        displayName="Alex"
+        partyEnabled
+        playMode="solo"
+        partyPickerSeen={true}
+      />,
+    );
+    expect(screen.queryByTestId("party-new-pill")).not.toBeInTheDocument();
+  });
+
+  it("name-field label switches to 'Group name' in party mode (DD7)", () => {
+    render(
+      <Home
+        bestToday={null}
+        attemptsRemaining={5}
+        onStart={() => {}}
+        partyEnabled
+        playMode="party"
+      />,
+    );
+    expect(screen.getByText(/group name/i)).toBeInTheDocument();
+    const input = screen.getByTestId("display-name-input") as HTMLInputElement;
+    expect(input.placeholder).toContain("Smiths");
+  });
+
+  it("name-field label is 'Your name' in solo mode (DD7)", () => {
+    render(
+      <Home
+        bestToday={null}
+        attemptsRemaining={5}
+        onStart={() => {}}
+        partyEnabled
+        playMode="solo"
+      />,
+    );
+    // Use the label-association API to disambiguate from the "Add your name…" hint.
+    const input = screen.getByLabelText("Your name") as HTMLInputElement;
+    expect(input).toBeInTheDocument();
+    expect(input.placeholder).toContain("Alex");
+  });
+});
+
 describe("Home — personal best (pride preserved across daily reset)", () => {
   it("renders 'Personal best: X' inline when personalBest is set", () => {
     render(

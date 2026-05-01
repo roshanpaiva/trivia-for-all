@@ -2,6 +2,18 @@
 
 All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.6.8.0] - 2026-05-01
+
+### Added
+- **v2 Lane D1: party mode tap-only (behind `?party=1`).** First user-visible party-mode UI. Voice answering arrives in D2; this PR ships the complete tap-only experience so we can read engagement signal before betting on STT.
+  - **Mode picker** on Home — pill-segmented control between attempts-pill and Start CTA. `--ink` filled active, `--r-pill` radius (DD11). Solo / Party labels (DD13). One-time NEW pill on Party tab using the `--accent-soft` + `--accent-strong` pattern (DD9), dismissed in localStorage on first interaction with the picker.
+  - **Conditional name field** — Party mode swaps label to "Group name" + placeholder to "e.g. The Smiths" (DD7). Same column underneath (eng D1).
+  - **Party leaderboard sections** — "Today's groups" + "All-time groups" stacked below the existing solo sections (DD3). Empty state copy IS the v2 invitation moment ("be the first").
+  - **`?party=1` URL gate** — once visited with the flag, persisted to localStorage so a returning visitor on the same device sees the picker without re-pasting the URL. v1 users without the flag see byte-identical Home + leaderboard (verified visually).
+  - **Pass `playMode` through to `startAttempt`** — `useGame.startGame(attemptMode, playMode?)` accepts an optional second arg, defaulting to `'solo'` for v1 callers. page.tsx wires the active mode in.
+- **v1 byte-identical when partyEnabled=false.** Locked in by a regression test (`tests/components/Home.test.tsx`) that asserts the original "Name or team name" label + "e.g. Alex, or The Smiths" placeholder render unchanged when the URL flag isn't set. Caught a copy regression mid-flight via the dev-server screenshot pass.
+- 14 new tests (228 total): mode picker render gate, aria-selected, tab interaction, NEW pill visibility, conditional label, party leaderboard sections, party Krug-pin, v1 regression lock.
+
 ## [0.6.7.0] - 2026-05-01
 
 ### Added

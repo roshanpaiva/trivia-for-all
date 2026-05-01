@@ -116,3 +116,84 @@ describe("Leaderboard — All-time section", () => {
     expect(screen.getByTestId("leaderboard-skeleton")).toBeInTheDocument();
   });
 });
+
+describe("Leaderboard — party-mode sections (DD3: separate from solo)", () => {
+  beforeEach(() => {
+    mockedGetLeaderboard.mockReset();
+  });
+
+  it("renders empty 'Today's groups' invitation when no party games yet", async () => {
+    mockedGetLeaderboard.mockResolvedValueOnce(baseResponse);
+    render(<Leaderboard />);
+    await waitFor(() => {
+      expect(screen.getByTestId("leaderboard-party-today")).toBeInTheDocument();
+    });
+    expect(screen.getByTestId("leaderboard-party-today-empty").textContent).toContain("be the first");
+    expect(screen.getByText(/today's groups/i)).toBeInTheDocument();
+  });
+
+  it("renders empty 'All-time groups' invitation when no party games yet", async () => {
+    mockedGetLeaderboard.mockResolvedValueOnce(baseResponse);
+    render(<Leaderboard />);
+    await waitFor(() => {
+      expect(screen.getByTestId("leaderboard-party-all-time")).toBeInTheDocument();
+    });
+    expect(screen.getByTestId("leaderboard-party-all-time-empty")).toBeInTheDocument();
+  });
+
+  it("renders party rows when present", async () => {
+    mockedGetLeaderboard.mockResolvedValueOnce({
+      ...baseResponse,
+      party: {
+        today: {
+          top: [
+            { rank: 1, handle: "The Smiths", isYou: false, bestScore: 31, bestWrong: 1 },
+            { rank: 2, handle: "Backseat Ballers", isYou: false, bestScore: 27, bestWrong: 2 },
+          ],
+          yourRank: null,
+          yourBestToday: null,
+          totalPlayers: 2,
+        },
+        allTime: {
+          top: [
+            { rank: 1, handle: "The Smiths", isYou: false, bestScore: 31, bestWrong: 1 },
+          ],
+          yourRank: null,
+          yourPersonalBest: null,
+        },
+      },
+    });
+    render(<Leaderboard />);
+    await waitFor(() => {
+      expect(screen.getByTestId("leaderboard-party-today-rows")).toBeInTheDocument();
+    });
+    const todayRows = screen.getByTestId("leaderboard-party-today-rows");
+    expect(todayRows.textContent).toContain("The Smiths");
+    expect(todayRows.textContent).toContain("Backseat Ballers");
+    // Party today subtitle reflects group count (singular vs plural)
+    expect(screen.getByText(/2 groups/i)).toBeInTheDocument();
+  });
+
+  it("krug-pins 'you' in party today when outside top N", async () => {
+    mockedGetLeaderboard.mockResolvedValueOnce({
+      ...baseResponse,
+      party: {
+        today: {
+          top: [
+            { rank: 1, handle: "The Smiths", isYou: false, bestScore: 31, bestWrong: 1 },
+          ],
+          yourRank: 47,
+          yourBestToday: 12,
+          totalPlayers: 50,
+        },
+        allTime: { top: [], yourRank: null, yourPersonalBest: null },
+      },
+    });
+    render(<Leaderboard />);
+    await waitFor(() => {
+      expect(screen.getByTestId("leaderboard-party-today-rows")).toBeInTheDocument();
+    });
+    const youRows = screen.getAllByTestId("leaderboard-you-row");
+    expect(youRows.some((r) => r.textContent?.includes("12") && r.textContent?.includes("47"))).toBe(true);
+  });
+});

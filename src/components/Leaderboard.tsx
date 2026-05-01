@@ -138,6 +138,83 @@ export const Leaderboard = () => {
         </section>
       )}
 
+      {/* Party-mode sections (DD3): solo and party are stacked but separate —
+          different number of brains per attempt; lists never mingle. The empty
+          state copy IS the v2 invitation moment ("be the first"). Always
+          renders alongside the solo sections so anyone landing on /leaderboard
+          can see it; doesn't depend on the ?party=1 URL flag (read-only view). */}
+      {status === "ok" && data && (
+        <section data-testid="leaderboard-party-today" className="mt-10">
+          <h2 className="font-display font-bold text-[22px] tracking-tight">Today's groups</h2>
+          <p className="text-[14px] text-[var(--muted)] mb-4">
+            {data.party.today.totalPlayers > 0
+              ? `${data.party.today.totalPlayers} group${data.party.today.totalPlayers === 1 ? "" : "s"} · resets at midnight UTC`
+              : "Party mode results, refreshed at midnight UTC."}
+          </p>
+
+          {data.party.today.top.length === 0 ? (
+            <div className="text-[var(--muted)] text-[14px] py-3" data-testid="leaderboard-party-today-empty">
+              No groups yet today &mdash; be the first.
+            </div>
+          ) : (
+            <div data-testid="leaderboard-party-today-rows">
+              {data.party.today.top.map((row, i) => (
+                <Row key={`pt-${row.rank}-${row.handle}-${i}`} {...row} />
+              ))}
+
+              {data.party.today.yourRank !== null &&
+                data.party.today.yourBestToday !== null &&
+                data.party.today.yourRank > data.party.today.top.length && (
+                  <>
+                    <div className="text-center text-[var(--muted)] py-2">⋯</div>
+                    <Row
+                      rank={data.party.today.yourRank}
+                      handle={`you (best: ${data.party.today.yourBestToday})`}
+                      bestScore={data.party.today.yourBestToday}
+                      bestWrong={0}
+                      isYou={true}
+                    />
+                  </>
+                )}
+            </div>
+          )}
+        </section>
+      )}
+
+      {status === "ok" && data && (
+        <section data-testid="leaderboard-party-all-time" className="mt-10">
+          <h2 className="font-display font-bold text-[22px] tracking-tight">All-time groups</h2>
+          <p className="text-[14px] text-[var(--muted)] mb-4">Top 10 group scores ever.</p>
+
+          {data.party.allTime.top.length === 0 ? (
+            <div className="text-[var(--muted)] text-[14px] py-3" data-testid="leaderboard-party-all-time-empty">
+              No group scores yet. Be the first to land here.
+            </div>
+          ) : (
+            <div data-testid="leaderboard-party-all-time-rows">
+              {data.party.allTime.top.map((row, i) => (
+                <Row key={`pat-${row.rank}-${row.handle}-${i}`} {...row} />
+              ))}
+
+              {data.party.allTime.yourRank !== null &&
+                data.party.allTime.yourPersonalBest !== null &&
+                data.party.allTime.yourRank > data.party.allTime.top.length && (
+                  <>
+                    <div className="text-center text-[var(--muted)] py-2">⋯</div>
+                    <Row
+                      rank={data.party.allTime.yourRank}
+                      handle={`you (best: ${data.party.allTime.yourPersonalBest})`}
+                      bestScore={data.party.allTime.yourPersonalBest}
+                      bestWrong={0}
+                      isYou={true}
+                    />
+                  </>
+                )}
+            </div>
+          )}
+        </section>
+      )}
+
       <div className="mt-auto pt-6">
         <Attribution />
       </div>
