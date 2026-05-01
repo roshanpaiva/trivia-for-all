@@ -2,6 +2,20 @@
 
 All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.6.6.0] - 2026-05-01
+
+### Added
+- **v2 Lane B: AudioWaveform extended with 4 mic states** (per design DD2 + DD4). The component is the single audio mark for both halves of the audio loop — TTS output and STT input — never on screen at the same time.
+  - `state="off"` → bars static in `--ink` (default; v1 inactive look)
+  - `state="tts-reading"` → bars vary height per syllable in `--accent` (v1 active look, byte-identical)
+  - `state="mic-listening"` → uniform-height bars pulse opacity 100% → 60% in `--ink` (0.9s cycle)
+  - `state="mic-still-listening"` → uniform pulse 80% → 40% (1.8s, signals fade)
+  - `state="mic-degraded"` → uniform bars static in `--muted` (voice off; tap-only)
+- **Backward compatible.** Legacy `active` prop (BrandMark + InGame call sites) still works — `active=true` resolves to `tts-reading`, `active=false` resolves to `off`. Visual output for v1 callers is byte-identical.
+- **`state` takes precedence over `active`** when both are provided — lets new code adopt the new prop without accidentally fighting legacy callers.
+- **Reduced-motion respected** — all three keyframes (`wave-pulse-tts`, `wave-pulse-listen`, `wave-pulse-listen-slow`) disabled under `prefers-reduced-motion: reduce`. Replaces with the static-bars rendering DD12 specified.
+- 14 new tests (205 total). No call sites are switched to the new `state` prop yet — Lane D will wire it up when the InGame phase machine learns about party-mode listening states.
+
 ## [0.6.5.0] - 2026-05-01
 
 ### Added
