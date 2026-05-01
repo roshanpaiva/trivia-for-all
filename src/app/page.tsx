@@ -23,6 +23,8 @@ import type { AttemptMode, PlayMode } from "@/lib/types";
  * doesn't lose access. v2.1 will flip the default. */
 const PARTY_ENABLED_KEY = "quizzle.partyEnabled";
 const PARTY_PICKER_SEEN_KEY = "quizzle.partyPickerSeen";
+const MIC_PERMISSION_KEY = "quizzle.micPermission";
+const MIC_DENIED_DISMISSED_KEY = "quizzle.micDeniedDismissed";
 
 const readPartyEnabled = (): boolean => {
   if (typeof window === "undefined") return false;
@@ -39,6 +41,34 @@ const readPartyPickerSeen = (): boolean => {
   try { return window.localStorage.getItem(PARTY_PICKER_SEEN_KEY) === "1"; } catch { return false; }
 };
 
+type MicPermission = "unknown" | "granted" | "denied";
+
+const readMicPermission = (): MicPermission => {
+  if (typeof window === "undefined") return "unknown";
+  try {
+    const v = window.localStorage.getItem(MIC_PERMISSION_KEY);
+    return v === "granted" || v === "denied" ? v : "unknown";
+  } catch { return "unknown"; }
+};
+
+const readMicDeniedDismissed = (): boolean => {
+  if (typeof window === "undefined") return false;
+  try { return window.localStorage.getItem(MIC_DENIED_DISMISSED_KEY) === "1"; } catch { return false; }
+};
+
+/** ?stt=off URL flag — emergency switch to disable voice answering at runtime
+ * without a deploy. Set once per session in localStorage so the user doesn't
+ * need to re-paste the URL on every visit. */
+const STT_DISABLED_KEY = "quizzle.sttDisabled";
+const readSttDisabled = (): boolean => {
+  if (typeof window === "undefined") return false;
+  if (window.location.search.includes("stt=off")) {
+    try { window.localStorage.setItem(STT_DISABLED_KEY, "1"); } catch {}
+    return true;
+  }
+  try { return window.localStorage.getItem(STT_DISABLED_KEY) === "1"; } catch { return false; }
+};
+
 const msUntilNextUtcMidnight = (now: Date = new Date()): number => {
   const tomorrow = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1));
   return tomorrow.getTime() - now.getTime();
@@ -52,6 +82,9 @@ export default function GamePage() {
   const [partyEnabled, setPartyEnabled] = useState(false);
   const [playMode, setPlayMode] = useState<PlayMode>("solo");
   const [partyPickerSeen, setPartyPickerSeen] = useState(false);
+  const [micPermission, setMicPermission] = useState<MicPermission>("unknown");
+  const [micDeniedDismissed, setMicDeniedDismissed] = useState(false);
+  const [sttDisabled, setSttDisabled] = useState(false);
 
   // The "active" name is the one that lands on the leaderboard for the next
   // attempt. Solo and party have separate slots so a user with solo name
@@ -71,12 +104,46 @@ export default function GamePage() {
     setGroupName(loadGroupName());
     setPartyEnabled(readPartyEnabled());
     setPartyPickerSeen(readPartyPickerSeen());
+    setMicPermission(readMicPermission());
+    setMicDeniedDismissed(readMicDeniedDismissed());
+    setSttDisabled(readSttDisabled());
   }, []);
 
   const handlePartyPickerSeen = () => {
     setPartyPickerSeen(true);
     try { window.localStorage.setItem(PARTY_PICKER_SEEN_KEY, "1"); } catch {}
   };
+
+  const handleRequestMicPermission = async () => {
+    // Browser quirk: getUserMedia must be called from a user-gesture handler.
+    // The [Allow] button click satisfies that. We hold the stream for one tick,
+    // then close it — we don't keep the mic open until the game starts. The
+    // browser's permission grant persists across the close, so STT inside
+    // InGame can open mic without re-prompting.
+    if (typeof navigator === "undefined" || !navigator.mediaDevices?.getUserMedia) {
+      setMicPermission("denied");
+      try { window.localStorage.setItem(MIC_PERMISSION_KEY, "denied"); } catch {}
+      return;
+    }
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      stream.getTracks().forEach((t) => t.stop());
+      setMicPermission("granted");
+      try { window.localStorage.setItem(MIC_PERMISSION_KEY, "granted"); } catch {}
+    } catch {
+      setMicPermission("denied");
+      try { window.localStorage.setItem(MIC_PERMISSION_KEY, "denied"); } catch {}
+    }
+  };
+
+  const handleDismissMicDenied = () => {
+    setMicDeniedDismissed(true);
+    try { window.localStorage.setItem(MIC_DENIED_DISMISSED_KEY, "1"); } catch {}
+  };
+
+  // Voice answering is "live" only when every gate is satisfied.
+  const voiceEnabled =
+    partyEnabled && playMode === "party" && micPermission === "granted" && !sttDisabled;
 
   // Initial load: best score + remaining attempts + resumable attempt
   useEffect(() => {
@@ -142,6 +209,7 @@ export default function GamePage() {
         onTapChoice={game.tapChoice}
         onFinishReading={game.finishReading}
         onFinishReveal={game.finishReveal}
+        voiceEnabled={voiceEnabled}
       />
     );
   }
@@ -198,6 +266,10 @@ export default function GamePage() {
       onPlayModeChange={setPlayMode}
       partyPickerSeen={partyPickerSeen}
       onPartyPickerSeen={handlePartyPickerSeen}
+      micPermission={micPermission}
+      onRequestMicPermission={handleRequestMicPermission}
+      micDeniedDismissed={micDeniedDismissed}
+      onDismissMicDenied={handleDismissMicDenied}
     />
   );
 }

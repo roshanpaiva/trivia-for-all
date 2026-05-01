@@ -2,6 +2,19 @@
 
 All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.6.9.0] - 2026-05-01
+
+### Added
+- **v2 Lane D2: voice answering for Party mode (behind `?party=1`).** Completes the original v2 thesis — group shouts the answer, app recognizes, advances. All gated behind the `?party=1` URL flag + `micPermission==='granted'`. Solo path is byte-identical.
+  - **`src/lib/match.ts`** — pure utility, mode-strict matcher (eng D7 + DD7). 3 tiers: exact → substring (with numeral-word equivalence: "twelve" ↔ "12", "nineteen eighty four" ↔ "1984") → per-token Levenshtein (solo Lev 2 forgiving, party Lev 1 strict). Party rejects ambiguous matches (second-best within 1 of best) to avoid the false-positive trust killer the design doc called out.
+  - **`src/hooks/useStt.ts`** — wraps `webkitSpeechRecognition`. 3-tier watchdog (eng D4): tier 1 silent-drop restart, tier 2 degrade after 2 fails, tier 3 telemetry hook (`onDegrade` callback). Phases: off / listening / still-listening / degraded. Lazy support detection — no constructor side-effect. Tested with a fake SpeechRecognition (no real browser).
+  - **Mic permission flow on Home (DD6).** Inline banner under the mode picker when `partyEnabled && playMode==='party' && micPermission==='unknown'`: "Voice answering needs mic permission. [Allow]". Tap → `navigator.mediaDevices.getUserMedia({audio:true})` → grant hides banner; deny swaps to dismissible "Voice off — tap to answer". Permission state persisted to `quizzle.micPermission` localStorage so the prompt doesn't re-fire on every visit.
+  - **Audio surface mic states (DD2 + DD4).** AudioWaveform in InGame's sticky bar reflects the live STT state — `tts-reading` during reading, then `mic-listening` / `mic-still-listening` / `mic-degraded` while the app waits for an answer. Status label tracks state with `aria-live="polite"` (DD12) so screen readers announce it.
+  - **Timeout hint (DD5).** When STT has been silent past the still-listening threshold, "Didn't catch that — tap an answer." renders in the existing result-label slot above the choices. Banner only — choices are always tappable, mic stays listening underneath.
+  - **`?stt=off` URL escape.** Emergency switch — disables voice answering at runtime without a deploy. Persists to `quizzle.sttDisabled` localStorage.
+  - **Solo unaffected.** Voice answering only fires when every gate is satisfied (`partyEnabled && playMode==='party' && micPermission==='granted' && !sttDisabled`). Solo plays exercise zero new code paths.
+- 57 new tests (291 total). matchAnswer covers 3 tiers + numerals + years + edge cases. useStt covers happy path + watchdog + idempotency + lazy support detection. Home covers banner render gates + Allow button + denied-banner dismissal.
+
 ## [0.6.8.1] - 2026-05-01
 
 ### Fixed

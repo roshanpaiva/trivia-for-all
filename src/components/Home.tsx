@@ -48,6 +48,17 @@ type Props = {
   partyPickerSeen?: boolean;
   /** v2: notified the first time the user interacts with the picker. */
   onPartyPickerSeen?: () => void;
+  /** v2: mic permission state for voice answering (Lane D2). 'unknown' shows
+   * the permission banner; 'granted' hides it; 'denied' swaps to a dismissible
+   * "voice off" banner. Per design DD6. */
+  micPermission?: "unknown" | "granted" | "denied";
+  /** v2: triggered when the user taps [Allow] on the permission banner.
+   * Parent runs `getUserMedia({audio:true})` and updates `micPermission`. */
+  onRequestMicPermission?: () => void;
+  /** v2: dismissible "voice off" banner is hidden once dismissed. Parent
+   * persists the dismissal in localStorage. */
+  micDeniedDismissed?: boolean;
+  onDismissMicDenied?: () => void;
 };
 
 const formatCountdown = (ms: number): string => {
@@ -76,6 +87,10 @@ export const Home = ({
   onPlayModeChange,
   partyPickerSeen = false,
   onPartyPickerSeen,
+  micPermission = "unknown",
+  onRequestMicPermission,
+  micDeniedDismissed = false,
+  onDismissMicDenied,
 }: Props) => {
   // A returning player who comes back the next day has bestToday=null +
   // attemptsRemaining=5, but they DO have a personal best — so they shouldn't
@@ -273,6 +288,55 @@ export const Home = ({
               </button>
             );
           })}
+        </div>
+      )}
+
+      {/* Mic permission banner (DD6). Only renders when:
+            - party mode is enabled (URL flag) AND
+            - the user has selected Party AND
+            - we don't yet know mic is granted (unknown OR denied + not yet dismissed).
+          On grant the banner disappears entirely. On deny it swaps to a
+          dismissible "Voice off" message; the user can still play tap-only. */}
+      {partyEnabled && playMode === "party" && micPermission === "unknown" && (
+        <div
+          className="mb-5 px-3 py-3 rounded-md border border-[var(--line)] bg-[var(--surface)] text-[14px] text-[var(--ink)]"
+          role="status"
+          aria-live="polite"
+          data-testid="mic-permission-banner"
+        >
+          <div className="flex items-center justify-between gap-3">
+            <span>Voice answering needs mic permission.</span>
+            <button
+              type="button"
+              onClick={() => onRequestMicPermission?.()}
+              className="min-h-[44px] px-4 rounded-md bg-[var(--ink)] text-[var(--canvas)] font-semibold text-[14px] hover:opacity-85 transition-opacity"
+              data-testid="mic-allow-button"
+            >
+              Allow
+            </button>
+          </div>
+        </div>
+      )}
+
+      {partyEnabled && playMode === "party" && micPermission === "denied" && !micDeniedDismissed && (
+        <div
+          className="mb-5 px-3 py-3 rounded-md border border-[var(--line)] bg-[var(--surface)] text-[14px] text-[var(--muted)]"
+          role="status"
+          aria-live="polite"
+          data-testid="mic-denied-banner"
+        >
+          <div className="flex items-center justify-between gap-3">
+            <span>Voice off &mdash; tap to answer.</span>
+            <button
+              type="button"
+              onClick={() => onDismissMicDenied?.()}
+              className="min-h-[32px] px-2 text-[14px] text-[var(--ink)] underline"
+              data-testid="mic-denied-dismiss"
+              aria-label="Dismiss voice-off banner"
+            >
+              ×
+            </button>
+          </div>
         </div>
       )}
 

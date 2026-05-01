@@ -5,14 +5,16 @@
  * Phase rendering logic per D7 from /plan-design-review.
  */
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import type { ClientQuestion } from "@/lib/types";
 import { Clock } from "./Clock";
 import { ChoiceTile, type ChoiceState } from "./ChoiceTile";
 import { StreakDots } from "./StreakDots";
-import { AudioWaveform } from "./AudioWaveform";
+import { AudioWaveform, type WaveformState } from "./AudioWaveform";
 import { PauseOverlay } from "./PauseOverlay";
 import type { GameState } from "@/lib/timer";
+import { useStt } from "@/hooks/useStt";
+import { matchAnswer } from "@/lib/match";
 
 type Props = {
   state: GameState;
@@ -24,6 +26,10 @@ type Props = {
   onTapChoice: (choiceIdx: number) => void;
   onFinishReading: () => void;
   onFinishReveal: () => void;
+  /** v2 D2: when true, AudioWaveform shows mic states during the answering
+   * phase and useStt listens for spoken answers. Caller (page.tsx) gates this
+   * on partyEnabled + playMode==='party' + micPermission==='granted' + !sttDisabled. */
+  voiceEnabled?: boolean;
 };
 
 const choiceStateFor = (
@@ -55,10 +61,81 @@ export const InGame = ({
   onTapChoice,
   onFinishReading,
   onFinishReveal,
+  voiceEnabled = false,
 }: Props) => {
   // Tapped choice is tracked in GameState (set on tap-answer, cleared on
   // reveal-complete). Drives validating-this + reveal-wrong styling.
   const tappedChoiceIdx = state.tappedChoiceIdx;
+
+  // Latest tap callback in a ref so the STT result handler doesn't restart
+  // the recognition every time the parent re-binds it.
+  const onTapChoiceRef = useRef(onTapChoice);
+  useEffect(() => { onTapChoiceRef.current = onTapChoice; }, [onTapChoice]);
+
+  // STT (party mode only). Match against the current question's choices with
+  // strictness=1 (party — strict; eng D7 + DD7).
+  const stt = useStt({
+    enabled: voiceEnabled,
+    onResult: (transcript) => {
+      const idx = matchAnswer(transcript, question.choices, 1);
+      if (idx !== null) onTapChoiceRef.current(idx);
+      // No-match: leave the listen cycle alone; the watchdog will restart on
+      // the natural onend or the user can tap to answer.
+    },
+  });
+
+  // Drive STT lifecycle from the game phase. Listen ONLY during answering;
+  // stop the moment the phase exits answering (validating, reveal, reading).
+  // The watchdog inside useStt handles silent-drop restarts within that window.
+  useEffect(() => {
+    if (!voiceEnabled) return;
+    if (state.phase === "answering") {
+      stt.start();
+    } else {
+      stt.stop();
+    }
+    // Reset watchdog state between questions so a degraded session can recover
+    // when a fresh question starts (only meaningful if voiceEnabled flips back
+    // to true after a permission re-grant; harmless otherwise).
+    if (state.phase === "reading") stt.reset();
+  }, [state.phase, voiceEnabled, stt]);
+
+  // Audio surface state — single component, multiple modes (DD2 + DD4). TTS
+  // wins over STT visually when both could apply (TTS only fires during reading,
+  // STT only during answering, so they never actually overlap).
+  const waveformState: WaveformState = audioActive
+    ? "tts-reading"
+    : voiceEnabled && state.phase === "answering"
+      ? stt.phase === "still-listening"
+        ? "mic-still-listening"
+        : stt.phase === "degraded"
+          ? "mic-degraded"
+          : stt.phase === "listening"
+            ? "mic-listening"
+            : "off"
+      : "off";
+
+  const statusLabel =
+    state.phase === "reading"
+      ? "Reading"
+      : voiceEnabled && state.phase === "answering"
+        ? stt.phase === "degraded"
+          ? "Voice off"
+          : stt.phase === "still-listening"
+            ? "Still listening…"
+            : stt.phase === "listening"
+              ? "Listening"
+              : ""
+        : "";
+
+  // Timeout hint: when STT has been still-listening for the configured period,
+  // surface "Didn't catch that — tap an answer" in the existing result-label
+  // slot (DD5). The hint piggybacks off the still-listening state — no
+  // separate timer needed.
+  const showTimeoutHint =
+    voiceEnabled &&
+    state.phase === "answering" &&
+    (stt.phase === "still-listening" || stt.phase === "degraded");
 
   // Keyboard nav: 1-4 keys map to choices (per CLAUDE.md a11y baseline)
   useEffect(() => {
@@ -143,9 +220,11 @@ export const InGame = ({
               </>
             )}
           </span>
-          <span className="flex items-center gap-1.5">
-            <AudioWaveform active={audioActive} />
-            {state.phase === "reading" ? "Reading" : ""}
+          <span className="flex items-center gap-1.5" data-testid="audio-status">
+            <AudioWaveform state={waveformState} />
+            {/* aria-live for screen readers (DD12). Empty span when status is
+                blank avoids a11y noise on every render. */}
+            <span aria-live="polite" aria-atomic="true">{statusLabel}</span>
           </span>
         </div>
         <Clock ms={state.score.clockMs} />
@@ -199,6 +278,21 @@ export const InGame = ({
         <div className="font-display font-semibold text-[20px] leading-tight my-3">
           {question.prompt}
         </div>
+
+        {/* Timeout hint banner (DD5). Surfaces when STT has been silent past
+            the still-listening threshold. Lives in the existing result-label
+            slot; only shown during the answering phase, so it never collides
+            with the actual reveal label below. */}
+        {showTimeoutHint && (
+          <div
+            className="text-center mb-2 font-display text-[16px] text-[var(--muted)]"
+            data-testid="timeout-hint"
+            role="status"
+            aria-live="polite"
+          >
+            Didn&rsquo;t catch that &mdash; tap an answer.
+          </div>
+        )}
 
         {/* Result label on reveal (skipped when a streak announcement is showing) */}
         {state.phase === "reveal" && state.reveal && !state.reveal.streakAnnouncement && (
