@@ -34,6 +34,13 @@ CREATE TABLE IF NOT EXISTS attempts (
   question_ids  JSONB NOT NULL           -- ordered array of question id strings (length up to 20)
 );
 
+-- v0.6.5.0 (Lane A of v2 party-mode): additive play_mode column. Existing rows
+-- backfill to 'solo' via DEFAULT, so v1 reads/writes are untouched. Lane C
+-- will start populating 'party' for the new mode; until then every row is solo.
+ALTER TABLE attempts
+  ADD COLUMN IF NOT EXISTS play_mode TEXT NOT NULL DEFAULT 'solo'
+    CHECK (play_mode IN ('solo','party'));
+
 -- Supports the 5-per-day count check on /api/attempt/start.
 CREATE INDEX IF NOT EXISTS attempts_daily_count
   ON attempts (cookie_id, date_utc, mode);
@@ -74,6 +81,14 @@ CREATE TABLE IF NOT EXISTS scores (
 -- v0.4.1.0: backfill the display_name column on existing deploys (first-class
 -- name capture replaces the cobalt-otter auto-handle on the leaderboard).
 ALTER TABLE scores ADD COLUMN IF NOT EXISTS display_name TEXT;
+
+-- v0.6.5.0 (Lane A of v2 party-mode): mirror of attempts.play_mode, denormalized
+-- onto scores at finalize time per eng D6 — keeps the leaderboard query a
+-- single-table SELECT (no join into attempts to filter by mode). Existing rows
+-- backfill to 'solo' via DEFAULT.
+ALTER TABLE scores
+  ADD COLUMN IF NOT EXISTS play_mode TEXT NOT NULL DEFAULT 'solo'
+    CHECK (play_mode IN ('solo','party'));
 
 -- Composite index supports the leaderboard query order (correct DESC, wrong ASC, finished_at ASC, id ASC).
 CREATE INDEX IF NOT EXISTS scores_leaderboard
