@@ -25,5 +25,15 @@
 
 ### Mode persistence (localStorage)
 - **What:** Save `quizzle.preferredMode` to localStorage so returning party-mode players don't have to re-pick Party each visit.
-- **Why:** Small UX win, deferred per D1 to keep v2.0 file count down.
+- **Why:** Small UX win, deferred per D1 to keep v2.0 file count down. Design review (DD1) accepted the "extra tap each visit" cost for v2.0.
 - **Captured:** /plan-eng-review session, 2026-04-30 (D1)
+
+### Mode-switch name-field carryover friction
+- **What:** When a user with solo name "Alex" switches to Party mode, the value carries but the label changes to "Group name", which can mislead. Resolution options for v2.1: (a) two columns (separate solo/group names persisted independently), (b) confirm-on-mode-switch prompt, or (c) leave as documented friction if usage data shows it doesn't bite.
+- **Why:** Acknowledged v2.0 UX debt per DD7. Eng D1 locked one column; design review accepted the friction for v2.0.
+- **Captured:** /plan-design-review session, 2026-04-30 (DD7)
+
+### "Best today" mode disambiguation on Home
+- **What:** When a user has played both Solo and Party today, the "Best today: 18" copy is mode-agnostic. Options for v2.1: per-mode display ("Best today: solo 18 · party 12") or mode-aware (shows the active mode's best).
+- **Why:** Small ambiguity; v2.0 punts because day-1 traffic doesn't make it a real issue yet. Revisit when we see cross-mode play in real usage.
+- **Captured:** /plan-design-review session, 2026-04-30 (Pass 3 deferred)
