@@ -7,6 +7,7 @@
  *   even with up to 5 attempts.
  */
 
+import type { PlayMode } from "@/lib/types";
 import { getSql, type SqlTag } from "./client";
 
 export type ScoreRow = {
@@ -18,6 +19,7 @@ export type ScoreRow = {
   wrongCount: number;
   finishedAt: Date;
   displayName: string | null;
+  playMode: PlayMode;
 };
 
 export type LeaderboardEntry = {
@@ -52,6 +54,9 @@ type RawScoreRow = {
   wrong_count: number;
   finished_at: Date;
   display_name: string | null;
+  // Defensive: pre-Lane-A migration this column doesn't exist on legacy rows
+  // (in practice it does post-deploy, but the optional shape keeps tests honest).
+  play_mode?: string | null;
 };
 
 const rowToScore = (r: RawScoreRow): ScoreRow => ({
@@ -63,6 +68,7 @@ const rowToScore = (r: RawScoreRow): ScoreRow => ({
   wrongCount: r.wrong_count,
   finishedAt: new Date(r.finished_at),
   displayName: r.display_name ?? null,
+  playMode: (r.play_mode === "party" ? "party" : "solo") as PlayMode,
 });
 
 /**
@@ -88,12 +94,18 @@ export const writeScore = async (params: {
   correctCount: number;
   wrongCount: number;
   displayName?: string | null;
+  /** Denormalized from the attempt row at finalize time per eng D6.
+   * Defaults to 'solo' if omitted (back-compat with any caller that hasn't
+   * been updated). The finalize route reads it from the attempt and passes
+   * it explicitly, so the default only fires if a future caller forgets. */
+  playMode?: PlayMode;
   sql?: SqlTag;
 }): Promise<ScoreRow> => {
   const sql = params.sql ?? getSql();
   const displayName = sanitizeDisplayName(params.displayName ?? null);
+  const playMode: PlayMode = params.playMode === "party" ? "party" : "solo";
   const rows = await sql<RawScoreRow>`
-    INSERT INTO scores (attempt_id, cookie_id, date_utc, correct_count, wrong_count, finished_at, display_name)
+    INSERT INTO scores (attempt_id, cookie_id, date_utc, correct_count, wrong_count, finished_at, display_name, play_mode)
     VALUES (
       ${params.attemptId},
       ${params.cookieId},
@@ -101,13 +113,14 @@ export const writeScore = async (params: {
       ${params.correctCount},
       ${params.wrongCount},
       NOW(),
-      ${displayName}
+      ${displayName},
+      ${playMode}
     )
     ON CONFLICT (attempt_id) DO UPDATE
       SET correct_count = EXCLUDED.correct_count,
           wrong_count   = EXCLUDED.wrong_count,
           display_name  = COALESCE(EXCLUDED.display_name, scores.display_name)
-    RETURNING id, attempt_id, cookie_id, date_utc, correct_count, wrong_count, finished_at, display_name
+    RETURNING id, attempt_id, cookie_id, date_utc, correct_count, wrong_count, finished_at, display_name, play_mode
   `;
   return rowToScore(rows[0]);
 };
@@ -124,6 +137,10 @@ export const writeScore = async (params: {
 export const getLeaderboard = async (params: {
   dateUtc: string;
   cookieId: string | null;
+  /** Filter by play mode (per design DD3: solo and party are stacked but
+   * separate sections; their lists never mingle). Required so callers think
+   * about which list they want. */
+  playMode: PlayMode;
   limit?: number;
   sql?: SqlTag;
 }): Promise<LeaderboardResult> => {
@@ -149,12 +166,14 @@ export const getLeaderboard = async (params: {
              FROM scores s2
              WHERE s2.cookie_id = scores.cookie_id
                AND s2.date_utc = ${params.dateUtc}::date
+               AND s2.play_mode = ${params.playMode}
                AND s2.display_name IS NOT NULL
              ORDER BY s2.finished_at DESC
              LIMIT 1
            ) AS display_name
     FROM scores
     WHERE date_utc = ${params.dateUtc}::date
+      AND play_mode = ${params.playMode}
     GROUP BY cookie_id
     ORDER BY best_score DESC, best_wrong ASC, best_finished_at ASC
     LIMIT ${limit}
@@ -169,15 +188,16 @@ export const getLeaderboard = async (params: {
     displayName: r.display_name ?? null,
   }));
 
-  // Total players (cookies) today.
+  // Total players (cookies) today, filtered to this mode.
   const totalRows = await sql<{ count: string }>`
     SELECT COUNT(DISTINCT cookie_id)::text AS count
     FROM scores
     WHERE date_utc = ${params.dateUtc}::date
+      AND play_mode = ${params.playMode}
   `;
   const totalPlayers = parseInt(totalRows[0]?.count ?? "0", 10);
 
-  // Your-rank: only if cookie supplied and they have a score today.
+  // Your-rank: only if cookie supplied and they have a score today in this mode.
   let yourRank: number | null = null;
   let yourBestToday: number | null = null;
   if (params.cookieId) {
@@ -190,7 +210,9 @@ export const getLeaderboard = async (params: {
              MIN(wrong_count) AS best_wrong,
              MIN(finished_at) AS best_finished_at
       FROM scores
-      WHERE date_utc = ${params.dateUtc}::date AND cookie_id = ${params.cookieId}
+      WHERE date_utc = ${params.dateUtc}::date
+        AND play_mode = ${params.playMode}
+        AND cookie_id = ${params.cookieId}
     `;
     const yourBest = yourBestRows[0];
     if (yourBest && yourBest.best_score !== null) {
@@ -209,6 +231,7 @@ export const getLeaderboard = async (params: {
                  MIN(finished_at) AS best_finished_at
           FROM scores
           WHERE date_utc = ${params.dateUtc}::date
+            AND play_mode = ${params.playMode}
           GROUP BY cookie_id
         ) lb_strictly_better
         WHERE best_score > ${yourBest.best_score}
@@ -234,6 +257,9 @@ export const getLeaderboard = async (params: {
  */
 export const getAllTimeLeaderboard = async (params: {
   cookieId: string | null;
+  /** Filter by play mode. Solo and party have separate all-time lists per DD3
+   * (different number of brains per attempt; not directly comparable). */
+  playMode: PlayMode;
   limit?: number;
   sql?: SqlTag;
 }): Promise<AllTimeLeaderboardResult> => {
@@ -255,11 +281,13 @@ export const getAllTimeLeaderboard = async (params: {
              SELECT s2.display_name
              FROM scores s2
              WHERE s2.cookie_id = scores.cookie_id
+               AND s2.play_mode = ${params.playMode}
                AND s2.display_name IS NOT NULL
              ORDER BY s2.finished_at DESC
              LIMIT 1
            ) AS display_name
     FROM scores
+    WHERE play_mode = ${params.playMode}
     GROUP BY cookie_id
     ORDER BY best_score DESC, best_wrong ASC, best_finished_at ASC
     LIMIT ${limit}
@@ -287,6 +315,7 @@ export const getAllTimeLeaderboard = async (params: {
              MIN(finished_at) AS best_finished_at
       FROM scores
       WHERE cookie_id = ${params.cookieId}
+        AND play_mode = ${params.playMode}
     `;
     const yb = yourBestRows[0];
     if (yb && yb.best_score !== null) {
@@ -299,6 +328,7 @@ export const getAllTimeLeaderboard = async (params: {
                  MIN(wrong_count) AS best_wrong,
                  MIN(finished_at) AS best_finished_at
           FROM scores
+          WHERE play_mode = ${params.playMode}
           GROUP BY cookie_id
         ) lb_strictly_better_alltime
         WHERE best_score > ${yb.best_score}

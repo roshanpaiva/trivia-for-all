@@ -123,6 +123,85 @@ describe("startAttempt", () => {
     expect(insertCall?.query.includes("SELECT")).toBe(false);
   });
 
+  it("persists playMode='party' onto the attempt row when caller passes it", async () => {
+    const bank = sampleBank();
+    const insertedAttempt = {
+      id: "att-party-1",
+      cookie_id: cookieId,
+      date_utc: dateUtc,
+      mode: "scored",
+      play_mode: "party",
+      started_at: new Date(),
+      finished_at: null,
+      question_ids: bank.slice(0, 20).map((q) => q.id),
+    };
+    const sql = makeFakeSql([
+      { match: "FROM questions", rows: bank.map((q) => ({
+        id: q.id, category: q.category, difficulty: q.difficulty,
+        prompt: q.prompt, choices: q.choices, correct_idx: q.correctIdx,
+        fact: q.fact, source: q.source ?? null,
+      })) },
+      { match: "INSERT INTO attempts", rows: [insertedAttempt] },
+      { match: "SELECT COUNT(*)", rows: [{ count: "1" }] },
+    ]);
+    const result = await startAttempt({ cookieId, dateUtc, mode: "scored", playMode: "party", sql });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.attempt.playMode).toBe("party");
+    const insertCall = sql.__calls.find((c) => c.query.includes("INSERT INTO attempts"));
+    expect(insertCall?.query).toContain("play_mode");
+    expect(insertCall?.params).toContain("party");
+  });
+
+  it("defaults playMode to 'solo' when caller omits it (back-compat)", async () => {
+    const bank = sampleBank();
+    const insertedAttempt = {
+      id: "att-solo-default",
+      cookie_id: cookieId,
+      date_utc: dateUtc,
+      mode: "scored",
+      play_mode: "solo",
+      started_at: new Date(),
+      finished_at: null,
+      question_ids: bank.slice(0, 20).map((q) => q.id),
+    };
+    const sql = makeFakeSql([
+      { match: "FROM questions", rows: bank.map((q) => ({
+        id: q.id, category: q.category, difficulty: q.difficulty,
+        prompt: q.prompt, choices: q.choices, correct_idx: q.correctIdx,
+        fact: q.fact, source: q.source ?? null,
+      })) },
+      { match: "INSERT INTO attempts", rows: [insertedAttempt] },
+      { match: "SELECT COUNT(*)", rows: [{ count: "1" }] },
+    ]);
+    const result = await startAttempt({ cookieId, dateUtc, mode: "scored", sql });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.attempt.playMode).toBe("solo");
+    const insertCall = sql.__calls.find((c) => c.query.includes("INSERT INTO attempts"));
+    expect(insertCall?.params).toContain("solo");
+  });
+
+  it("daily cap counts solo + party together (DD14: shared cap)", async () => {
+    const bank = sampleBank();
+    const sql = makeFakeSql([
+      { match: "FROM questions", rows: bank.map((q) => ({
+        id: q.id, category: q.category, difficulty: q.difficulty,
+        prompt: q.prompt, choices: q.choices, correct_idx: q.correctIdx,
+        fact: q.fact, source: q.source ?? null,
+      })) },
+      { match: "INSERT INTO attempts", rows: [] }, // simulate cap reached
+    ]);
+    await startAttempt({ cookieId, dateUtc, mode: "scored", playMode: "party", sql });
+    const insertCall = sql.__calls.find((c) => c.query.includes("INSERT INTO attempts"));
+    // The COUNT subquery (between "SELECT COUNT(*)" and the closing "< ?")
+    // must NOT filter by play_mode — one cap shared across modes per DD14.
+    // Extract only the subquery body to avoid matching play_mode in RETURNING.
+    const countMatch = insertCall?.query.match(/SELECT COUNT\(\*\)[\s\S]*?\)\s*<\s*\?/);
+    expect(countMatch).not.toBeNull();
+    expect(countMatch?.[0]).not.toContain("play_mode");
+  });
+
   it("the scored INSERT statement contains the count WHERE filter (concurrent-race fix)", async () => {
     const bank = sampleBank();
     const sql = makeFakeSql([

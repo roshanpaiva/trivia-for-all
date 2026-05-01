@@ -23,7 +23,7 @@
  */
 
 import { sampleAttemptQuestions } from "@/lib/sampler";
-import type { AttemptMode, ClientQuestion, Question } from "@/lib/types";
+import type { AttemptMode, ClientQuestion, PlayMode, Question } from "@/lib/types";
 import { getSql, type SqlTag } from "./client";
 import { loadBank } from "./questions";
 
@@ -34,6 +34,7 @@ export type Attempt = {
   cookieId: string;
   dateUtc: string;
   mode: AttemptMode;
+  playMode: PlayMode;
   startedAt: Date;
   finishedAt: Date | null;
   questionIds: string[];
@@ -48,6 +49,11 @@ type AttemptRow = {
   cookie_id: string;
   date_utc: string;
   mode: string;
+  // Pre-Lane-A migration this column doesn't exist; for those rows the SELECT
+  // returns undefined and we default to 'solo' in rowToAttempt. Post-migration
+  // (Lane A's ALTER landed) the column is NOT NULL DEFAULT 'solo' so legacy
+  // rows backfill automatically.
+  play_mode?: string | null;
   started_at: Date;
   finished_at: Date | null;
   question_ids: string[];
@@ -58,6 +64,9 @@ const rowToAttempt = (r: AttemptRow): Attempt => ({
   cookieId: r.cookie_id,
   dateUtc: typeof r.date_utc === "string" ? r.date_utc : (r.date_utc as Date).toISOString().slice(0, 10),
   mode: r.mode as AttemptMode,
+  // Defensive: if a row predates the migration, treat it as solo. Post-migration
+  // every row has a value; this branch is dead code but cheap.
+  playMode: (r.play_mode === "party" ? "party" : "solo") as PlayMode,
   startedAt: new Date(r.started_at),
   finishedAt: r.finished_at ? new Date(r.finished_at) : null,
   questionIds: r.question_ids,
@@ -91,9 +100,13 @@ export const startAttempt = async (params: {
   cookieId: string;
   dateUtc: string;
   mode: AttemptMode;
+  /** Defaults to 'solo'. Party-mode attempts ride the same daily cap (eng DD14
+   * + design DD14: shared cap across modes). */
+  playMode?: PlayMode;
   sql?: SqlTag;
 }): Promise<StartAttemptResult> => {
   const sql = params.sql ?? getSql();
+  const playMode: PlayMode = params.playMode === "party" ? "party" : "solo";
   const bank = await loadBank(sql);
   const id = crypto.randomUUID();
   const questionIds = sampleAttemptQuestions(bank);
@@ -103,16 +116,20 @@ export const startAttempt = async (params: {
     // Conditional insert: only land a row if the cookie has < DAILY_SCORED_LIMIT
     // scored attempts on this date. This is atomic on Postgres because the count
     // is evaluated inside the same statement as the insert.
+    //
+    // Note: the cap counts BOTH solo and party scored attempts together (per
+    // DD14). No play_mode filter on the COUNT subquery — one cap, one paywall
+    // (when monetization lands in v2.1).
     const inserted = await sql<AttemptRow>`
-      INSERT INTO attempts (id, cookie_id, date_utc, mode, question_ids)
-      SELECT ${id}, ${params.cookieId}, ${params.dateUtc}::date, 'scored', ${questionIdsJson}::jsonb
+      INSERT INTO attempts (id, cookie_id, date_utc, mode, play_mode, question_ids)
+      SELECT ${id}, ${params.cookieId}, ${params.dateUtc}::date, 'scored', ${playMode}, ${questionIdsJson}::jsonb
       WHERE (
         SELECT COUNT(*) FROM attempts
         WHERE cookie_id = ${params.cookieId}
           AND date_utc = ${params.dateUtc}::date
           AND mode = 'scored'
       ) < ${DAILY_SCORED_LIMIT}
-      RETURNING id, cookie_id, date_utc, mode, started_at, finished_at, question_ids
+      RETURNING id, cookie_id, date_utc, mode, play_mode, started_at, finished_at, question_ids
     `;
     if (inserted.length === 0) {
       return { ok: false, reason: "daily_limit_reached", resetAtUtc: tomorrowMidnightUtc() };
@@ -125,9 +142,9 @@ export const startAttempt = async (params: {
 
   // Practice: unconditional insert, no cap.
   const inserted = await sql<AttemptRow>`
-    INSERT INTO attempts (id, cookie_id, date_utc, mode, question_ids)
-    VALUES (${id}, ${params.cookieId}, ${params.dateUtc}::date, 'practice', ${questionIdsJson}::jsonb)
-    RETURNING id, cookie_id, date_utc, mode, started_at, finished_at, question_ids
+    INSERT INTO attempts (id, cookie_id, date_utc, mode, play_mode, question_ids)
+    VALUES (${id}, ${params.cookieId}, ${params.dateUtc}::date, 'practice', ${playMode}, ${questionIdsJson}::jsonb)
+    RETURNING id, cookie_id, date_utc, mode, play_mode, started_at, finished_at, question_ids
   `;
   const attempt = rowToAttempt(inserted[0]);
   const questions = await materializeClientQuestions(attempt.questionIds, sql);
@@ -145,7 +162,7 @@ export const findCurrentAttempt = async (
   sql: SqlTag = getSql(),
 ): Promise<{ attempt: Attempt; questions: ClientQuestion[] } | null> => {
   const rows = await sql<AttemptRow>`
-    SELECT id, cookie_id, date_utc, mode, started_at, finished_at, question_ids
+    SELECT id, cookie_id, date_utc, mode, play_mode, started_at, finished_at, question_ids
     FROM attempts
     WHERE cookie_id = ${cookieId}
       AND finished_at IS NULL
@@ -167,7 +184,7 @@ export const findAttempt = async (
   sql: SqlTag = getSql(),
 ): Promise<Attempt | null> => {
   const rows = await sql<AttemptRow>`
-    SELECT id, cookie_id, date_utc, mode, started_at, finished_at, question_ids
+    SELECT id, cookie_id, date_utc, mode, play_mode, started_at, finished_at, question_ids
     FROM attempts
     WHERE id = ${id}
     LIMIT 1

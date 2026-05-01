@@ -8,7 +8,7 @@
  * Tests mock `fetch` via vi.spyOn(globalThis, 'fetch') — see tests/lib/api.test.ts.
  */
 
-import type { AttemptMode, ClientQuestion } from "./types";
+import type { AttemptMode, ClientQuestion, PlayMode } from "./types";
 
 export class ApiError extends Error {
   constructor(
@@ -35,7 +35,11 @@ const json = async <T>(res: Response): Promise<T> => {
 
 export type StartAttemptResponse = {
   attemptId: string;
+  /** Legacy field — same value as attemptMode. Kept for backward compat
+   * with mid-game tabs running pre-Lane-C JS. */
   mode: AttemptMode;
+  attemptMode: AttemptMode;
+  playMode: PlayMode;
   questionIds: string[];
   questions: ClientQuestion[];
   dateUtc: string;
@@ -79,31 +83,54 @@ type LeaderboardRow = {
 };
 
 export type LeaderboardResponse = {
+  /** Top-level fields are SOLO mode only (post-Lane-C semantic narrowing).
+   * Pre-Lane-D party play, every score is solo, so behavior is unchanged
+   * for current users. */
   top: LeaderboardRow[];
   yourRank: number | null;
   yourBestToday: number | null;
-  /** Caller's all-time personal best across every scored attempt they've ever
-   * played. Null if they've never finished a scored attempt. Persists across
-   * the daily reset so a kid's 26 from last week stays visible on Home. */
+  /** Caller's all-time personal best in SOLO mode. Persists across the daily
+   * reset. Lane D may add a cross-mode aggregate; for now this is the field
+   * Home renders. */
   yourPersonalBest: number | null;
-  /** Scored attempts remaining today (5 max). Always present; defaults to 5
-   * for anonymous (no-cookie) callers. Lets Home show the right pill on first
-   * paint without a separate request. */
+  /** Scored attempts remaining today (5 max). Cap is shared across solo + party
+   * per DD14, so this number is mode-agnostic. */
   yourAttemptsRemaining: number;
   totalPlayers: number;
   dateUtc: string;
-  /** All-time top 10 + caller's all-time rank. Same row shape as today's top. */
+  /** All-time SOLO top 10 + caller's all-time SOLO rank. */
   allTime: {
     top: LeaderboardRow[];
     yourRank: number | null;
   };
+  /** PARTY-mode mirror of the above. Empty arrays until first party game lands.
+   * Lane D wires this into a separate Leaderboard section per design DD3. */
+  party: {
+    today: {
+      top: LeaderboardRow[];
+      yourRank: number | null;
+      yourBestToday: number | null;
+      totalPlayers: number;
+    };
+    allTime: {
+      top: LeaderboardRow[];
+      yourRank: number | null;
+      yourPersonalBest: number | null;
+    };
+  };
 };
 
-export const startAttempt = async (mode: AttemptMode): Promise<StartAttemptResponse> => {
+export const startAttempt = async (
+  attemptMode: AttemptMode,
+  playMode: PlayMode = "solo",
+): Promise<StartAttemptResponse> => {
   const res = await fetch("/api/attempt/start", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ mode }),
+    // Send the new field names. Server still accepts legacy `mode` if any
+    // call site is still passing it, but the canonical client posts the new
+    // shape from this point forward.
+    body: JSON.stringify({ attemptMode, playMode }),
     credentials: "same-origin",
   });
   return json<StartAttemptResponse>(res);

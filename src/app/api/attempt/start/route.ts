@@ -1,11 +1,20 @@
 /**
- * POST /api/attempt/start { mode: 'scored' | 'practice' }
+ * POST /api/attempt/start
+ *   Body: { attemptMode?: 'scored'|'practice', playMode?: 'solo'|'party',
+ *           mode?: 'scored'|'practice' }   // `mode` is the legacy alias
  *
  * Mints (or reads) the cookie identity, then atomically attempts to create
  * a new attempt. Returns 429 when scored mode hits the daily limit.
  *
- * Payload shape per the design doc:
- *   { attemptId, questionIds, dateUtc, attemptsRemaining, questions }
+ * Backward compat: the old shape `{ mode }` keeps working — server reads
+ * `attemptMode` first, falls back to `mode`. Lane D will switch the client
+ * to the new field name; in the meantime mid-game tabs with old JS still
+ * post `{ mode }` and don't break.
+ *
+ * Response shape:
+ *   { attemptId, mode, playMode, questionIds, dateUtc, attemptsRemaining, questions }
+ *   `mode` is preserved in the response (also as `attemptMode`) for the
+ *   same backward-compat reason.
  *
  * `questions` is the ClientQuestion[] for the attempt — correctIdx + fact stripped.
  */
@@ -13,11 +22,16 @@
 import { NextResponse } from "next/server";
 import { startAttempt } from "@/db/attempts";
 import { getOrMintCookieId, todayUtc } from "@/lib/identity";
-import type { AttemptMode } from "@/lib/types";
+import type { AttemptMode, PlayMode } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
-type Body = { mode?: AttemptMode };
+type Body = {
+  attemptMode?: AttemptMode;
+  playMode?: PlayMode;
+  /** Legacy alias for attemptMode. Accepted during the transition window. */
+  mode?: AttemptMode;
+};
 
 export async function POST(req: Request) {
   let body: Body;
@@ -30,11 +44,19 @@ export async function POST(req: Request) {
     );
   }
 
-  const mode: AttemptMode = body.mode === "practice" ? "practice" : "scored";
+  // Resolve attemptMode: prefer new field name, fall back to legacy `mode`.
+  // Default to 'scored' (current v1 default) when neither is present.
+  const incomingAttemptMode = body.attemptMode ?? body.mode;
+  const mode: AttemptMode = incomingAttemptMode === "practice" ? "practice" : "scored";
+
+  // Default playMode to 'solo' so legacy clients (Lane D not yet shipped)
+  // keep working unchanged.
+  const playMode: PlayMode = body.playMode === "party" ? "party" : "solo";
+
   const cookieId = await getOrMintCookieId();
   const dateUtc = todayUtc();
 
-  const result = await startAttempt({ cookieId, dateUtc, mode });
+  const result = await startAttempt({ cookieId, dateUtc, mode, playMode });
   if (!result.ok) {
     return NextResponse.json(
       { error: result.reason, resetAtUtc: result.resetAtUtc },
@@ -44,7 +66,10 @@ export async function POST(req: Request) {
 
   return NextResponse.json({
     attemptId: result.attempt.id,
+    // Both names returned: legacy clients read `mode`, new clients read `attemptMode`.
     mode: result.attempt.mode,
+    attemptMode: result.attempt.mode,
+    playMode: result.attempt.playMode,
     questionIds: result.attempt.questionIds,
     questions: result.questions,
     dateUtc: result.attempt.dateUtc,

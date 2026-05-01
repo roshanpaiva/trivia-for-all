@@ -35,7 +35,9 @@ export async function POST(req: Request) {
   // Best effort: include the user's best score today for v2 personalization.
   let bestScoreToday: number | null = null;
   if (cookieId) {
-    const lb = await getLeaderboard({ dateUtc, cookieId, limit: 1 });
+    // Notify signup is a v1 solo-only flow (the lockout banner). Hardcode
+     // playMode='solo' to keep the personalization stat about the player's solo run.
+    const lb = await getLeaderboard({ dateUtc, cookieId, playMode: "solo", limit: 1 });
     bestScoreToday = lb.yourBestToday;
   }
 

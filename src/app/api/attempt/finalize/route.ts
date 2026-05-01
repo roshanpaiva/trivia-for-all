@@ -51,6 +51,9 @@ export async function POST(req: Request) {
   await markAttemptFinished(attempt.id);
 
   // Write to scores table only for scored mode. Practice never lands on the leaderboard.
+  // playMode is denormalized from the attempt onto the score row (eng D6) so
+  // the leaderboard can filter without a join. The client never sends playMode
+  // here — single source of truth is the attempt row that was written at start.
   if (attempt.mode === "scored") {
     await writeScore({
       attemptId: attempt.id,
@@ -59,6 +62,7 @@ export async function POST(req: Request) {
       correctCount: tally.correctCount,
       wrongCount: tally.wrongCount,
       displayName,
+      playMode: attempt.playMode,
     });
   }
 
