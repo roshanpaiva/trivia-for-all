@@ -103,10 +103,15 @@ export const startAttempt = async (params: {
   /** Defaults to 'solo'. Party-mode attempts ride the same daily cap (eng DD14
    * + design DD14: shared cap across modes). */
   playMode?: PlayMode;
+  /** Raw User-Agent header from the start request. Truncated to 255 chars
+   * before insert. Null when missing. Lets us answer "what browser did this
+   * attempt come from" from the data alone, no separate analytics needed. */
+  userAgent?: string | null;
   sql?: SqlTag;
 }): Promise<StartAttemptResult> => {
   const sql = params.sql ?? getSql();
   const playMode: PlayMode = params.playMode === "party" ? "party" : "solo";
+  const userAgent = params.userAgent ? params.userAgent.slice(0, 255) : null;
   const bank = await loadBank(sql);
   const id = crypto.randomUUID();
   const questionIds = sampleAttemptQuestions(bank);
@@ -121,8 +126,8 @@ export const startAttempt = async (params: {
     // DD14). No play_mode filter on the COUNT subquery — one cap, one paywall
     // (when monetization lands in v2.1).
     const inserted = await sql<AttemptRow>`
-      INSERT INTO attempts (id, cookie_id, date_utc, mode, play_mode, question_ids)
-      SELECT ${id}, ${params.cookieId}, ${params.dateUtc}::date, 'scored', ${playMode}, ${questionIdsJson}::jsonb
+      INSERT INTO attempts (id, cookie_id, date_utc, mode, play_mode, user_agent, question_ids)
+      SELECT ${id}, ${params.cookieId}, ${params.dateUtc}::date, 'scored', ${playMode}, ${userAgent}, ${questionIdsJson}::jsonb
       WHERE (
         SELECT COUNT(*) FROM attempts
         WHERE cookie_id = ${params.cookieId}
@@ -142,13 +147,31 @@ export const startAttempt = async (params: {
 
   // Practice: unconditional insert, no cap.
   const inserted = await sql<AttemptRow>`
-    INSERT INTO attempts (id, cookie_id, date_utc, mode, play_mode, question_ids)
-    VALUES (${id}, ${params.cookieId}, ${params.dateUtc}::date, 'practice', ${playMode}, ${questionIdsJson}::jsonb)
+    INSERT INTO attempts (id, cookie_id, date_utc, mode, play_mode, user_agent, question_ids)
+    VALUES (${id}, ${params.cookieId}, ${params.dateUtc}::date, 'practice', ${playMode}, ${userAgent}, ${questionIdsJson}::jsonb)
     RETURNING id, cookie_id, date_utc, mode, play_mode, started_at, finished_at, question_ids
   `;
   const attempt = rowToAttempt(inserted[0]);
   const questions = await materializeClientQuestions(attempt.questionIds, sql);
   return { ok: true, attempt, questions, attemptsRemaining: DAILY_SCORED_LIMIT };
+};
+
+/**
+ * Increment the stt_degrade_count on an attempt. Called by the client when
+ * the useStt watchdog escalates to "degraded" — typically once per attempt
+ * if it happens at all. Idempotent in the soft sense (cap at some sane max
+ * to prevent runaway client-side spam, not enforced here).
+ */
+export const incrementSttDegradeCount = async (
+  attemptId: string,
+  cookieId: string,
+  sql: SqlTag = getSql(),
+): Promise<void> => {
+  await sql`
+    UPDATE attempts
+    SET stt_degrade_count = stt_degrade_count + 1
+    WHERE id = ${attemptId} AND cookie_id = ${cookieId}
+  `;
 };
 
 /**

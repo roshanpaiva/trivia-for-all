@@ -2,6 +2,17 @@
 
 All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.6.10.0] - 2026-05-01
+
+### Added
+- **v2 telemetry: `user_agent` + `stt_degrade_count` on attempts.** Captures the browser fingerprint and how often the voice watchdog gave up — so we can answer "did Android Chrome work?" and "what % of party attempts had to fall back to tap?" from the data alone, no separate analytics.
+  - Schema (additive, idempotent): `attempts.user_agent TEXT`, `attempts.stt_degrade_count INT NOT NULL DEFAULT 0`. Existing rows get NULL + 0 via DEFAULT. v1 paths unchanged.
+  - `/api/attempt/start`: reads `User-Agent` request header, server-side truncates to 255 chars, persists on the attempt row.
+  - **New endpoint `POST /api/attempt/[attemptId]/stt-degrade`** — increments the row's degrade count. Cookie-scoped (you can't bump someone else's count). Telemetry-only — no body, no consequential response.
+  - **`useStt` `onDegrade` is wired to fire `reportSttDegrade(attemptId)`** through page → InGame. Fire-and-forget client-side; failures are swallowed so flaky telemetry never blocks gameplay.
+  - **Migration runs against prod manually** before this PR is merged: `npx tsx scripts/migrate.ts`. After migration, both columns are queryable from `scripts/stats.ts` for Sunday's signal-reading.
+- 8 new tests (299 total): user_agent capture + truncation + null fallback, incrementSttDegradeCount UPDATE shape, reportSttDegrade URL encoding + network/5xx swallowing.
+
 ## [0.6.9.0] - 2026-05-01
 
 ### Added

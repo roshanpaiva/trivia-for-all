@@ -6,6 +6,7 @@ import {
   getLeaderboard,
   signupForNotify,
   submitAnswerWithRetry,
+  reportSttDegrade,
   ApiError,
 } from "@/lib/api";
 
@@ -264,5 +265,35 @@ describe("submitAnswerWithRetry", () => {
       })
     ).rejects.toThrow(ApiError);
     expect(onRetry).toHaveBeenCalledTimes(2);
+  });
+});
+
+describe("reportSttDegrade — telemetry", () => {
+  beforeEach(() => vi.unstubAllGlobals());
+
+  it("POSTs to /api/attempt/:id/stt-degrade", async () => {
+    const fetchMock = mockFetch([{ status: 200, body: { ok: true } }]);
+    await reportSttDegrade("att-z");
+    const call = fetchMock.mock.calls[0];
+    expect(call[0]).toBe("/api/attempt/att-z/stt-degrade");
+    expect((call[1] as RequestInit).method).toBe("POST");
+  });
+
+  it("URL-encodes the attempt id", async () => {
+    const fetchMock = mockFetch([{ status: 200, body: { ok: true } }]);
+    await reportSttDegrade("att/with weird?chars");
+    const call = fetchMock.mock.calls[0];
+    expect(call[0]).toBe("/api/attempt/att%2Fwith%20weird%3Fchars/stt-degrade");
+  });
+
+  it("swallows network failures (telemetry never blocks gameplay)", async () => {
+    vi.stubGlobal("fetch", vi.fn(() => Promise.reject(new Error("offline"))));
+    // Should not throw.
+    await expect(reportSttDegrade("att-z")).resolves.toBeUndefined();
+  });
+
+  it("swallows non-OK responses (telemetry never blocks gameplay)", async () => {
+    mockFetch([{ status: 500, body: { error: "down" } }]);
+    await expect(reportSttDegrade("att-z")).resolves.toBeUndefined();
   });
 });

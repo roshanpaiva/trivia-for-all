@@ -55,8 +55,12 @@ export async function POST(req: Request) {
 
   const cookieId = await getOrMintCookieId();
   const dateUtc = todayUtc();
+  // v2 telemetry: capture User-Agent so we can answer "did Android Chrome
+  // work?" / "what % of party attempts were on iOS Safari?" from the data
+  // alone. Truncated server-side in startAttempt before INSERT.
+  const userAgent = req.headers.get("user-agent");
 
-  const result = await startAttempt({ cookieId, dateUtc, mode, playMode });
+  const result = await startAttempt({ cookieId, dateUtc, mode, playMode, userAgent });
   if (!result.ok) {
     return NextResponse.json(
       { error: result.reason, resetAtUtc: result.resetAtUtc },

@@ -169,6 +169,20 @@ export const finalizeAttempt = async (
   return json<FinalizeResponse>(res);
 };
 
+/** Telemetry: increment the attempt's stt_degrade_count when the useStt
+ * watchdog gives up on voice answering. Fire-and-forget — any failure is
+ * silently swallowed so flaky telemetry never blocks gameplay. */
+export const reportSttDegrade = async (attemptId: string): Promise<void> => {
+  try {
+    await fetch(`/api/attempt/${encodeURIComponent(attemptId)}/stt-degrade`, {
+      method: "POST",
+      credentials: "same-origin",
+    });
+  } catch {
+    // Telemetry must never break the game.
+  }
+};
+
 export const getLeaderboard = async (): Promise<LeaderboardResponse> => {
   const res = await fetch("/api/leaderboard", { credentials: "same-origin" });
   return json<LeaderboardResponse>(res);

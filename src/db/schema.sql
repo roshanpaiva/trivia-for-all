@@ -41,6 +41,15 @@ ALTER TABLE attempts
   ADD COLUMN IF NOT EXISTS play_mode TEXT NOT NULL DEFAULT 'solo'
     CHECK (play_mode IN ('solo','party'));
 
+-- v0.6.10.0 (v2 telemetry): user_agent + stt_degrade_count on attempts. Lets
+-- us answer "did Android Chrome work?" and "what % of party attempts had to
+-- degrade to tap-only?" from the data alone, instead of guessing. Both
+-- additive — old INSERTs without these columns get the defaults (NULL for
+-- user_agent, 0 for stt_degrade_count). v1 plays write 0 + a user_agent
+-- string; nothing about the existing query path changes.
+ALTER TABLE attempts ADD COLUMN IF NOT EXISTS user_agent TEXT;
+ALTER TABLE attempts ADD COLUMN IF NOT EXISTS stt_degrade_count INT NOT NULL DEFAULT 0;
+
 -- Supports the 5-per-day count check on /api/attempt/start.
 CREATE INDEX IF NOT EXISTS attempts_daily_count
   ON attempts (cookie_id, date_utc, mode);

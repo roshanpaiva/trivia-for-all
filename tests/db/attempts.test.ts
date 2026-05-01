@@ -4,6 +4,7 @@ import {
   findAttempt,
   countScoredAttempts,
   markAttemptFinished,
+  incrementSttDegradeCount,
   DAILY_SCORED_LIMIT,
 } from "@/db/attempts";
 import { __resetBankForTests } from "@/db/questions";
@@ -274,5 +275,86 @@ describe("markAttemptFinished", () => {
     expect(updateCall).toBeDefined();
     expect(updateCall?.query).toContain("WHERE id =");
     expect(updateCall?.query).toContain("finished_at IS NULL");
+  });
+});
+
+describe("startAttempt — telemetry: user_agent capture", () => {
+  beforeEach(() => __resetBankForTests());
+
+  it("writes the user_agent (truncated to 255 chars) into the INSERT", async () => {
+    const bank = sampleBank();
+    const sql = makeFakeSql([
+      { match: "FROM questions", rows: bank.map((q) => ({
+        id: q.id, category: q.category, difficulty: q.difficulty,
+        prompt: q.prompt, choices: q.choices, correct_idx: q.correctIdx,
+        fact: q.fact, source: q.source ?? null,
+      })) },
+      { match: "INSERT INTO attempts", rows: [{
+        id: "att-ua", cookie_id: cookieId, date_utc: dateUtc, mode: "scored",
+        play_mode: "solo", started_at: new Date(), finished_at: null,
+        question_ids: bank.slice(0, 20).map((q) => q.id),
+      }] },
+      { match: "SELECT COUNT(*)", rows: [{ count: "1" }] },
+    ]);
+    const ua = "Mozilla/5.0 (iPhone; CPU iPhone OS 26_3_1 like Mac OS X) AppleWebKit/605.1.15 Safari/605.1.15";
+    await startAttempt({ cookieId, dateUtc, mode: "scored", userAgent: ua, sql });
+    const insertCall = sql.__calls.find((c) => c.query.includes("INSERT INTO attempts"));
+    expect(insertCall?.query).toContain("user_agent");
+    expect(insertCall?.params).toContain(ua);
+  });
+
+  it("truncates a long user_agent to 255 chars", async () => {
+    const bank = sampleBank();
+    const sql = makeFakeSql([
+      { match: "FROM questions", rows: bank.map((q) => ({
+        id: q.id, category: q.category, difficulty: q.difficulty,
+        prompt: q.prompt, choices: q.choices, correct_idx: q.correctIdx,
+        fact: q.fact, source: q.source ?? null,
+      })) },
+      { match: "INSERT INTO attempts", rows: [{
+        id: "att-ua-long", cookie_id: cookieId, date_utc: dateUtc, mode: "scored",
+        play_mode: "solo", started_at: new Date(), finished_at: null,
+        question_ids: bank.slice(0, 20).map((q) => q.id),
+      }] },
+      { match: "SELECT COUNT(*)", rows: [{ count: "1" }] },
+    ]);
+    const longUa = "x".repeat(500);
+    await startAttempt({ cookieId, dateUtc, mode: "scored", userAgent: longUa, sql });
+    const insertCall = sql.__calls.find((c) => c.query.includes("INSERT INTO attempts"));
+    const persisted = insertCall?.params.find((p): p is string => typeof p === "string" && p.startsWith("xxxx"));
+    expect(persisted).toHaveLength(255);
+  });
+
+  it("passes null when the user_agent header is missing", async () => {
+    const bank = sampleBank();
+    const sql = makeFakeSql([
+      { match: "FROM questions", rows: bank.map((q) => ({
+        id: q.id, category: q.category, difficulty: q.difficulty,
+        prompt: q.prompt, choices: q.choices, correct_idx: q.correctIdx,
+        fact: q.fact, source: q.source ?? null,
+      })) },
+      { match: "INSERT INTO attempts", rows: [{
+        id: "att-no-ua", cookie_id: cookieId, date_utc: dateUtc, mode: "scored",
+        play_mode: "solo", started_at: new Date(), finished_at: null,
+        question_ids: bank.slice(0, 20).map((q) => q.id),
+      }] },
+      { match: "SELECT COUNT(*)", rows: [{ count: "1" }] },
+    ]);
+    await startAttempt({ cookieId, dateUtc, mode: "scored", sql });
+    const insertCall = sql.__calls.find((c) => c.query.includes("INSERT INTO attempts"));
+    expect(insertCall?.params).toContain(null);
+  });
+});
+
+describe("incrementSttDegradeCount", () => {
+  it("issues an UPDATE that increments stt_degrade_count by 1, scoped to attempt + cookie", async () => {
+    const sql = makeFakeSql([{ match: "UPDATE attempts", rows: [] }]);
+    await incrementSttDegradeCount("att-z", "cookie-z", sql);
+    const updateCall = sql.__calls.find((c) => c.query.includes("UPDATE attempts"));
+    expect(updateCall?.query).toContain("stt_degrade_count = stt_degrade_count + 1");
+    expect(updateCall?.query).toContain("WHERE id =");
+    expect(updateCall?.query).toContain("AND cookie_id =");
+    expect(updateCall?.params).toContain("att-z");
+    expect(updateCall?.params).toContain("cookie-z");
   });
 });
