@@ -15,7 +15,7 @@ import { PostGame } from "@/components/PostGame";
 import { useGame } from "@/hooks/useGame";
 import { useAudio } from "@/hooks/useAudio";
 import { getLeaderboard, getCurrentAttempt } from "@/lib/api";
-import { loadDisplayName, saveDisplayName } from "@/lib/displayName";
+import { loadDisplayName, saveDisplayName, loadGroupName, saveGroupName } from "@/lib/displayName";
 import type { AttemptMode, PlayMode } from "@/lib/types";
 
 /** Soft-launch flag for party mode. Set with `?party=1` in the URL. Persists
@@ -46,21 +46,29 @@ const msUntilNextUtcMidnight = (now: Date = new Date()): number => {
 
 export default function GamePage() {
   const [displayName, setDisplayName] = useState<string | null>(null);
-  const game = useGame({ displayName });
-  const audio = useAudio();
-  const [bestToday, setBestToday] = useState<number | null>(null);
-  const [personalBest, setPersonalBest] = useState<number | null>(null);
-  const [attemptsRemaining, setAttemptsRemaining] = useState<number>(5);
-  const [hasResumable, setHasResumable] = useState(false);
-  // v2 party-mode soft-launch state. Both default false on SSR; hydrated from
+  const [groupName, setGroupName] = useState<string | null>(null);
+  // v2 party-mode soft-launch state. All default false on SSR; hydrated from
   // window in the mount effect to avoid an SSR/CSR text mismatch.
   const [partyEnabled, setPartyEnabled] = useState(false);
   const [playMode, setPlayMode] = useState<PlayMode>("solo");
   const [partyPickerSeen, setPartyPickerSeen] = useState(false);
 
-  // Hydrate display name + party-mode flags from localStorage on mount (client-only).
+  // The "active" name is the one that lands on the leaderboard for the next
+  // attempt. Solo and party have separate slots so a user with solo name
+  // "Alex" still has to pick a group name when they switch to Party.
+  const activeName = playMode === "party" ? groupName : displayName;
+
+  const game = useGame({ displayName: activeName });
+  const audio = useAudio();
+  const [bestToday, setBestToday] = useState<number | null>(null);
+  const [personalBest, setPersonalBest] = useState<number | null>(null);
+  const [attemptsRemaining, setAttemptsRemaining] = useState<number>(5);
+  const [hasResumable, setHasResumable] = useState(false);
+
+  // Hydrate names + party-mode flags from localStorage on mount (client-only).
   useEffect(() => {
     setDisplayName(loadDisplayName());
+    setGroupName(loadGroupName());
     setPartyEnabled(readPartyEnabled());
     setPartyPickerSeen(readPartyPickerSeen());
   }, []);
@@ -87,8 +95,16 @@ export default function GamePage() {
   }, []);
 
   const handleNameChange = (raw: string | null) => {
-    const cleaned = saveDisplayName(raw);
-    setDisplayName(cleaned);
+    // Routes the write to the slot matching the active mode. Switching modes
+    // never overwrites the other slot — solo "Alex" stays "Alex" even after
+    // the user names a party group.
+    if (playMode === "party") {
+      const cleaned = saveGroupName(raw);
+      setGroupName(cleaned);
+    } else {
+      const cleaned = saveDisplayName(raw);
+      setDisplayName(cleaned);
+    }
   };
 
   // After finalize, refresh best + remaining. Personal best updates if this
@@ -175,7 +191,7 @@ export default function GamePage() {
       msUntilReset={attemptsRemaining === 0 ? msUntilNextUtcMidnight() : undefined}
       errorMessage={friendlyError}
       isStarting={game.status === "starting"}
-      displayName={displayName}
+      displayName={activeName}
       onNameChange={handleNameChange}
       partyEnabled={partyEnabled}
       playMode={playMode}

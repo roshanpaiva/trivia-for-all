@@ -1,5 +1,12 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { sanitize, loadDisplayName, saveDisplayName, MAX_LENGTH } from "@/lib/displayName";
+import {
+  sanitize,
+  loadDisplayName,
+  saveDisplayName,
+  loadGroupName,
+  saveGroupName,
+  MAX_LENGTH,
+} from "@/lib/displayName";
 
 // Some jsdom builds ship a hollow `window.localStorage`. Install a Map-backed
 // shim so the round-trip tests don't depend on jsdom's Storage internals.
@@ -52,5 +59,39 @@ describe("displayName localStorage round-trip", () => {
 
   it("loadDisplayName returns null when nothing is saved", () => {
     expect(loadDisplayName()).toBeNull();
+  });
+});
+
+describe("groupName localStorage round-trip (separate slot from solo)", () => {
+  beforeEach(() => {
+    installFakeStorage();
+  });
+
+  it("save then load returns the same value", () => {
+    saveGroupName("The Smiths");
+    expect(loadGroupName()).toBe("The Smiths");
+  });
+
+  it("solo and party slots are independent — setting one does not affect the other", () => {
+    // The whole point of this fix: solo "Alex" carries no signal into party.
+    saveDisplayName("Alex");
+    saveGroupName("The Smiths");
+    expect(loadDisplayName()).toBe("Alex");
+    expect(loadGroupName()).toBe("The Smiths");
+
+    // Clearing the group name doesn't touch the solo name.
+    saveGroupName(null);
+    expect(loadGroupName()).toBeNull();
+    expect(loadDisplayName()).toBe("Alex");
+  });
+
+  it("save(null) removes the group key", () => {
+    saveGroupName("Crew");
+    saveGroupName(null);
+    expect(loadGroupName()).toBeNull();
+  });
+
+  it("loadGroupName returns null when nothing is saved", () => {
+    expect(loadGroupName()).toBeNull();
   });
 });

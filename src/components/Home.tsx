@@ -301,7 +301,9 @@ export const Home = ({
           </button>
           {needsNameForScored && (
             <p className="mt-2 text-[12px] text-[var(--muted)] text-center" data-testid="name-required-hint">
-              Add your name above to play scored. Practice mode below works without one.
+              {partyEnabled && playMode === "party"
+                ? "Name your group above to play."
+                : "Add your name above to play scored. Practice mode below works without one."}
             </p>
           )}
         </>
