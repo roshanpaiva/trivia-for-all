@@ -2,6 +2,17 @@
 
 All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.6.8.1] - 2026-05-01
+
+### Fixed
+- **Party mode now forces a group name (no carryover from solo).** First production feedback after Lane D1: a user with solo name "Alex" who tapped Party kept "Playing as Alex", which would land on the leaderboard as a group score. Wrong attribution. Now:
+  - Solo and party identities live in separate localStorage slots — `tfa.displayName` (solo, unchanged) and `quizzle.groupName` (party, new).
+  - Switching to Party with no group name set → input field opens, Start is disabled, hint copy reads "Name your group above to play."
+  - Switching back to Solo → solo name is intact (was never overwritten).
+  - Group name persists per device, so returning party players don't have to retype "The Smiths" every visit.
+- This fixes the carryover friction we shipped as known UX debt in Lane D1 (DD7 was deferred to v2.1; brought forward when real users hit it on day 1).
+- 6 new tests (234 total): independent solo/party slot round-trips, Start gating in party-mode-no-group, summary rendering when group is set, party-mode hint copy.
+
 ## [0.6.8.0] - 2026-05-01
 
 ### Added

@@ -212,6 +212,48 @@ describe("Home — party-mode picker (gated behind partyEnabled)", () => {
     expect(input.placeholder).toContain("Smiths");
   });
 
+  it("party mode with no group name set shows the input + disables Start (force capture)", () => {
+    // Real production case: user has solo name "Alex" in localStorage. Page
+    // computes activeName=null when in party mode (separate slot, empty), and
+    // passes that null to Home as displayName. Result: input is open and
+    // Start is gated until they enter a group name.
+    const onStart = vi.fn();
+    render(
+      <Home
+        bestToday={null}
+        attemptsRemaining={5}
+        onStart={onStart}
+        partyEnabled
+        playMode="party"
+        displayName={null}
+      />,
+    );
+    // Input is showing (not the "Playing as ..." summary)
+    expect(screen.getByTestId("display-name-input")).toBeInTheDocument();
+    expect(screen.queryByTestId("display-name-summary")).not.toBeInTheDocument();
+    // Start is disabled until they enter a group name
+    const startBtn = screen.getByTestId("start-button") as HTMLButtonElement;
+    expect(startBtn.disabled).toBe(true);
+    // The hint copy is party-flavored (not "Add your name above to play scored.")
+    expect(screen.getByTestId("name-required-hint").textContent).toContain("group");
+  });
+
+  it("party mode with a group name set shows summary + enables Start", () => {
+    render(
+      <Home
+        bestToday={null}
+        attemptsRemaining={5}
+        onStart={() => {}}
+        partyEnabled
+        playMode="party"
+        displayName="The Smiths"
+      />,
+    );
+    expect(screen.getByTestId("display-name-summary").textContent).toContain("The Smiths");
+    const startBtn = screen.getByTestId("start-button") as HTMLButtonElement;
+    expect(startBtn.disabled).toBe(false);
+  });
+
   it("name-field label is 'Your name' in solo mode (DD7)", () => {
     render(
       <Home
