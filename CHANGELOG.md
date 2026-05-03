@@ -2,6 +2,16 @@
 
 All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.6.13.1] - 2026-05-03
+
+### Fixed
+- **iOS Chrome / Firefox / Edge no longer get stuck on "Listening".** Real production bug: on non-Safari iOS browsers, `webkitSpeechRecognition` exists but `start()` throws synchronously (Apple's WKWebView locks STT to Safari). The watchdog escalates only on `onend` events, which never fire for a recognition that never started — so the audio surface showed "Listening" forever and the user never knew voice was failing.
+  - **`src/lib/browser.ts`** — new helper `isIOSNonSafari()` (UA sniff for iOS + CriOS / FxiOS / EdgiOS / OPiOS / YaBrowser). Used sparingly; this is the one case where the platform lies about feature support and the lie costs the user.
+  - **page.tsx** — detects on mount, force-gates `voiceEnabled = false` for unsupported browsers so STT never even tries.
+  - **Home banner** — when iOS-non-Safari is detected in party mode, suppresses the mic permission banner (which would lie) and shows: *"Voice answering needs Safari on iPhone. Tap to play here, or open this page in Safari for voice."* Tap-only still works.
+  - **`useStt.ts` defensive patch** — if `r.start()` throws synchronously, manually invoke the watchdog escalation path so the UI degrades cleanly instead of getting stuck. Insurance for any future browser quirk we miss in UA detection.
+- 12 new tests (333 total): UA detection across iOS Chrome / Firefox / Edge / iPad / Safari / Android Chrome / Desktop Chrome / SSR; Home banner suppression in solo + party + denied + Safari-needed cases; useStt synchronous-throw watchdog escalation.
+
 ## [0.6.13.0] - 2026-05-03
 
 ### Added

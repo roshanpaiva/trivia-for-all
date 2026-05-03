@@ -351,6 +351,58 @@ describe("Home — party-mode picker (gated behind partyEnabled)", () => {
     expect(screen.queryByTestId("mic-permission-banner")).not.toBeInTheDocument();
   });
 
+  it("voiceUnsupportedBrowser=true shows the Safari-needed banner instead of the mic permission banner", () => {
+    render(
+      <Home
+        bestToday={null}
+        attemptsRemaining={5}
+        onStart={() => {}}
+        partyEnabled
+        playMode="party"
+        displayName="The Smiths"
+        micPermission="unknown"
+        voiceUnsupportedBrowser
+      />,
+    );
+    const banner = screen.getByTestId("voice-unsupported-banner");
+    expect(banner.textContent).toMatch(/safari/i);
+    // The mic-permission flow is suppressed (would lie on iOS Chrome)
+    expect(screen.queryByTestId("mic-permission-banner")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("mic-allow-button")).not.toBeInTheDocument();
+  });
+
+  it("voiceUnsupportedBrowser=true also suppresses the denied banner", () => {
+    render(
+      <Home
+        bestToday={null}
+        attemptsRemaining={5}
+        onStart={() => {}}
+        partyEnabled
+        playMode="party"
+        displayName="The Smiths"
+        micPermission="denied"
+        voiceUnsupportedBrowser
+      />,
+    );
+    expect(screen.queryByTestId("mic-denied-banner")).not.toBeInTheDocument();
+    expect(screen.getByTestId("voice-unsupported-banner")).toBeInTheDocument();
+  });
+
+  it("voiceUnsupportedBrowser banner does NOT render in Solo mode", () => {
+    render(
+      <Home
+        bestToday={null}
+        attemptsRemaining={5}
+        onStart={() => {}}
+        partyEnabled
+        playMode="solo"
+        displayName="Alex"
+        voiceUnsupportedBrowser
+      />,
+    );
+    expect(screen.queryByTestId("voice-unsupported-banner")).not.toBeInTheDocument();
+  });
+
   it("invite banner renders when inviteFromGroup + inviteScore are set", () => {
     render(
       <Home
