@@ -2,6 +2,15 @@
 
 All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.6.11.0] - 2026-05-03
+
+### Changed
+- **`scripts/stats.ts` reads the new v2 telemetry columns.** Two new sections in the dashboard so we can answer the v2-soft-launch questions from one CLI run:
+  - **PLAY MODE** — solo vs party split with completion rates, broken out from the headline FUNNEL. Tells us how much party-mode actually got played in the window.
+  - **BROWSER (per attempt)** — server-side `CASE` over the `user_agent` column, classifies each attempt into iOS Safari / iOS Chrome / Android Chrome / Desktop Chrome / etc. Per row: total started, party started, party finalized, average `stt_degrade_count` per party attempt (color-coded — green ≤ 0.1, yellow ≤ 0.5, red above). Plus a one-line "party attempts that degraded to tap-only: X / Y (Z%)" rollup.
+  - Pre-telemetry attempts (any row from before v0.6.10.0 deployed) bucket into `unknown (legacy row)` so the labelled rows are clean.
+- First read against prod after the v0.6.10.0 telemetry landed: 5 party attempts logged, 0 STT degrades, all four gating browsers already represented in the user_agent column.
+
 ## [0.6.10.0] - 2026-05-01
 
 ### Added
