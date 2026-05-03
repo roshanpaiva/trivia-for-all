@@ -110,6 +110,118 @@ const main = async () => {
   console.log();
 
   // ─────────────────────────────────────────────────────────────────────────
+  // PLAY MODE: solo vs party split. Reads the columns added in v0.6.5.0
+  // (Lane A) and v0.6.10.0 (telemetry). Party rows = 0 until soft-launch
+  // testers start playing through the ?party=1 flag.
+  // ─────────────────────────────────────────────────────────────────────────
+  const modeBreakdown = await sql<{
+    play_mode: string;
+    started: number;
+    finalized: number;
+  }>`
+    SELECT play_mode,
+           COUNT(*)::int                AS started,
+           COUNT(finished_at)::int      AS finalized
+    FROM attempts
+    WHERE date_utc >= ${args.date}::date - ${args.days - 1}::int
+      AND date_utc <= ${args.date}::date
+    GROUP BY play_mode
+    ORDER BY play_mode
+  `;
+
+  console.log(c("PLAY MODE", ANSI.bold));
+  if (modeBreakdown.length === 0) {
+    console.log(`  ${c("(no attempts in this window)", ANSI.dim)}`);
+  } else {
+    console.log(`  ${"".padEnd(8)} ${"started".padStart(10)} ${"finalized".padStart(10)} ${"completion".padStart(12)}`);
+    for (const r of modeBreakdown) {
+      console.log(
+        `  ${r.play_mode.padEnd(8)} ${String(r.started).padStart(10)} ${String(r.finalized).padStart(10)} ${pct(r.finalized, r.started).padStart(12)}`,
+      );
+    }
+  }
+  console.log();
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // BROWSER BREAKDOWN: parse user_agent server-side via CASE. Tells us
+  // "who's playing on what" — especially the iOS-Safari-vs-Android-Chrome
+  // signal we need to know whether voice answering is hitting our gating
+  // browsers. Empty until v0.6.10.0 attempts start landing.
+  // ─────────────────────────────────────────────────────────────────────────
+  const browsers = await sql<{
+    browser: string;
+    started: number;
+    party_started: number;
+    party_finalized: number;
+    avg_stt_degrade: number | null;
+  }>`
+    SELECT
+      CASE
+        WHEN user_agent IS NULL                                              THEN 'unknown (legacy row)'
+        WHEN user_agent ILIKE '%CriOS%'                                      THEN 'iOS Chrome'
+        WHEN user_agent ILIKE '%FxiOS%'                                      THEN 'iOS Firefox'
+        WHEN user_agent ILIKE '%iPhone%' OR user_agent ILIKE '%iPad%'        THEN 'iOS Safari'
+        WHEN user_agent ILIKE '%Android%' AND user_agent ILIKE '%Chrome%'    THEN 'Android Chrome'
+        WHEN user_agent ILIKE '%Android%' AND user_agent ILIKE '%Firefox%'   THEN 'Android Firefox'
+        WHEN user_agent ILIKE '%Android%'                                    THEN 'Android (other)'
+        WHEN user_agent ILIKE '%Edg/%'                                       THEN 'Edge'
+        WHEN user_agent ILIKE '%Firefox%'                                    THEN 'Desktop Firefox'
+        WHEN user_agent ILIKE '%Chrome%'                                     THEN 'Desktop Chrome'
+        WHEN user_agent ILIKE '%Safari%'                                     THEN 'Desktop Safari'
+        ELSE 'Other'
+      END AS browser,
+      COUNT(*)::int                                                            AS started,
+      COUNT(*) FILTER (WHERE play_mode = 'party')::int                         AS party_started,
+      COUNT(*) FILTER (WHERE play_mode = 'party' AND finished_at IS NOT NULL)::int  AS party_finalized,
+      AVG(stt_degrade_count) FILTER (WHERE play_mode = 'party')::float         AS avg_stt_degrade
+    FROM attempts
+    WHERE date_utc >= ${args.date}::date - ${args.days - 1}::int
+      AND date_utc <= ${args.date}::date
+    GROUP BY browser
+    ORDER BY started DESC
+  `;
+
+  console.log(c("BROWSER (per attempt)", ANSI.bold));
+  if (browsers.length === 0) {
+    console.log(`  ${c("(no attempts in this window)", ANSI.dim)}`);
+  } else {
+    console.log(
+      `  ${"browser".padEnd(22)} ${"started".padStart(8)} ${"party".padStart(7)} ${"p.fin".padStart(7)} ${"stt-degrade/attempt".padStart(20)}`,
+    );
+    for (const r of browsers) {
+      const sttCol =
+        r.party_started === 0
+          ? c("—".padStart(20), ANSI.dim)
+          : (r.avg_stt_degrade ?? 0) > 0.5
+            ? c(fmt(r.avg_stt_degrade, 2).padStart(20), ANSI.red)
+            : (r.avg_stt_degrade ?? 0) > 0.1
+              ? c(fmt(r.avg_stt_degrade, 2).padStart(20), ANSI.yellow)
+              : c(fmt(r.avg_stt_degrade ?? 0, 2).padStart(20), ANSI.green);
+      console.log(
+        `  ${r.browser.padEnd(22)} ${String(r.started).padStart(8)} ${String(r.party_started).padStart(7)} ${String(r.party_finalized).padStart(7)} ${sttCol}`,
+      );
+    }
+    // Total party degrade rate — how often does the watchdog give up?
+    const partyAttempts = browsers.reduce((acc, r) => acc + r.party_started, 0);
+    if (partyAttempts > 0) {
+      const totalDegrades = await sql<{ degraded: number; total: number }>`
+        SELECT
+          COUNT(*) FILTER (WHERE stt_degrade_count > 0)::int  AS degraded,
+          COUNT(*)::int                                       AS total
+        FROM attempts
+        WHERE play_mode = 'party'
+          AND date_utc >= ${args.date}::date - ${args.days - 1}::int
+          AND date_utc <= ${args.date}::date
+      `;
+      const td = totalDegrades[0];
+      console.log(
+        `  ${c("Party attempts that degraded to tap-only:", ANSI.dim)} ${td.degraded} / ${td.total}  (${pct(td.degraded, td.total)})`,
+      );
+    }
+  }
+  console.log();
+
+  // ─────────────────────────────────────────────────────────────────────────
   // SCORES: distribution, lockout count, streak reaches
   // ─────────────────────────────────────────────────────────────────────────
   const [scoreStats] = await sql<{
