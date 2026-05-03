@@ -351,6 +351,39 @@ describe("Home — party-mode picker (gated behind partyEnabled)", () => {
     expect(screen.queryByTestId("mic-permission-banner")).not.toBeInTheDocument();
   });
 
+  it("invite banner renders when inviteFromGroup + inviteScore are set", () => {
+    render(
+      <Home
+        bestToday={null}
+        attemptsRemaining={5}
+        onStart={() => {}}
+        partyEnabled
+        playMode="party"
+        displayName="My Crew"
+        inviteFromGroup="The Smiths"
+        inviteScore={22}
+      />,
+    );
+    const banner = screen.getByTestId("invite-banner");
+    expect(banner.textContent).toContain("The Smiths");
+    expect(banner.textContent).toContain("22");
+    expect(banner.textContent).toMatch(/beat them/i);
+  });
+
+  it("invite banner is HIDDEN when invite props are null (normal landing)", () => {
+    render(
+      <Home
+        bestToday={null}
+        attemptsRemaining={5}
+        onStart={() => {}}
+        partyEnabled
+        playMode="party"
+        displayName="My Crew"
+      />,
+    );
+    expect(screen.queryByTestId("invite-banner")).not.toBeInTheDocument();
+  });
+
   it("name-field label is 'Your name' in solo mode (DD7)", () => {
     render(
       <Home
