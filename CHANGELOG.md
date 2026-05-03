@@ -2,6 +2,12 @@
 
 All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.6.12.0] - 2026-05-03
+
+### Added
+- **+4 audited questions** to `src/data/questions.json` (124 → 128). Mix: 2 easy + 2 medium, 1 history + 3 random. Small audit pass triggered by an 82-correct attempt that suggested the bank is leaning easy. More to come — `python3 scripts/audit-questions.py --category history` is the right next pass.
+- **After merge:** run `npx tsx scripts/seed-questions.ts` to push the new rows into prod. Idempotent (`ON CONFLICT (id) DO UPDATE`), safe to re-run.
+
 ## [0.6.11.0] - 2026-05-03
 
 ### Changed
