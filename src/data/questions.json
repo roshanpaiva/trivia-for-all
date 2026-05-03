@@ -1865,6 +1865,66 @@
       "correctIdx": 1,
       "fact": "It comes from \"duck’s egg,\" because a zero looks like an egg.",
       "source": "opentdb"
+    },
+    {
+      "id": "history-16197607",
+      "category": "history",
+      "difficulty": "easy",
+      "prompt": "In which war did the atomic bombings of Hiroshima and Nagasaki occur?",
+      "choices": [
+        "World War I",
+        "Russo-Japanese War",
+        "First Sino-Japanese War",
+        "World War II"
+      ],
+      "correctIdx": 3,
+      "fact": "The bombings led to the end of WWII and remain the only use of nuclear weapons in armed conflict.",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-37994622",
+      "category": "random",
+      "difficulty": "medium",
+      "prompt": "Cashmere is the wool from which kind of animal?",
+      "choices": [
+        "Sheep",
+        "Camel",
+        "Goat",
+        "Llama"
+      ],
+      "correctIdx": 2,
+      "fact": "It takes the annual output from 4 to 6 goats to create a single cashmere sweater.",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-07294038",
+      "category": "random",
+      "difficulty": "medium",
+      "prompt": "What does \"hippopotamus\" mean and in what langauge?",
+      "choices": [
+        "River Horse (Latin)",
+        "Fat Pig (Greek)",
+        "River Horse (Greek)",
+        "Fat Pig (Latin)"
+      ],
+      "correctIdx": 2,
+      "fact": "The term was first used to describe the animal by the ancient Greeks, likely when observing them in the Nile River, as a \"horse of the river\"",
+      "source": "opentdb"
+    },
+    {
+      "id": "random-09147095",
+      "category": "random",
+      "difficulty": "easy",
+      "prompt": "Which breed of dog is traditionally associated with firefighters?",
+      "choices": [
+        "German Shepard",
+        "Great Dane",
+        "Mastiff",
+        "Dalmatians"
+      ],
+      "correctIdx": 3,
+      "fact": "They were used during the era of horse-drawn carriages to calm horses, run alongside engines to clear a path, and guard equipment",
+      "source": "opentdb"
     }
   ]
 }
