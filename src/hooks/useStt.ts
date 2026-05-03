@@ -216,8 +216,19 @@ export const useStt = (opts: UseSttOptions): UseSttReturn => {
     try {
       r.start();
     } catch {
-      // Some browsers throw if start() is called twice in a row. The teardown
-      // path will be hit on the inevitable onend.
+      // iOS Chrome / Firefox / Edge: webkitSpeechRecognition exists but
+      // start() throws synchronously (Apple blocks STT for non-Safari iOS
+      // browsers via WKWebView). If we did nothing here, onend would never
+      // fire (nothing started), the watchdog couldn't escalate, and the UI
+      // would be stuck on "Listening" forever.
+      //
+      // Manually invoke the onend path so the watchdog sees a silent drop
+      // and either tier-1-restarts (which will throw again on the next try
+      // and increment again) or tier-2-degrades. Two thrown starts in a row
+      // = degraded state, which the consumer reflects as "Voice off".
+      const onendHandler = r.onend;
+      teardown();
+      try { onendHandler?.(); } catch { /* defensive */ }
     }
   }, [factory, opts.enabled, phase, teardown]);
 

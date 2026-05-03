@@ -59,6 +59,12 @@ type Props = {
    * persists the dismissal in localStorage. */
   micDeniedDismissed?: boolean;
   onDismissMicDenied?: () => void;
+  /** v2: true when the browser is iOS Chrome / Firefox / Edge — Apple blocks
+   * STT for non-Safari iOS browsers via WKWebView, so voice answering can't
+   * work. We hide the mic permission banner (which would lie about what's
+   * possible) and show an explicit "needs Safari" nudge instead. Originally
+   * deferred to v2.1; brought forward when real users hit the bug. */
+  voiceUnsupportedBrowser?: boolean;
   /** v2 viral loop: when set, the user landed via a shared deep link (DD12).
    * Renders an invite banner above the mode picker showing who invited them
    * and what they need to beat. Parent (page.tsx) parses the URL params and
@@ -97,6 +103,7 @@ export const Home = ({
   onRequestMicPermission,
   micDeniedDismissed = false,
   onDismissMicDenied,
+  voiceUnsupportedBrowser = false,
   inviteFromGroup = null,
   inviteScore = null,
 }: Props) => {
@@ -322,7 +329,26 @@ export const Home = ({
             - we don't yet know mic is granted (unknown OR denied + not yet dismissed).
           On grant the banner disappears entirely. On deny it swaps to a
           dismissible "Voice off" message; the user can still play tap-only. */}
-      {partyEnabled && playMode === "party" && micPermission === "unknown" && (
+      {/* iOS Chrome / Firefox / Edge — Apple's WKWebView blocks STT for
+          non-Safari iOS browsers. Telling the user "Allow mic" would lie:
+          even with permission, recognition.start() throws synchronously and
+          the UI gets stuck on "Listening". Show a Safari-needed nudge
+          instead and skip the permission flow entirely. Tap-only still works. */}
+      {partyEnabled && playMode === "party" && voiceUnsupportedBrowser && (
+        <div
+          className="mb-5 px-3 py-3 rounded-md border border-[var(--line)] bg-[var(--surface)] text-[14px] text-[var(--ink)]"
+          role="status"
+          aria-live="polite"
+          data-testid="voice-unsupported-banner"
+        >
+          <div className="font-semibold mb-1">Voice answering needs Safari on iPhone.</div>
+          <div className="text-[var(--muted)]">
+            Tap to play here, or open this page in Safari for voice.
+          </div>
+        </div>
+      )}
+
+      {partyEnabled && playMode === "party" && !voiceUnsupportedBrowser && micPermission === "unknown" && (
         <div
           className="mb-5 px-3 py-3 rounded-md border border-[var(--line)] bg-[var(--surface)] text-[14px] text-[var(--ink)]"
           role="status"
@@ -343,7 +369,7 @@ export const Home = ({
         </div>
       )}
 
-      {partyEnabled && playMode === "party" && micPermission === "denied" && !micDeniedDismissed && (
+      {partyEnabled && playMode === "party" && !voiceUnsupportedBrowser && micPermission === "denied" && !micDeniedDismissed && (
         <div
           className="mb-5 px-3 py-3 rounded-md border border-[var(--line)] bg-[var(--surface)] text-[14px] text-[var(--muted)]"
           role="status"

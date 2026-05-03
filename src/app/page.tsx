@@ -16,6 +16,7 @@ import { useGame } from "@/hooks/useGame";
 import { useAudio } from "@/hooks/useAudio";
 import { getLeaderboard, getCurrentAttempt, reportSttDegrade } from "@/lib/api";
 import { parseInviteParams } from "@/lib/share";
+import { isIOSNonSafari } from "@/lib/browser";
 import { loadDisplayName, saveDisplayName, loadGroupName, saveGroupName } from "@/lib/displayName";
 import type { AttemptMode, PlayMode } from "@/lib/types";
 
@@ -86,6 +87,10 @@ export default function GamePage() {
   const [micPermission, setMicPermission] = useState<MicPermission>("unknown");
   const [micDeniedDismissed, setMicDeniedDismissed] = useState(false);
   const [sttDisabled, setSttDisabled] = useState(false);
+  // True when we've identified the browser as one Apple blocks STT for
+  // (iOS Chrome / Firefox / Edge — anything not Safari on iPhone or iPad).
+  // Hydrated on mount; gates voiceEnabled below and feeds Home's banner copy.
+  const [voiceUnsupportedBrowser, setVoiceUnsupportedBrowser] = useState(false);
   // Invite from a shared deep-link (?ref=share&group=...&score=...). Surfaced
   // as a banner on Home and pre-selects party mode so the recipient lands
   // ready to compete with the inviter's score.
@@ -112,6 +117,7 @@ export default function GamePage() {
     setMicPermission(readMicPermission());
     setMicDeniedDismissed(readMicDeniedDismissed());
     setSttDisabled(readSttDisabled());
+    setVoiceUnsupportedBrowser(isIOSNonSafari());
     // Invite landing: a recipient who tapped a shared link arrives with
     // ?ref=share&group=...&score=... — flip them straight into Party mode
     // so they don't have to find the picker themselves.
@@ -159,9 +165,16 @@ export default function GamePage() {
     try { window.localStorage.setItem(MIC_DENIED_DISMISSED_KEY, "1"); } catch {}
   };
 
-  // Voice answering is "live" only when every gate is satisfied.
+  // Voice answering is "live" only when every gate is satisfied. Apple-blocked
+  // browsers (iOS Chrome / Firefox / Edge) join `sttDisabled` as a hard veto —
+  // we don't even try, so the audio surface stays "off" and the watchdog can't
+  // get stuck on "Listening" against a synchronously-throwing start().
   const voiceEnabled =
-    partyEnabled && playMode === "party" && micPermission === "granted" && !sttDisabled;
+    partyEnabled &&
+    playMode === "party" &&
+    micPermission === "granted" &&
+    !sttDisabled &&
+    !voiceUnsupportedBrowser;
 
   // Initial load: best score + remaining attempts + resumable attempt
   useEffect(() => {
@@ -291,6 +304,7 @@ export default function GamePage() {
       onRequestMicPermission={handleRequestMicPermission}
       micDeniedDismissed={micDeniedDismissed}
       onDismissMicDenied={handleDismissMicDenied}
+      voiceUnsupportedBrowser={voiceUnsupportedBrowser}
       inviteFromGroup={invite?.group ?? null}
       inviteScore={invite?.score ?? null}
     />

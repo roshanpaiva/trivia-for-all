@@ -198,6 +198,35 @@ describe("useStt — three-tier watchdog (eng D4)", () => {
     expect(instances).toHaveLength(2);
   });
 
+  it("synchronously thrown start() escalates the watchdog (iOS Chrome bug)", () => {
+    // iOS Chrome / Firefox / Edge expose webkitSpeechRecognition but
+    // start() throws synchronously due to WKWebView locking it down. If we
+    // didn't simulate onend manually, the UI would be stuck on "Listening"
+    // forever — no onend ever fires for something that never started.
+    const onDegrade = vi.fn();
+    let throwOnStart = true;
+    const throwingFactory = () => {
+      const r = new FakeRecognition();
+      const origStart = r.start.bind(r);
+      r.start = () => {
+        if (throwOnStart) throw new Error("Speech recognition start failed");
+        origStart();
+      };
+      instances.push(r);
+      return r;
+    };
+    const { result } = renderHook(() =>
+      useStt({ enabled: true, onResult: () => {}, onDegrade, factory: throwingFactory }),
+    );
+    act(() => result.current.start());
+    // Throwing twice (once per restart attempt) should hit MAX_CONSECUTIVE_FAILS
+    // and escalate to degraded — not stay forever on "listening".
+    expect(result.current.phase).toBe("degraded");
+    expect(onDegrade).toHaveBeenCalledTimes(1);
+    // Suppress unused-var warning
+    void throwOnStart;
+  });
+
   it("does NOT start in 'degraded' phase even if start() called again", () => {
     const { result } = renderHook(() =>
       useStt({ enabled: true, onResult: () => {}, factory }),
