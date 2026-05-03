@@ -10,7 +10,9 @@
 
 import { useState, type FormEvent } from "react";
 import { signupForNotify, ApiError } from "@/lib/api";
+import { shareResult } from "@/lib/share";
 import { Attribution } from "./Attribution";
+import type { PlayMode } from "@/lib/types";
 
 type Props = {
   score: number;
@@ -24,6 +26,14 @@ type Props = {
   endReason?: "time-out" | "max-questions" | null;
   onPlayAgain: () => void;
   onPractice: () => void;
+  /** v2: when 'party', the share button renders. Defaults to 'solo' for
+   * backward compat with v1 call sites. */
+  playMode?: PlayMode;
+  /** v2: group identity for the share text — "We got 22 as The Smiths".
+   * Required when playMode='party'; the share button is hidden when null
+   * (the user finished a party game without a group name set, which
+   * shouldn't happen post-DD7 but we guard anyway). */
+  groupName?: string | null;
 };
 
 const formatCountdown = (ms: number): string => {
@@ -114,10 +124,28 @@ export const PostGame = ({
   endReason = null,
   onPlayAgain,
   onPractice,
+  playMode = "solo",
+  groupName = null,
 }: Props) => {
   const isExhausted = attemptsRemaining === 0;
   const isNewBest = score >= bestToday;
   const ranTheTable = endReason === "max-questions";
+  const showShare = playMode === "party" && !!groupName;
+  const [shareStatus, setShareStatus] = useState<"idle" | "sharing" | "copied" | "failed">("idle");
+
+  const handleShare = async () => {
+    if (!groupName) return;
+    setShareStatus("sharing");
+    const result = await shareResult({ group: groupName, score });
+    if (result.ok) {
+      setShareStatus(result.method === "clipboard" ? "copied" : "idle");
+    } else if (result.reason === "cancelled") {
+      // User dismissed the share sheet — not an error, just go back to idle.
+      setShareStatus("idle");
+    } else {
+      setShareStatus("failed");
+    }
+  };
 
   return (
     <main
@@ -182,6 +210,27 @@ export const PostGame = ({
       )}
 
       {isExhausted && <NotifyMeForm />}
+
+      {showShare && (
+        <>
+          <button
+            type="button"
+            onClick={handleShare}
+            disabled={shareStatus === "sharing"}
+            className="w-full min-h-[68px] rounded-lg bg-[var(--accent)] text-[var(--canvas)] font-bold text-[20px] hover:opacity-85 mb-3 disabled:opacity-60"
+            data-testid="share-button"
+            aria-label={`Share that ${groupName} got ${score} on Quizzle`}
+          >
+            {shareStatus === "sharing"
+              ? "Sharing…"
+              : shareStatus === "copied"
+                ? "Link copied ✓"
+                : shareStatus === "failed"
+                  ? "Couldn't share — try again"
+                  : `Share: ${groupName} got ${score} 🎉`}
+          </button>
+        </>
+      )}
 
       {!isExhausted ? (
         <button

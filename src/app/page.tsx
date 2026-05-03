@@ -15,6 +15,7 @@ import { PostGame } from "@/components/PostGame";
 import { useGame } from "@/hooks/useGame";
 import { useAudio } from "@/hooks/useAudio";
 import { getLeaderboard, getCurrentAttempt, reportSttDegrade } from "@/lib/api";
+import { parseInviteParams } from "@/lib/share";
 import { loadDisplayName, saveDisplayName, loadGroupName, saveGroupName } from "@/lib/displayName";
 import type { AttemptMode, PlayMode } from "@/lib/types";
 
@@ -85,6 +86,10 @@ export default function GamePage() {
   const [micPermission, setMicPermission] = useState<MicPermission>("unknown");
   const [micDeniedDismissed, setMicDeniedDismissed] = useState(false);
   const [sttDisabled, setSttDisabled] = useState(false);
+  // Invite from a shared deep-link (?ref=share&group=...&score=...). Surfaced
+  // as a banner on Home and pre-selects party mode so the recipient lands
+  // ready to compete with the inviter's score.
+  const [invite, setInvite] = useState<{ group: string; score: number } | null>(null);
 
   // The "active" name is the one that lands on the leaderboard for the next
   // attempt. Solo and party have separate slots so a user with solo name
@@ -107,6 +112,19 @@ export default function GamePage() {
     setMicPermission(readMicPermission());
     setMicDeniedDismissed(readMicDeniedDismissed());
     setSttDisabled(readSttDisabled());
+    // Invite landing: a recipient who tapped a shared link arrives with
+    // ?ref=share&group=...&score=... — flip them straight into Party mode
+    // so they don't have to find the picker themselves.
+    if (typeof window !== "undefined") {
+      const inv = parseInviteParams(window.location.search);
+      if (inv) {
+        setInvite(inv);
+        setPlayMode("party");
+        // Hide the NEW pill — they didn't need to discover party mode, they
+        // were brought here for it.
+        setPartyPickerSeen(true);
+      }
+    }
   }, []);
 
   const handlePartyPickerSeen = () => {
@@ -241,6 +259,8 @@ export default function GamePage() {
         endReason={game.state.endReason}
         onPlayAgain={() => window.location.reload()}
         onPractice={() => window.location.reload()}
+        playMode={playMode}
+        groupName={playMode === "party" ? activeName : null}
       />
     );
   }
@@ -271,6 +291,8 @@ export default function GamePage() {
       onRequestMicPermission={handleRequestMicPermission}
       micDeniedDismissed={micDeniedDismissed}
       onDismissMicDenied={handleDismissMicDenied}
+      inviteFromGroup={invite?.group ?? null}
+      inviteScore={invite?.score ?? null}
     />
   );
 }

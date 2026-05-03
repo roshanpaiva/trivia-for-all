@@ -59,6 +59,12 @@ type Props = {
    * persists the dismissal in localStorage. */
   micDeniedDismissed?: boolean;
   onDismissMicDenied?: () => void;
+  /** v2 viral loop: when set, the user landed via a shared deep link (DD12).
+   * Renders an invite banner above the mode picker showing who invited them
+   * and what they need to beat. Parent (page.tsx) parses the URL params and
+   * passes them through. */
+  inviteFromGroup?: string | null;
+  inviteScore?: number | null;
 };
 
 const formatCountdown = (ms: number): string => {
@@ -91,6 +97,8 @@ export const Home = ({
   onRequestMicPermission,
   micDeniedDismissed = false,
   onDismissMicDenied,
+  inviteFromGroup = null,
+  inviteScore = null,
 }: Props) => {
   // A returning player who comes back the next day has bestToday=null +
   // attemptsRemaining=5, but they DO have a personal best — so they shouldn't
@@ -242,6 +250,23 @@ export const Home = ({
           {isExhausted ? "All attempts used today" : `${attemptsRemaining} of 5 attempts left`}
         </span>
       </div>
+
+      {/* Invite landing banner (v2 viral loop, DD12). Renders when the user
+          arrived via a shared deep link. Pre-selects party mode in the parent.
+          Decorative emoji is content (not chrome) per DESIGN.md. */}
+      {inviteFromGroup && inviteScore !== null && (
+        <div
+          className="mb-5 px-4 py-3 rounded-lg bg-[var(--accent-soft)] text-[var(--accent-strong)]"
+          role="status"
+          aria-live="polite"
+          data-testid="invite-banner"
+        >
+          <div className="font-display font-extrabold text-[18px] leading-tight">
+            🎉 {inviteFromGroup} just got {inviteScore}
+          </div>
+          <div className="text-[14px] mt-0.5">Beat them.</div>
+        </div>
+      )}
 
       {/* Mode picker (party-mode soft launch). Per design DD1: segmented control
           between attempts-pill and Start CTA — decision-moment placement.

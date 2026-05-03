@@ -2,6 +2,16 @@
 
 All notable changes to Quizzle (formerly "Trivia for All") are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning is MAJOR.MINOR.PATCH.MICRO.
 
+## [0.6.13.0] - 2026-05-03
+
+### Added
+- **v2 viral loop: share-result button on PostGame + invite-landing banner on Home (DD12).** The cheapest way to find more party-mode players is for the existing party-mode players to send the link. Originally cut from v2.0; brought forward now that party mode is actually being played.
+  - **Share button on PostGame** — only renders in party mode when a group name is set. Calls `navigator.share()` on supported browsers (mobile Safari, mobile Chrome), falls back to `clipboard.writeText` everywhere else. Status reflects in the button label ("Sharing…" → "Link copied ✓" or back to default on cancel).
+  - **Deep link format** — `https://tryquizzle.com/?party=1&ref=share&group=...&score=...`. Recipients land with party mode pre-selected, NEW-pill auto-dismissed, and an invite banner reading "🎉 The Smiths just got 22 — Beat them." Banner uses the existing `--accent-soft` + `--accent-strong` brand tokens.
+  - **Defensive parsing** — `parseInviteParams` strips long group names (30 char cap), rejects negative or implausible scores (> 1000), refuses to render unless `ref=share` is the literal value. Anyone can forge the URL; the parser doesn't trust it past basic sanity.
+  - `src/lib/share.ts` — pure helpers (buildShareUrl, buildShareText, shareResult, parseInviteParams). No React, no DOM beyond `navigator.share` / `clipboard`. Fully testable.
+- 22 new tests (321 total): URL building + encoding + score clamping, invite parsing happy + 6 reject paths, navigator.share native path + AbortError handling + clipboard fallback + unsupported fallback, PostGame share button render gates + click handler + clipboard status label, Home invite banner render gates.
+
 ## [0.6.12.0] - 2026-05-03
 
 ### Added
